@@ -28,68 +28,99 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.btnScore = new MetroFramework.Controls.MetroButton();
+            this.btnMulti = new MetroFramework.Controls.MetroButton();
+            this.btnExplain = new MetroFramework.Controls.MetroButton();
+            this.btnStart = new MetroFramework.Controls.MetroButton();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.btnStart = new System.Windows.Forms.Button();
-            this.btnMulti = new System.Windows.Forms.Button();
-            this.btnExplain = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
+            // 
+            // btnScore
+            // 
+            this.btnScore.FontSize = MetroFramework.MetroButtonSize.Medium;
+            this.btnScore.Location = new System.Drawing.Point(595, 820);
+            this.btnScore.Name = "btnScore";
+            this.btnScore.Size = new System.Drawing.Size(213, 47);
+            this.btnScore.TabIndex = 3;
+            this.btnScore.Text = "점수판";
+            this.btnScore.UseSelectable = true;
+            // 
+            // btnMulti
+            // 
+            this.btnMulti.FontSize = MetroFramework.MetroButtonSize.Medium;
+            this.btnMulti.Location = new System.Drawing.Point(595, 658);
+            this.btnMulti.Name = "btnMulti";
+            this.btnMulti.Size = new System.Drawing.Size(213, 47);
+            this.btnMulti.TabIndex = 3;
+            this.btnMulti.Text = "멀티 플레이";
+            this.btnMulti.UseSelectable = true;
+            this.btnMulti.Click += new System.EventHandler(this.btnMulti_Click_1);
+            // 
+            // btnExplain
+            // 
+            this.btnExplain.FontSize = MetroFramework.MetroButtonSize.Medium;
+            this.btnExplain.Location = new System.Drawing.Point(595, 758);
+            this.btnExplain.Name = "btnExplain";
+            this.btnExplain.Size = new System.Drawing.Size(213, 47);
+            this.btnExplain.TabIndex = 3;
+            this.btnExplain.Text = "게임 설명";
+            this.btnExplain.UseSelectable = true;
+            this.btnExplain.Click += new System.EventHandler(this.btnExplain_Click_1);
+            // 
+            // btnStart
+            // 
+            this.btnStart.BackColor = System.Drawing.Color.White;
+            this.btnStart.FontSize = MetroFramework.MetroButtonSize.Medium;
+            this.btnStart.Location = new System.Drawing.Point(595, 590);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(213, 47);
+            this.btnStart.TabIndex = 3;
+            this.btnStart.Text = "게임 시작";
+            this.btnStart.UseSelectable = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click_1);
             // 
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
+            this.lblTitle.BackColor = System.Drawing.Color.White;
             this.lblTitle.Font = new System.Drawing.Font("한컴 울주 반구대 암각화체", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lblTitle.Location = new System.Drawing.Point(274, 137);
+            this.lblTitle.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lblTitle.Location = new System.Drawing.Point(456, 197);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(493, 111);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "사천성 게임";
+            this.lblTitle.Click += new System.EventHandler(this.lblTitle_Click);
             // 
-            // btnStart
+            // pictureBox1
             // 
-            this.btnStart.Font = new System.Drawing.Font("함초롬돋움", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnStart.Location = new System.Drawing.Point(427, 295);
-            this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(174, 73);
-            this.btnStart.TabIndex = 1;
-            this.btnStart.Text = "게임 시작";
-            this.btnStart.UseVisualStyleBackColor = true;
-            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
-            // 
-            // btnMulti
-            // 
-            this.btnMulti.Font = new System.Drawing.Font("함초롬돋움", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnMulti.Location = new System.Drawing.Point(427, 408);
-            this.btnMulti.Name = "btnMulti";
-            this.btnMulti.Size = new System.Drawing.Size(174, 73);
-            this.btnMulti.TabIndex = 1;
-            this.btnMulti.Text = "멀티 플레이";
-            this.btnMulti.UseVisualStyleBackColor = true;
-            this.btnMulti.Click += new System.EventHandler(this.btnMulti_Click);
-            // 
-            // btnExplain
-            // 
-            this.btnExplain.Font = new System.Drawing.Font("함초롬돋움", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnExplain.Location = new System.Drawing.Point(427, 518);
-            this.btnExplain.Name = "btnExplain";
-            this.btnExplain.Size = new System.Drawing.Size(174, 73);
-            this.btnExplain.TabIndex = 1;
-            this.btnExplain.Text = "게임 설명";
-            this.btnExplain.UseVisualStyleBackColor = true;
-            this.btnExplain.Click += new System.EventHandler(this.btnExplain_Click);
+            this.pictureBox1.Image = global::shishen_sho.Properties.Resources.background;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(1412, 997);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1024, 742);
+            this.ClientSize = new System.Drawing.Size(1413, 995);
             this.Controls.Add(this.btnExplain);
             this.Controls.Add(this.btnMulti);
             this.Controls.Add(this.btnStart);
+            this.Controls.Add(this.btnScore);
             this.Controls.Add(this.lblTitle);
+            this.Controls.Add(this.pictureBox1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Main";
             this.Text = "Main";
             this.Load += new System.EventHandler(this.Main_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -98,9 +129,11 @@
         #endregion
 
         private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.Button btnStart;
-        private System.Windows.Forms.Button btnMulti;
-        private System.Windows.Forms.Button btnExplain;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private MetroFramework.Controls.MetroButton btnScore;
+        private MetroFramework.Controls.MetroButton btnStart;
+        private MetroFramework.Controls.MetroButton btnMulti;
+        private MetroFramework.Controls.MetroButton btnExplain;
     }
 }
 

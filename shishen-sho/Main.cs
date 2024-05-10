@@ -15,6 +15,9 @@ namespace shishen_sho
         public Main()
         {
             InitializeComponent();
+            lblTitle.Parent = pictureBox1;
+            lblTitle.BackColor = Color.Transparent;
+            //부모가 pictureBox1로 지정되면서 로케이션을 새로 지정
         }
 
         private void Main_Load(object sender, EventArgs e)
@@ -22,25 +25,35 @@ namespace shishen_sho
 
         }
 
-        private void btnStart_Click(object sender, EventArgs e)
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnStart_Click_1(object sender, EventArgs e)
         {
             InGame ingame = new InGame();
             this.Hide();
             ingame.Show();
         }
 
-        private void btnMulti_Click(object sender, EventArgs e)
+        private void btnMulti_Click_1(object sender, EventArgs e)
         {
             MultiPlay multi = new MultiPlay();
             this.Hide();
             multi.Show();
         }
 
-        private void btnExplain_Click(object sender, EventArgs e)
+        private void btnExplain_Click_1(object sender, EventArgs e)
         {
             Explain explain = new Explain();
             this.Hide();
             explain.Show();
+        }
+
+        private void lblTitle_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
