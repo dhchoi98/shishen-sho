@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace shishen_sho
 {
-    public partial class InGame : Form
+    public partial class InGame : MetroFramework.Forms.MetroForm
     {
         public InGame()
         {
             InitializeComponent();
+        }
+
+        private void InGame_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
