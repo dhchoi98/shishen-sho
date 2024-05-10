@@ -28,57 +28,79 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.btnStart = new System.Windows.Forms.Button();
+            this.btnMulti = new System.Windows.Forms.Button();
+            this.btnExplain = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // lblTitle
             // 
-            this.button1.Location = new System.Drawing.Point(313, 243);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(145, 47);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "게임 시작";
-            this.button1.UseVisualStyleBackColor = true;
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("한컴 울주 반구대 암각화체", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblTitle.Location = new System.Drawing.Point(274, 137);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(493, 111);
+            this.lblTitle.TabIndex = 0;
+            this.lblTitle.Text = "사천성 게임";
             // 
-            // button2
+            // btnStart
             // 
-            this.button2.Location = new System.Drawing.Point(313, 319);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(145, 47);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "게임 설명";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnStart.Font = new System.Drawing.Font("함초롬돋움", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnStart.Location = new System.Drawing.Point(427, 295);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(174, 73);
+            this.btnStart.TabIndex = 1;
+            this.btnStart.Text = "게임 시작";
+            this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
-            // button3
+            // btnMulti
             // 
-            this.button3.Location = new System.Drawing.Point(313, 402);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(145, 47);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "멀티 플레이";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnMulti.Font = new System.Drawing.Font("함초롬돋움", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnMulti.Location = new System.Drawing.Point(427, 408);
+            this.btnMulti.Name = "btnMulti";
+            this.btnMulti.Size = new System.Drawing.Size(174, 73);
+            this.btnMulti.TabIndex = 1;
+            this.btnMulti.Text = "멀티 플레이";
+            this.btnMulti.UseVisualStyleBackColor = true;
+            this.btnMulti.Click += new System.EventHandler(this.btnMulti_Click);
+            // 
+            // btnExplain
+            // 
+            this.btnExplain.Font = new System.Drawing.Font("함초롬돋움", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnExplain.Location = new System.Drawing.Point(427, 518);
+            this.btnExplain.Name = "btnExplain";
+            this.btnExplain.Size = new System.Drawing.Size(174, 73);
+            this.btnExplain.TabIndex = 1;
+            this.btnExplain.Text = "게임 설명";
+            this.btnExplain.UseVisualStyleBackColor = true;
+            this.btnExplain.Click += new System.EventHandler(this.btnExplain_Click);
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(498, 495);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(1024, 742);
+            this.Controls.Add(this.btnExplain);
+            this.Controls.Add(this.btnMulti);
+            this.Controls.Add(this.btnStart);
+            this.Controls.Add(this.lblTitle);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Main";
             this.Text = "Main";
+            this.Load += new System.EventHandler(this.Main_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Button btnStart;
+        private System.Windows.Forms.Button btnMulti;
+        private System.Windows.Forms.Button btnExplain;
     }
 }
 

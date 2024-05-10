@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace shishen_sho
 {
-    public partial class MultiPlay : Form
+    public partial class MultiPlay : MetroFramework.Forms.MetroForm
     {
         public MultiPlay()
         {
             InitializeComponent();
+        }
+
+        private void MultiPlay_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
