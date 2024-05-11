@@ -55,5 +55,12 @@ namespace shishen_sho
         {
 
         }
+
+        private void btnScore_Click(object sender, EventArgs e)
+        {
+            Score score = new Score();
+            this.Hide();
+            score.Show();
+        }
     }
 }
