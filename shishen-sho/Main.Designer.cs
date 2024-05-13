@@ -30,10 +30,10 @@
         {
             this.btnScore = new MetroFramework.Controls.MetroButton();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnStart = new MetroFramework.Controls.MetroButton();
             this.btnMulti = new MetroFramework.Controls.MetroButton();
             this.btnExplain = new MetroFramework.Controls.MetroButton();
+            this.btnStart = new MetroFramework.Controls.MetroButton();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,34 +63,9 @@
             this.lblTitle.Text = "사천성 게임";
             this.lblTitle.Click += new System.EventHandler(this.lblTitle_Click);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Image = global::shishen_sho.Properties.Resources.background;
-            this.pictureBox1.Location = new System.Drawing.Point(20, 60);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1373, 896);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-            // 
-            // btnStart
-            // 
-            this.btnStart.BackColor = System.Drawing.Color.White;
-            this.btnStart.FontSize = MetroFramework.MetroButtonSize.Medium;
-            this.btnStart.Location = new System.Drawing.Point(595, 595);
-            this.btnStart.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(213, 47);
-            this.btnStart.TabIndex = 3;
-            this.btnStart.Text = "게임 시작";
-            this.btnStart.UseSelectable = true;
-            this.btnStart.Click += new System.EventHandler(this.btnStart_Click_1);
-            // 
             // btnMulti
             // 
+
             this.btnMulti.BackColor = System.Drawing.Color.White;
             this.btnMulti.FontSize = MetroFramework.MetroButtonSize.Medium;
             this.btnMulti.Location = new System.Drawing.Point(595, 652);
@@ -115,6 +90,36 @@
             this.btnExplain.Theme = MetroFramework.MetroThemeStyle.Light;
             this.btnExplain.UseSelectable = true;
             this.btnExplain.Click += new System.EventHandler(this.btnExplain_Click_1);
+
+            // 
+            // btnStart
+            // 
+            this.btnStart.BackColor = System.Drawing.Color.White;
+            this.btnStart.FontSize = MetroFramework.MetroButtonSize.Medium;
+            this.btnStart.Location = new System.Drawing.Point(595, 595);
+            this.btnStart.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(213, 47);
+            this.btnStart.TabIndex = 3;
+            this.btnStart.Text = "게임 시작";
+            this.btnStart.UseCustomBackColor = true;
+            this.btnStart.UseSelectable = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click_1);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = global::shishen_sho.Properties.Resources.background;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.Location = new System.Drawing.Point(20, 60);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(1373, 896);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+
             // 
             // Main
             // 
@@ -129,6 +134,10 @@
             this.Controls.Add(this.pictureBox1);
             this.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+          
+            this.MaximumSize = new System.Drawing.Size(1413, 976);
+            this.MinimumSize = new System.Drawing.Size(1413, 976);
+
             this.Name = "Main";
             this.Load += new System.EventHandler(this.Main_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

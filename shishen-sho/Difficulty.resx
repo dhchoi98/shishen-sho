@@ -117,31 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-
-  <metadata name="label1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="label1.Text" xml:space="preserve">
-    <value>먼저  마작 패를 늘어 놓는다. 나열의 방법은 불규칙 무작위이다. 
-2개씩 패를 제거한다. 단, 패를 제거할 수 있는 경우는 다음과 같다.
-
-1. 동일한 모양의 패 2개가 인접해 있을 때
-2. 동일한 모양의 패 2개 사이에 다른 패가 있을 경우,
-   수평 또는 수직의 직선으로 연결하여 그 선이 
-   구부러지는 횟수가 2회 이내 일 때
-   (즉, 3개 이내의 수직선 또는 수평선의 조합으로 2개의 패를 이어줄 때)
-   위의 방법으로 반복하여 패를 제거한다.
-
-모든 패를 제거하면 게임은 종료 된다.
-패의 나열에 따라 게임을 풀지 못하는 경우가 생긴다.
-이럴 경우는 섞기 버튼을 눌러서 섞어준 후 계속 진행한다.
-</value>
-  </data>
-  <metadata name="pictureBox1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-
-  <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
 </root>

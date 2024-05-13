@@ -60,9 +60,9 @@
             // btnBack
             // 
             this.btnBack.Image = global::shishen_sho.Properties.Resources.back1;
-            this.btnBack.Location = new System.Drawing.Point(20, 5);
+            this.btnBack.Location = new System.Drawing.Point(855, 513);
             this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(64, 57);
+            this.btnBack.Size = new System.Drawing.Size(64, 71);
             this.btnBack.TabIndex = 2;
             this.btnBack.UseVisualStyleBackColor = true;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
@@ -75,6 +75,10 @@
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
+
+            this.MaximumSize = new System.Drawing.Size(1039, 691);
+            this.MinimumSize = new System.Drawing.Size(1039, 691);
+
             this.Name = "Explain";
             this.Padding = new System.Windows.Forms.Padding(20, 60, 20, 21);
             this.Load += new System.EventHandler(this.Explain_Load);

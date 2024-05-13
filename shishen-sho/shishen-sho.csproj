@@ -61,6 +61,12 @@
     <Compile Include="Explain.Designer.cs">
       <DependentUpon>Explain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Difficulty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Difficulty.Designer.cs">
+      <DependentUpon>Difficulty.cs</DependentUpon>
+    </Compile>
     <Compile Include="InGame.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,6 +93,9 @@
     <Compile Include="Score.Designer.cs">
       <DependentUpon>Score.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Difficulty.resx">
+      <DependentUpon>Difficulty.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Explain.resx">
       <DependentUpon>Explain.cs</DependentUpon>
     </EmbeddedResource>
