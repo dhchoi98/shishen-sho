@@ -17,6 +17,7 @@ namespace shishen_sho
             InitializeComponent();
             lblTitle.Parent = pictureBox1;
             lblTitle.BackColor = Color.Transparent;
+
             //부모가 pictureBox1로 지정되면서 로케이션을 새로 지정
         }
 
@@ -32,9 +33,9 @@ namespace shishen_sho
 
         private void btnStart_Click_1(object sender, EventArgs e)
         {
-            InGame ingame = new InGame();
+            Difficulty difficulty = new Difficulty();
             this.Hide();
-            ingame.Show();
+            difficulty.Show();
         }
 
         private void btnMulti_Click_1(object sender, EventArgs e)
