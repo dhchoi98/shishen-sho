@@ -75,8 +75,10 @@
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
+
             this.MaximumSize = new System.Drawing.Size(1039, 691);
             this.MinimumSize = new System.Drawing.Size(1039, 691);
+
             this.Name = "Explain";
             this.Padding = new System.Windows.Forms.Padding(20, 60, 20, 21);
             this.Load += new System.EventHandler(this.Explain_Load);

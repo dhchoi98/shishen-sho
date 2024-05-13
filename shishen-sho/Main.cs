@@ -18,6 +18,7 @@ namespace shishen_sho
             lblTitle.Parent = pictureBox1;
             lblTitle.BackColor = Color.Transparent;
 
+
             //부모가 pictureBox1로 지정되면서 로케이션을 새로 지정
         }
 

@@ -65,6 +65,7 @@
             // 
             // btnMulti
             // 
+
             this.btnMulti.BackColor = System.Drawing.Color.White;
             this.btnMulti.FontSize = MetroFramework.MetroButtonSize.Medium;
             this.btnMulti.Location = new System.Drawing.Point(595, 652);
@@ -89,6 +90,7 @@
             this.btnExplain.Theme = MetroFramework.MetroThemeStyle.Light;
             this.btnExplain.UseSelectable = true;
             this.btnExplain.Click += new System.EventHandler(this.btnExplain_Click_1);
+
             // 
             // btnStart
             // 
@@ -117,6 +119,7 @@
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+
             // 
             // Main
             // 
@@ -131,8 +134,10 @@
             this.Controls.Add(this.pictureBox1);
             this.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+          
             this.MaximumSize = new System.Drawing.Size(1413, 976);
             this.MinimumSize = new System.Drawing.Size(1413, 976);
+
             this.Name = "Main";
             this.Load += new System.EventHandler(this.Main_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

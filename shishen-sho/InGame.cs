@@ -42,6 +42,8 @@ namespace shishen_sho
                 this.Close();
             }
         }
+
+
         private void InGame_Load(object sender, EventArgs e)
         {
 
