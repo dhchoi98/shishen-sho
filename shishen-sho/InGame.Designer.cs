@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
             this.timeLabel = new MetroFramework.Controls.MetroLabel();
+            this.progressBar = new MetroFramework.Controls.MetroProgressBar();
             this.SuspendLayout();
             // 
             // timeLabel
@@ -42,16 +43,23 @@
             this.timeLabel.TabIndex = 0;
             this.timeLabel.Text = "00:00";
             // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(69, 60);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(1308, 19);
+            this.progressBar.Style = MetroFramework.MetroColorStyle.Pink;
+            this.progressBar.TabIndex = 1;
+            // 
             // InGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-
             this.ClientSize = new System.Drawing.Size(1664, 1006);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.timeLabel);
             this.Font = new System.Drawing.Font("돋움", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
-
             this.Name = "InGame";
             this.Text = "InGame";
             this.Load += new System.EventHandler(this.InGame_Load);
@@ -64,5 +72,6 @@
 
         private System.Windows.Forms.Timer gameTimer;
         private MetroFramework.Controls.MetroLabel timeLabel;
+        private MetroFramework.Controls.MetroProgressBar progressBar;
     }
 }
