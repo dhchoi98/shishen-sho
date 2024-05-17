@@ -16,6 +16,7 @@ namespace shishen_sho
 {
     public partial class InGame : MetroFramework.Forms.MetroForm
     {
+
         private int totalTime;
         public InGame(int minutes)
         {
@@ -54,7 +55,7 @@ namespace shishen_sho
             // 시간이 0이 되면 타이머 중지
             if (TimeLeft <= TimeSpan.Zero)
             {
-
+            
                 gameTimer.Stop();
                 MessageBox.Show("실패하였습니다");
                 this.Close();
