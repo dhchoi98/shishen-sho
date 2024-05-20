@@ -16,9 +16,9 @@ namespace shishen_sho
         {
             InitializeComponent();
             //일단 타이머 난이도는 나중에 저희가 직접 해보고 제한시간을 정해봅시다!
-            easybutton.Click += (sender, e) => StartGame(5); // 5분
+            easybutton.Click += (sender, e) => StartGame(15); // 15분
             normalbutton.Click += (sender, e) => StartGame(10); // 10분
-            hardbutton.Click += (sender, e) => StartGame(15); // 15분
+            hardbutton.Click += (sender, e) => StartGame(5); // 5분
         }
 
         private void StartGame(int minutes)
