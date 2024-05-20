@@ -38,7 +38,7 @@ namespace shishen_sho
             progressBar.Minimum = 0;
             progressBar.Maximum = totalTime;
             progressBar.Value = progressBar.Maximum;  // 시작 값은 0에서 시작
-
+            
         }
         private void InitializePictureBoxEvents()
         {
