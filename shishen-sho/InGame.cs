@@ -16,12 +16,14 @@ namespace shishen_sho
 {
     public partial class InGame : MetroFramework.Forms.MetroForm
     {
-
+        // 클릭한 PictureBox를 저장해주는 변수 2개
+        private PictureBox firstClicked = null;
+        private PictureBox secondClicked = null;
         private int totalTime;
         public InGame(int minutes)
         {
             InitializeComponent();
-
+            InitializePictureBoxEvents();
             // 타이머 1초마다 초기화
             gameTimer.Interval = 1000;
             gameTimer.Tick += GameTimer_Tick;
@@ -38,8 +40,65 @@ namespace shishen_sho
             progressBar.Value = progressBar.Maximum;  // 시작 값은 0에서 시작
 
         }
+        private void InitializePictureBoxEvents()
+        {
+            // 폼에 있는 64개의 PictureBox를 반복하여 이벤트 핸들러를 등록
+            for (int i = 1; i <= 64; i++)
+            {
+                // 이름을 통해 PictureBox를 찾음
+                PictureBox pictureBox = this.Controls.Find("pictureBox" + i, true).FirstOrDefault() as PictureBox;
+                if (pictureBox != null)
+                {
+                    // PictureBox에 클릭 이벤트 핸들러 추가
+                    pictureBox.Click += new EventHandler(PictureBox_Click);
+                }
+            }
+        }
+
+        private void PictureBox_Click(object sender, EventArgs e)
+        {
+            // 두 개의 PictureBox가 이미 선택된 경우 더 이상 처리하지 않음
+            if (firstClicked != null && secondClicked != null)
+                return;
+
+            // 클릭된 PictureBox를 가져옴
+            PictureBox clickedPictureBox = sender as PictureBox;
+
+            // 클릭된 PictureBox가 null이거나 이미지가 없는 경우 처리하지 않음
+            if (clickedPictureBox == null || clickedPictureBox.Image == null)
+                return;
+
+            // 첫 번째 클릭
+            if (firstClicked == null)
+            {
+                firstClicked = clickedPictureBox;
+                return;
+            }
+
+            // 두 번째 클릭
+            if (firstClicked != null && firstClicked != clickedPictureBox)
+            {
+                secondClicked = clickedPictureBox;
+                CheckForMatch();
+            }
+        }
+
+        // 두 개의 클릭된 PictureBox를 비교하는 메소드
+        private void CheckForMatch()
+        {
+            // 이미지의 Tag를 비교하여 동일한 경우 두 PictureBox를 숨김
+            if (firstClicked.Tag != null && secondClicked.Tag != null &&
+                firstClicked.Tag.ToString() == secondClicked.Tag.ToString())
+            {
+                firstClicked.Hide();
+                secondClicked.Hide();
+            }
+
+            firstClicked = null;
+            secondClicked = null;
+        }
         private TimeSpan TimeLeft;
-        /// <summary>
+
 
         private void GameTimer_Tick(object sender, EventArgs e)
         {
@@ -65,12 +124,44 @@ namespace shishen_sho
 
         private void InGame_Load(object sender, EventArgs e)
         {
-
+            ShufflePictureBoxes();
         }
-
-        private void progressBar_Click(object sender, EventArgs e)
+        private void ShufflePictureBoxes()
         {
+            // 모든 PictureBox를 리스트에 저장
+            List<PictureBox> pictureBoxes = new List<PictureBox>();
 
+            // 64개의 PictureBox 중에서 숨겨지지 않은 PictureBox만 리스트에 추가
+            for (int i = 1; i <= 64; i++)
+            {
+                PictureBox pictureBox = this.Controls.Find("pictureBox" + i, true).FirstOrDefault() as PictureBox;
+                if (pictureBox != null && pictureBox.Visible)
+                {
+                    pictureBoxes.Add(pictureBox);
+                }
+            }
+
+            // 랜덤하게 섞기 위해 Random 객체 생성
+            Random random = new Random();
+
+            // Fisher-Yates shuffle 알고리즘을 사용하여 리스트를 섞음
+            for (int i = pictureBoxes.Count - 1; i > 0; i--)
+            {
+                int j = random.Next(i + 1);
+                // 두 PictureBox의 이미지를 교환
+                Image tempImage = pictureBoxes[i].Image;
+                pictureBoxes[i].Image = pictureBoxes[j].Image;
+                pictureBoxes[j].Image = tempImage;
+
+                // 두 PictureBox의 태그를 교환
+                object tempTag = pictureBoxes[i].Tag;
+                pictureBoxes[i].Tag = pictureBoxes[j].Tag;
+                pictureBoxes[j].Tag = tempTag;
+            }
+        }
+        private void ShuffleButton_Click(object sender, EventArgs e)
+        {
+            ShufflePictureBoxes();
         }
     }
 }
