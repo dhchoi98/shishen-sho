@@ -274,7 +274,6 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::shishen_sho.Properties.Resources._1;
             this.pictureBox1.Location = new System.Drawing.Point(3, 3);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(157, 88);
@@ -285,7 +284,6 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = global::shishen_sho.Properties.Resources._1;
             this.pictureBox2.Location = new System.Drawing.Point(166, 3);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(157, 88);
@@ -296,7 +294,6 @@
             // 
             // pictureBox3
             // 
-            this.pictureBox3.Image = global::shishen_sho.Properties.Resources._1;
             this.pictureBox3.Location = new System.Drawing.Point(329, 3);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(157, 88);
@@ -307,7 +304,6 @@
             // 
             // pictureBox4
             // 
-            this.pictureBox4.Image = global::shishen_sho.Properties.Resources._1;
             this.pictureBox4.Location = new System.Drawing.Point(492, 3);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(157, 88);
@@ -318,7 +314,6 @@
             // 
             // pictureBox5
             // 
-            this.pictureBox5.Image = global::shishen_sho.Properties.Resources._2;
             this.pictureBox5.Location = new System.Drawing.Point(655, 3);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(157, 88);
@@ -329,7 +324,6 @@
             // 
             // pictureBox6
             // 
-            this.pictureBox6.Image = global::shishen_sho.Properties.Resources._2;
             this.pictureBox6.Location = new System.Drawing.Point(818, 3);
             this.pictureBox6.Name = "pictureBox6";
             this.pictureBox6.Size = new System.Drawing.Size(157, 88);
@@ -340,7 +334,6 @@
             // 
             // pictureBox7
             // 
-            this.pictureBox7.Image = global::shishen_sho.Properties.Resources._2;
             this.pictureBox7.Location = new System.Drawing.Point(981, 3);
             this.pictureBox7.Name = "pictureBox7";
             this.pictureBox7.Size = new System.Drawing.Size(157, 88);
@@ -352,7 +345,6 @@
             // pictureBox8
             // 
             this.pictureBox8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox8.Image = global::shishen_sho.Properties.Resources._2;
             this.pictureBox8.Location = new System.Drawing.Point(1144, 3);
             this.pictureBox8.Name = "pictureBox8";
             this.pictureBox8.Size = new System.Drawing.Size(161, 88);
@@ -363,7 +355,6 @@
             // 
             // pictureBox9
             // 
-            this.pictureBox9.Image = global::shishen_sho.Properties.Resources._3;
             this.pictureBox9.Location = new System.Drawing.Point(3, 97);
             this.pictureBox9.Name = "pictureBox9";
             this.pictureBox9.Size = new System.Drawing.Size(157, 88);
@@ -374,7 +365,6 @@
             // 
             // pictureBox10
             // 
-            this.pictureBox10.Image = global::shishen_sho.Properties.Resources._3;
             this.pictureBox10.Location = new System.Drawing.Point(166, 97);
             this.pictureBox10.Name = "pictureBox10";
             this.pictureBox10.Size = new System.Drawing.Size(157, 88);
@@ -385,7 +375,6 @@
             // 
             // pictureBox11
             // 
-            this.pictureBox11.Image = global::shishen_sho.Properties.Resources._3;
             this.pictureBox11.Location = new System.Drawing.Point(329, 97);
             this.pictureBox11.Name = "pictureBox11";
             this.pictureBox11.Size = new System.Drawing.Size(157, 88);
@@ -396,7 +385,6 @@
             // 
             // pictureBox12
             // 
-            this.pictureBox12.Image = global::shishen_sho.Properties.Resources._3;
             this.pictureBox12.Location = new System.Drawing.Point(492, 97);
             this.pictureBox12.Name = "pictureBox12";
             this.pictureBox12.Size = new System.Drawing.Size(157, 88);
@@ -407,7 +395,6 @@
             // 
             // pictureBox13
             // 
-            this.pictureBox13.Image = global::shishen_sho.Properties.Resources._4;
             this.pictureBox13.Location = new System.Drawing.Point(655, 97);
             this.pictureBox13.Name = "pictureBox13";
             this.pictureBox13.Size = new System.Drawing.Size(157, 88);
@@ -419,7 +406,6 @@
             // pictureBox14
             // 
             this.pictureBox14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox14.Image = global::shishen_sho.Properties.Resources._4;
             this.pictureBox14.Location = new System.Drawing.Point(818, 97);
             this.pictureBox14.Name = "pictureBox14";
             this.pictureBox14.Size = new System.Drawing.Size(157, 88);
@@ -430,7 +416,6 @@
             // 
             // pictureBox15
             // 
-            this.pictureBox15.Image = global::shishen_sho.Properties.Resources._4;
             this.pictureBox15.Location = new System.Drawing.Point(981, 97);
             this.pictureBox15.Name = "pictureBox15";
             this.pictureBox15.Size = new System.Drawing.Size(157, 88);
@@ -441,7 +426,6 @@
             // 
             // pictureBox16
             // 
-            this.pictureBox16.Image = global::shishen_sho.Properties.Resources._4;
             this.pictureBox16.Location = new System.Drawing.Point(1144, 97);
             this.pictureBox16.Name = "pictureBox16";
             this.pictureBox16.Size = new System.Drawing.Size(161, 88);
@@ -452,7 +436,6 @@
             // 
             // pictureBox17
             // 
-            this.pictureBox17.Image = global::shishen_sho.Properties.Resources._5;
             this.pictureBox17.Location = new System.Drawing.Point(3, 191);
             this.pictureBox17.Name = "pictureBox17";
             this.pictureBox17.Size = new System.Drawing.Size(157, 88);
@@ -463,7 +446,6 @@
             // 
             // pictureBox18
             // 
-            this.pictureBox18.Image = global::shishen_sho.Properties.Resources._5;
             this.pictureBox18.Location = new System.Drawing.Point(166, 191);
             this.pictureBox18.Name = "pictureBox18";
             this.pictureBox18.Size = new System.Drawing.Size(157, 88);
@@ -474,7 +456,6 @@
             // 
             // pictureBox19
             // 
-            this.pictureBox19.Image = global::shishen_sho.Properties.Resources._5;
             this.pictureBox19.Location = new System.Drawing.Point(329, 191);
             this.pictureBox19.Name = "pictureBox19";
             this.pictureBox19.Size = new System.Drawing.Size(157, 88);
@@ -485,7 +466,6 @@
             // 
             // pictureBox20
             // 
-            this.pictureBox20.Image = global::shishen_sho.Properties.Resources._5;
             this.pictureBox20.Location = new System.Drawing.Point(492, 191);
             this.pictureBox20.Name = "pictureBox20";
             this.pictureBox20.Size = new System.Drawing.Size(157, 88);
@@ -496,7 +476,6 @@
             // 
             // pictureBox21
             // 
-            this.pictureBox21.Image = global::shishen_sho.Properties.Resources._6;
             this.pictureBox21.Location = new System.Drawing.Point(655, 191);
             this.pictureBox21.Name = "pictureBox21";
             this.pictureBox21.Size = new System.Drawing.Size(157, 88);
@@ -507,7 +486,6 @@
             // 
             // pictureBox22
             // 
-            this.pictureBox22.Image = global::shishen_sho.Properties.Resources._6;
             this.pictureBox22.Location = new System.Drawing.Point(818, 191);
             this.pictureBox22.Name = "pictureBox22";
             this.pictureBox22.Size = new System.Drawing.Size(157, 88);
@@ -518,7 +496,6 @@
             // 
             // pictureBox23
             // 
-            this.pictureBox23.Image = global::shishen_sho.Properties.Resources._6;
             this.pictureBox23.Location = new System.Drawing.Point(981, 191);
             this.pictureBox23.Name = "pictureBox23";
             this.pictureBox23.Size = new System.Drawing.Size(157, 88);
@@ -529,7 +506,6 @@
             // 
             // pictureBox24
             // 
-            this.pictureBox24.Image = global::shishen_sho.Properties.Resources._6;
             this.pictureBox24.Location = new System.Drawing.Point(1144, 191);
             this.pictureBox24.Name = "pictureBox24";
             this.pictureBox24.Size = new System.Drawing.Size(161, 88);
@@ -540,7 +516,6 @@
             // 
             // pictureBox25
             // 
-            this.pictureBox25.Image = global::shishen_sho.Properties.Resources._7;
             this.pictureBox25.Location = new System.Drawing.Point(3, 285);
             this.pictureBox25.Name = "pictureBox25";
             this.pictureBox25.Size = new System.Drawing.Size(157, 88);
@@ -551,7 +526,6 @@
             // 
             // pictureBox26
             // 
-            this.pictureBox26.Image = global::shishen_sho.Properties.Resources._7;
             this.pictureBox26.Location = new System.Drawing.Point(166, 285);
             this.pictureBox26.Name = "pictureBox26";
             this.pictureBox26.Size = new System.Drawing.Size(157, 88);
@@ -562,7 +536,6 @@
             // 
             // pictureBox27
             // 
-            this.pictureBox27.Image = global::shishen_sho.Properties.Resources._7;
             this.pictureBox27.Location = new System.Drawing.Point(329, 285);
             this.pictureBox27.Name = "pictureBox27";
             this.pictureBox27.Size = new System.Drawing.Size(157, 88);
@@ -573,7 +546,6 @@
             // 
             // pictureBox28
             // 
-            this.pictureBox28.Image = global::shishen_sho.Properties.Resources._7;
             this.pictureBox28.Location = new System.Drawing.Point(492, 285);
             this.pictureBox28.Name = "pictureBox28";
             this.pictureBox28.Size = new System.Drawing.Size(157, 88);
@@ -584,7 +556,6 @@
             // 
             // pictureBox29
             // 
-            this.pictureBox29.Image = global::shishen_sho.Properties.Resources._8;
             this.pictureBox29.Location = new System.Drawing.Point(655, 285);
             this.pictureBox29.Name = "pictureBox29";
             this.pictureBox29.Size = new System.Drawing.Size(157, 88);
@@ -595,7 +566,6 @@
             // 
             // pictureBox30
             // 
-            this.pictureBox30.Image = global::shishen_sho.Properties.Resources._8;
             this.pictureBox30.Location = new System.Drawing.Point(818, 285);
             this.pictureBox30.Name = "pictureBox30";
             this.pictureBox30.Size = new System.Drawing.Size(157, 88);
@@ -606,7 +576,6 @@
             // 
             // pictureBox31
             // 
-            this.pictureBox31.Image = global::shishen_sho.Properties.Resources._8;
             this.pictureBox31.Location = new System.Drawing.Point(981, 285);
             this.pictureBox31.Name = "pictureBox31";
             this.pictureBox31.Size = new System.Drawing.Size(157, 88);
@@ -617,7 +586,6 @@
             // 
             // pictureBox32
             // 
-            this.pictureBox32.Image = global::shishen_sho.Properties.Resources._8;
             this.pictureBox32.Location = new System.Drawing.Point(1144, 285);
             this.pictureBox32.Name = "pictureBox32";
             this.pictureBox32.Size = new System.Drawing.Size(161, 88);
