@@ -167,7 +167,40 @@ namespace shishen_sho
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
+            // 모든 PictureBox를 리스트에 저장
+            List<PictureBox> pictureBoxes = new List<PictureBox>();
 
+            // 128개의 PictureBox 중에서 숨겨지지 않은 PictureBox만 리스트에 추가
+            for (int i = 1; i <= 128; i++)
+            {
+                PictureBox pictureBox = this.Controls.Find("pictureBox" + i, true).FirstOrDefault() as PictureBox;
+                if (pictureBox != null && pictureBox.Visible)
+                {
+                    pictureBoxes.Add(pictureBox);
+                }
+            }
+
+            // 랜덤하게 섞기 위해 Random 객체 생성
+            Random random = new Random();
+
+            // Fisher-Yates shuffle 알고리즘을 사용하여 리스트를 섞음
+            for (int i = pictureBoxes.Count - 1; i > 0; i--)
+            {
+                int j = random.Next(i + 1);
+                // 두 PictureBox의 이미지를 교환
+                Image tempImage = pictureBoxes[i].Image;
+                pictureBoxes[i].Image = pictureBoxes[j].Image;
+                pictureBoxes[j].Image = tempImage;
+
+                // 두 PictureBox의 태그를 교환
+                object tempTag = pictureBoxes[i].Tag;
+                pictureBoxes[i].Tag = pictureBoxes[j].Tag;
+                pictureBoxes[j].Tag = tempTag;
+            }
+        }
+        private void ShuffleButton_Click(object sender, EventArgs e)
+        {
+            ShufflePictureBoxes();
         }
     }
 }
