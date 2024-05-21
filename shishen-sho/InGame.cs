@@ -20,6 +20,7 @@ namespace shishen_sho
         private PictureBox firstClicked = null;
         private PictureBox secondClicked = null;
         private int totalTime;
+        private int score;
         public InGame(int minutes)
         {
             InitializeComponent();
@@ -42,8 +43,8 @@ namespace shishen_sho
         }
         private void InitializePictureBoxEvents()
         {
-            // 폼에 있는 64개의 PictureBox를 반복하여 이벤트 핸들러를 등록
-            for (int i = 1; i <= 64; i++)
+            // 폼에 있는 128개의 PictureBox를 반복하여 이벤트 핸들러를 등록
+            for (int i = 1; i <= 128; i++)
             {
                 // 이름을 통해 PictureBox를 찾음
                 PictureBox pictureBox = this.Controls.Find("pictureBox" + i, true).FirstOrDefault() as PictureBox;
@@ -132,7 +133,7 @@ namespace shishen_sho
             List<PictureBox> pictureBoxes = new List<PictureBox>();
 
             // 64개의 PictureBox 중에서 숨겨지지 않은 PictureBox만 리스트에 추가
-            for (int i = 1; i <= 64; i++)
+            for (int i = 1; i <= 128; i++)
             {
                 PictureBox pictureBox = this.Controls.Find("pictureBox" + i, true).FirstOrDefault() as PictureBox;
                 if (pictureBox != null && pictureBox.Visible)
@@ -162,6 +163,11 @@ namespace shishen_sho
         private void ShuffleButton_Click(object sender, EventArgs e)
         {
             ShufflePictureBoxes();
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
