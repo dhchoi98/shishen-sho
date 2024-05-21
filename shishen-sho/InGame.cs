@@ -132,7 +132,7 @@ namespace shishen_sho
             // 모든 PictureBox를 리스트에 저장
             List<PictureBox> pictureBoxes = new List<PictureBox>();
 
-            // 64개의 PictureBox 중에서 숨겨지지 않은 PictureBox만 리스트에 추가
+            // 128개의 PictureBox 중에서 숨겨지지 않은 PictureBox만 리스트에 추가
             for (int i = 1; i <= 128; i++)
             {
                 PictureBox pictureBox = this.Controls.Find("pictureBox" + i, true).FirstOrDefault() as PictureBox;
