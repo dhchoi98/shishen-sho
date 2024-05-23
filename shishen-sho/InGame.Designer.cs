@@ -1894,7 +1894,7 @@
             this.ShuffleButton.TabIndex = 3;
             this.ShuffleButton.Text = "Shuffle";
             this.ShuffleButton.UseVisualStyleBackColor = true;
-            this.ShuffleButton.Click += new System.EventHandler(this.Shufflebutton_Click);
+            this.ShuffleButton.Click += new System.EventHandler(this.ShuffleButton_Click);
             // 
             // Quit
             // 
