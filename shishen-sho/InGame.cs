@@ -198,7 +198,7 @@ namespace shishen_sho
                 pictureBoxes[j].Tag = tempTag;
             }
         }
-        private void ShuffleButton_Click(object sender, EventArgs e)
+        private void Shufflebutton_Click(object sender, EventArgs e)
         {
             ShufflePictureBoxes();
         }
