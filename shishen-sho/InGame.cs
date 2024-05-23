@@ -179,28 +179,6 @@ namespace shishen_sho
                     pictureBoxes.Add(pictureBox);
                 }
             }
-
-            // 랜덤하게 섞기 위해 Random 객체 생성
-            Random random = new Random();
-
-            // Fisher-Yates shuffle 알고리즘을 사용하여 리스트를 섞음
-            for (int i = pictureBoxes.Count - 1; i > 0; i--)
-            {
-                int j = random.Next(i + 1);
-                // 두 PictureBox의 이미지를 교환
-                Image tempImage = pictureBoxes[i].Image;
-                pictureBoxes[i].Image = pictureBoxes[j].Image;
-                pictureBoxes[j].Image = tempImage;
-
-                // 두 PictureBox의 태그를 교환
-                object tempTag = pictureBoxes[i].Tag;
-                pictureBoxes[i].Tag = pictureBoxes[j].Tag;
-                pictureBoxes[j].Tag = tempTag;
-            }
-        }
-        private void Shufflebutton_Click(object sender, EventArgs e)
-        {
-            ShufflePictureBoxes();
         }
     }
 }
