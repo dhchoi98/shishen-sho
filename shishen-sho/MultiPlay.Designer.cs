@@ -28,18 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            // 
-            // MultiPlay
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Name = "MultiPlay";
             this.Text = "MultiPlay";
-            this.Load += new System.EventHandler(this.MultiPlay_Load);
-            this.ResumeLayout(false);
-
         }
 
         #endregion
