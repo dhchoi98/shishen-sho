@@ -28,57 +28,132 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnScore = new MetroFramework.Controls.MetroButton();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.btnMulti = new MetroFramework.Controls.MetroButton();
+            this.btnExplain = new MetroFramework.Controls.MetroButton();
+            this.btnStart = new MetroFramework.Controls.MetroButton();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // btnScore
             // 
-            this.button1.Location = new System.Drawing.Point(313, 243);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(145, 47);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "게임 시작";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnScore.BackColor = System.Drawing.Color.White;
+            this.btnScore.FontSize = MetroFramework.MetroButtonSize.Medium;
+            this.btnScore.Location = new System.Drawing.Point(595, 797);
+            this.btnScore.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnScore.Name = "btnScore";
+            this.btnScore.Size = new System.Drawing.Size(213, 47);
+            this.btnScore.TabIndex = 3;
+            this.btnScore.Text = "점수판";
+            this.btnScore.UseSelectable = true;
+            this.btnScore.Click += new System.EventHandler(this.btnScore_Click);
             // 
-            // button2
+            // lblTitle
             // 
-            this.button2.Location = new System.Drawing.Point(313, 319);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(145, 47);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "게임 설명";
-            this.button2.UseVisualStyleBackColor = true;
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.BackColor = System.Drawing.Color.White;
+            this.lblTitle.Font = new System.Drawing.Font("한컴 울주 반구대 암각화체", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblTitle.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lblTitle.Location = new System.Drawing.Point(457, 196);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(493, 111);
+            this.lblTitle.TabIndex = 0;
+            this.lblTitle.Text = "사천성 게임";
+            this.lblTitle.Click += new System.EventHandler(this.lblTitle_Click);
             // 
-            // button3
+            // btnMulti
             // 
-            this.button3.Location = new System.Drawing.Point(313, 402);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(145, 47);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "멀티 플레이";
-            this.button3.UseVisualStyleBackColor = true;
+
+            this.btnMulti.BackColor = System.Drawing.Color.White;
+            this.btnMulti.FontSize = MetroFramework.MetroButtonSize.Medium;
+            this.btnMulti.Location = new System.Drawing.Point(595, 652);
+            this.btnMulti.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnMulti.Name = "btnMulti";
+            this.btnMulti.Size = new System.Drawing.Size(213, 47);
+            this.btnMulti.TabIndex = 3;
+            this.btnMulti.Text = "멀티 플레이";
+            this.btnMulti.UseSelectable = true;
+            this.btnMulti.Click += new System.EventHandler(this.btnMulti_Click_1);
+            // 
+            // btnExplain
+            // 
+            this.btnExplain.BackColor = System.Drawing.Color.White;
+            this.btnExplain.FontSize = MetroFramework.MetroButtonSize.Medium;
+            this.btnExplain.Location = new System.Drawing.Point(595, 741);
+            this.btnExplain.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnExplain.Name = "btnExplain";
+            this.btnExplain.Size = new System.Drawing.Size(213, 47);
+            this.btnExplain.TabIndex = 3;
+            this.btnExplain.Text = "게임 설명";
+            this.btnExplain.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.btnExplain.UseSelectable = true;
+            this.btnExplain.Click += new System.EventHandler(this.btnExplain_Click_1);
+
+            // 
+            // btnStart
+            // 
+            this.btnStart.BackColor = System.Drawing.Color.White;
+            this.btnStart.FontSize = MetroFramework.MetroButtonSize.Medium;
+            this.btnStart.Location = new System.Drawing.Point(595, 595);
+            this.btnStart.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(213, 47);
+            this.btnStart.TabIndex = 3;
+            this.btnStart.Text = "게임 시작";
+            this.btnStart.UseCustomBackColor = true;
+            this.btnStart.UseSelectable = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click_1);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = global::shishen_sho.Properties.Resources.background;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.Location = new System.Drawing.Point(20, 60);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(1373, 896);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(498, 495);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(1413, 976);
+            this.Controls.Add(this.btnExplain);
+            this.Controls.Add(this.btnMulti);
+            this.Controls.Add(this.btnStart);
+            this.Controls.Add(this.btnScore);
+            this.Controls.Add(this.lblTitle);
+            this.Controls.Add(this.pictureBox1);
+            this.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+          
+            this.MaximumSize = new System.Drawing.Size(1413, 976);
+            this.MinimumSize = new System.Drawing.Size(1413, 976);
+
             this.Name = "Main";
-            this.Text = "Main";
+            this.Load += new System.EventHandler(this.Main_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private MetroFramework.Controls.MetroButton btnScore;
+        private MetroFramework.Controls.MetroButton btnStart;
+        private MetroFramework.Controls.MetroButton btnMulti;
+        private MetroFramework.Controls.MetroButton btnExplain;
     }
 }
 

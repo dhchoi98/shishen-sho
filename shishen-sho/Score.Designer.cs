@@ -1,6 +1,6 @@
 ﻿namespace shishen_sho
 {
-    partial class MultiPlay
+    partial class Score
     {
         /// <summary>
         /// Required designer variable.
@@ -30,14 +30,14 @@
         {
             this.SuspendLayout();
             // 
-            // MultiPlay
+            // Score
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Name = "MultiPlay";
-            this.Text = "MultiPlay";
-            this.Load += new System.EventHandler(this.MultiPlay_Load);
+            this.Name = "Score";
+            this.Text = "Score";
+            this.Load += new System.EventHandler(this.Score_Load);
             this.ResumeLayout(false);
 
         }

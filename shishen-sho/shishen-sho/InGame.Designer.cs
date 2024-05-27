@@ -1,6 +1,6 @@
 ﻿namespace shishen_sho
 {
-    partial class MultiPlay
+    partial class InGame
     {
         /// <summary>
         /// Required designer variable.
@@ -30,14 +30,13 @@
         {
             this.SuspendLayout();
             // 
-            // MultiPlay
+            // InGame
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Name = "MultiPlay";
-            this.Text = "MultiPlay";
-            this.Load += new System.EventHandler(this.MultiPlay_Load);
+            this.ClientSize = new System.Drawing.Size(754, 450);
+            this.Name = "InGame";
+            this.Text = "InGame";
             this.ResumeLayout(false);
 
         }
