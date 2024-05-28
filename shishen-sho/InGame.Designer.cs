@@ -1916,6 +1916,16 @@
             this.btnPause.UseVisualStyleBackColor = true;
             this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
             // 
+            // btnPause
+            // 
+            this.btnPause.Image = global::shishen_sho.Properties.Resources.pause;
+            this.btnPause.Location = new System.Drawing.Point(1400, 174);
+            this.btnPause.Name = "btnPause";
+            this.btnPause.Size = new System.Drawing.Size(91, 49);
+            this.btnPause.TabIndex = 5;
+            this.btnPause.UseVisualStyleBackColor = true;
+            this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
+            // 
             // InGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
