@@ -180,5 +180,24 @@ namespace shishen_sho
                 }
             }
         }
+
+        private void btnPause_Click(object sender, EventArgs e)
+        {
+            //타이머 일시정지
+            gameTimer.Stop();
+            //modal 대화상자로 정지하는 동안 상호작용할 수 없게 만듦.
+            Pause pause = new Pause();
+            DialogResult dialog = pause.ShowDialog();
+
+            //continue 버튼을 누른 경우. 타이머 이어서 시작.
+            if(dialog == DialogResult.OK)
+            {                
+                gameTimer.Start();
+            }//restart 버튼을 누른 경우.
+            else if(dialog == DialogResult.Cancel)
+            {
+                this.Close();
+            }
+        }
     }
 }
