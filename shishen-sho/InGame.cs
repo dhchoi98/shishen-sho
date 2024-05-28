@@ -64,7 +64,22 @@ namespace shishen_sho
 
             // 클릭된 PictureBox를 가져옴
             PictureBox clickedPictureBox = sender as PictureBox;
+            // 이미 선택된 PictureBox를 다시 클릭하면 선택 취소
+            if (firstClicked == clickedPictureBox)
+            {
+                firstClicked.Padding = new Padding(0);
+                firstClicked.BackColor = Color.Transparent;
+                firstClicked = null;
+                return;
+            }
 
+            if (secondClicked == clickedPictureBox)
+            {
+                secondClicked.Padding = new Padding(0);
+                secondClicked.BackColor = Color.Transparent;
+                secondClicked = null;
+                return;
+            }
             // 클릭된 PictureBox가 null이거나 이미지가 없는 경우 처리하지 않음
             if (clickedPictureBox == null || clickedPictureBox.Image == null)
                 return;
@@ -73,6 +88,8 @@ namespace shishen_sho
             if (firstClicked == null)
             {
                 firstClicked = clickedPictureBox;
+                firstClicked.Padding = new Padding(0);
+                firstClicked.BackColor = Color.LightYellow; // 테두리 색상 설정
                 return;
             }
 
@@ -80,19 +97,30 @@ namespace shishen_sho
             if (firstClicked != null && firstClicked != clickedPictureBox)
             {
                 secondClicked = clickedPictureBox;
+                secondClicked.Padding = new Padding(0);
+                secondClicked.BackColor = Color.LightYellow; // 테두리 색상 설정
                 CheckForMatch();
             }
         }
 
         // 두 개의 클릭된 PictureBox를 비교하는 메소드
-        private void CheckForMatch()
+        private async void CheckForMatch()
         {
             // 이미지의 Tag를 비교하여 동일한 경우 두 PictureBox를 숨김
             if (firstClicked.Tag != null && secondClicked.Tag != null &&
                 firstClicked.Tag.ToString() == secondClicked.Tag.ToString())
             {
+                await Task.Delay(300); // 딜레이//
                 firstClicked.Hide();
                 secondClicked.Hide();
+            }
+            else
+            {
+                // 매칭되지 않으면 테두리 초기화
+                firstClicked.Padding = new Padding(0);
+                firstClicked.BackColor = Color.Transparent;
+                secondClicked.Padding = new Padding(0);
+                secondClicked.BackColor = Color.Transparent;
             }
 
             firstClicked = null;
@@ -198,6 +226,11 @@ namespace shishen_sho
             {
                 this.Close();
             }
+        }
+
+        private void Quit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

@@ -472,7 +472,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1298, 756);
             this.tableLayoutPanel1.TabIndex = 2;
             this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
@@ -1905,6 +1904,17 @@
             this.Quit.TabIndex = 4;
             this.Quit.Text = "나가기";
             this.Quit.UseVisualStyleBackColor = true;
+            this.Quit.Click += new System.EventHandler(this.Quit_Click);
+            // 
+            // btnPause
+            // 
+            this.btnPause.Image = global::shishen_sho.Properties.Resources.pause;
+            this.btnPause.Location = new System.Drawing.Point(1400, 174);
+            this.btnPause.Name = "btnPause";
+            this.btnPause.Size = new System.Drawing.Size(91, 49);
+            this.btnPause.TabIndex = 5;
+            this.btnPause.UseVisualStyleBackColor = true;
+            this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
             // 
             // btnPause
             // 
