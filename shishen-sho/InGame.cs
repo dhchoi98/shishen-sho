@@ -138,6 +138,14 @@ namespace shishen_sho
                 secondClicked.Padding = new Padding(0);
                 secondClicked.BackColor = Color.Transparent;
             }
+            else
+            {
+                // 매칭되지 않으면 테두리 초기화
+                firstClicked.Padding = new Padding(0);
+                firstClicked.BackColor = Color.Transparent;
+                secondClicked.Padding = new Padding(0);
+                secondClicked.BackColor = Color.Transparent;
+            }
 
             firstClicked = null;
             secondClicked = null;
