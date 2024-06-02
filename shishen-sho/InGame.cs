@@ -40,6 +40,9 @@ namespace shishen_sho
             progressBar.Maximum = totalTime;
             progressBar.Value = progressBar.Maximum;  // 시작 값은 0에서 시작
             
+            score = 0;
+            lblScore.Text = "Score: 0";
+            this.Controls.Add(lblScore);
         }
         private void InitializePictureBoxEvents()
         {
@@ -113,6 +116,27 @@ namespace shishen_sho
                 await Task.Delay(300); // 딜레이//
                 firstClicked.Hide();
                 secondClicked.Hide();
+
+                score += 500; // 패 매칭 성공 시 점수 500점 추가
+                lblScore.Text = "Score: " + score;
+
+                // 모든 PictureBox를 없앴는지 확인
+                if (AllPicturesCleared())
+                {
+                    gameTimer.Stop();
+                    AddTimeBonus(); // 남은 시간 점수 추가
+                    Result scoreForm = new Result(score);
+                    scoreForm.ShowDialog();
+                    this.Close();
+                }
+            }
+            else
+            {
+                // 매칭되지 않으면 테두리 초기화
+                firstClicked.Padding = new Padding(0);
+                firstClicked.BackColor = Color.Transparent;
+                secondClicked.Padding = new Padding(0);
+                secondClicked.BackColor = Color.Transparent;
             }
             else
             {
@@ -125,6 +149,24 @@ namespace shishen_sho
 
             firstClicked = null;
             secondClicked = null;
+        }
+        private bool AllPicturesCleared() // 모든 타일을 없애면 CLEAR
+        {
+            for (int i = 1; i <= 128; i++)
+            {
+                PictureBox pictureBox = this.Controls.Find("pictureBox" + i, true).FirstOrDefault() as PictureBox;
+                if (pictureBox != null && pictureBox.Visible)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        private void AddTimeBonus() // 시간 남으면 보너스점수로 전환(초당 100점)
+        {
+            int timeBonus = (int)TimeLeft.TotalSeconds * 100;
+            score += timeBonus;
+            lblScore.Text = "Score: " + score;
         }
         private TimeSpan TimeLeft;
 
@@ -191,6 +233,9 @@ namespace shishen_sho
         private void ShuffleButton_Click(object sender, EventArgs e)
         {
             ShufflePictureBoxes();
+            score -= 3000; // 셔플 버튼 클릭 시 점수 3000점 감소
+            if (score < 0) score = 0; // 점수가 음수인 경우는 제외했음
+            lblScore.Text = "Score: " + score;
         }
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)

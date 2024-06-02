@@ -165,6 +165,7 @@
             this.ShuffleButton = new System.Windows.Forms.Button();
             this.Quit = new System.Windows.Forms.Button();
             this.btnPause = new System.Windows.Forms.Button();
+            this.lblScore = new MetroFramework.Controls.MetroLabel();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -1916,21 +1917,22 @@
             this.btnPause.UseVisualStyleBackColor = true;
             this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
             // 
-            // btnPause
+            // lblScore
             // 
-            this.btnPause.Image = global::shishen_sho.Properties.Resources.pause;
-            this.btnPause.Location = new System.Drawing.Point(1400, 174);
-            this.btnPause.Name = "btnPause";
-            this.btnPause.Size = new System.Drawing.Size(91, 49);
-            this.btnPause.TabIndex = 5;
-            this.btnPause.UseVisualStyleBackColor = true;
-            this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
+            this.lblScore.AutoSize = true;
+            this.lblScore.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.lblScore.Location = new System.Drawing.Point(69, 872);
+            this.lblScore.Name = "lblScore";
+            this.lblScore.Size = new System.Drawing.Size(21, 25);
+            this.lblScore.TabIndex = 6;
+            this.lblScore.Text = "0";
             // 
             // InGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1664, 1006);
+            this.Controls.Add(this.lblScore);
             this.Controls.Add(this.btnPause);
             this.Controls.Add(this.Quit);
             this.Controls.Add(this.ShuffleButton);
@@ -2215,5 +2217,6 @@
         private System.Windows.Forms.PictureBox pictureBox128;
         private System.Windows.Forms.Button Quit;
         private System.Windows.Forms.Button btnPause;
+        private MetroFramework.Controls.MetroLabel lblScore;
     }
 }
