@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
-            this.metroButton1 = new MetroFramework.Controls.MetroButton();
+            this.readyButton1 = new MetroFramework.Controls.MetroButton();
             this.metroButton2 = new MetroFramework.Controls.MetroButton();
             this.metroButton3 = new MetroFramework.Controls.MetroButton();
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
-            this.metroButton4 = new MetroFramework.Controls.MetroButton();
+            this.readyButton2 = new MetroFramework.Controls.MetroButton();
             this.player1Name = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel4 = new MetroFramework.Controls.MetroLabel();
+            this.player2Name = new MetroFramework.Controls.MetroLabel();
             this.SuspendLayout();
             // 
             // metroLabel1
@@ -47,15 +47,16 @@
             this.metroLabel1.TabIndex = 0;
             this.metroLabel1.Text = "플레이어 1 :";
             // 
-            // metroButton1
+            // readyButton1
             // 
-            this.metroButton1.Location = new System.Drawing.Point(257, 129);
-            this.metroButton1.Name = "metroButton1";
-            this.metroButton1.Size = new System.Drawing.Size(92, 39);
-            this.metroButton1.TabIndex = 1;
-            this.metroButton1.Text = "준비";
-            this.metroButton1.UseSelectable = true;
-            this.metroButton1.Click += new System.EventHandler(this.metroButton1_Click);
+            this.readyButton1.Enabled = false;
+            this.readyButton1.Location = new System.Drawing.Point(257, 129);
+            this.readyButton1.Name = "readyButton1";
+            this.readyButton1.Size = new System.Drawing.Size(92, 39);
+            this.readyButton1.TabIndex = 1;
+            this.readyButton1.Text = "준비";
+            this.readyButton1.UseSelectable = true;
+            this.readyButton1.Click += new System.EventHandler(this.readyButton1_Click);
             // 
             // metroButton2
             // 
@@ -65,7 +66,6 @@
             this.metroButton2.TabIndex = 2;
             this.metroButton2.Text = "게임시작";
             this.metroButton2.UseSelectable = true;
-            this.metroButton2.Click += new System.EventHandler(this.metroButton2_Click);
             // 
             // metroButton3
             // 
@@ -87,14 +87,16 @@
             this.metroLabel2.Text = "플레이어 2 :";
             this.metroLabel2.Click += new System.EventHandler(this.metroLabel2_Click);
             // 
-            // metroButton4
+            // readyButton2
             // 
-            this.metroButton4.Location = new System.Drawing.Point(257, 285);
-            this.metroButton4.Name = "metroButton4";
-            this.metroButton4.Size = new System.Drawing.Size(92, 37);
-            this.metroButton4.TabIndex = 5;
-            this.metroButton4.Text = "준비";
-            this.metroButton4.UseSelectable = true;
+            this.readyButton2.Enabled = false;
+            this.readyButton2.Location = new System.Drawing.Point(257, 285);
+            this.readyButton2.Name = "readyButton2";
+            this.readyButton2.Size = new System.Drawing.Size(92, 37);
+            this.readyButton2.TabIndex = 5;
+            this.readyButton2.Text = "준비";
+            this.readyButton2.UseSelectable = true;
+            this.readyButton2.Click += new System.EventHandler(this.readyButton2_Click);
             // 
             // player1Name
             // 
@@ -105,27 +107,27 @@
             this.player1Name.TabIndex = 6;
             this.player1Name.Text = "이름";
             // 
-            // metroLabel4
+            // player2Name
             // 
-            this.metroLabel4.AutoSize = true;
-            this.metroLabel4.Location = new System.Drawing.Point(141, 293);
-            this.metroLabel4.Name = "metroLabel4";
-            this.metroLabel4.Size = new System.Drawing.Size(37, 19);
-            this.metroLabel4.TabIndex = 7;
-            this.metroLabel4.Text = "이름";
+            this.player2Name.AutoSize = true;
+            this.player2Name.Location = new System.Drawing.Point(141, 293);
+            this.player2Name.Name = "player2Name";
+            this.player2Name.Size = new System.Drawing.Size(37, 19);
+            this.player2Name.TabIndex = 7;
+            this.player2Name.Text = "이름";
             // 
             // MultiPlay_InRoom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(642, 403);
-            this.Controls.Add(this.metroLabel4);
+            this.Controls.Add(this.player2Name);
             this.Controls.Add(this.player1Name);
-            this.Controls.Add(this.metroButton4);
+            this.Controls.Add(this.readyButton2);
             this.Controls.Add(this.metroLabel2);
             this.Controls.Add(this.metroButton3);
             this.Controls.Add(this.metroButton2);
-            this.Controls.Add(this.metroButton1);
+            this.Controls.Add(this.readyButton1);
             this.Controls.Add(this.metroLabel1);
             this.Name = "MultiPlay_InRoom";
             this.Text = "방 대기화면";
@@ -138,12 +140,12 @@
         #endregion
 
         private MetroFramework.Controls.MetroLabel metroLabel1;
-        private MetroFramework.Controls.MetroButton metroButton1;
+        private MetroFramework.Controls.MetroButton readyButton1;
         private MetroFramework.Controls.MetroButton metroButton2;
         private MetroFramework.Controls.MetroButton metroButton3;
         private MetroFramework.Controls.MetroLabel metroLabel2;
-        private MetroFramework.Controls.MetroButton metroButton4;
+        private MetroFramework.Controls.MetroButton readyButton2;
         private MetroFramework.Controls.MetroLabel player1Name;
-        private MetroFramework.Controls.MetroLabel metroLabel4;
+        private MetroFramework.Controls.MetroLabel player2Name;
     }
 }

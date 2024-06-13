@@ -33,6 +33,8 @@ namespace shishen_sho
             host = true;
             // 방 생성 후 브로드캐스트 메시지 전송
             StartBroadcasting();
+            readyButton1.Enabled = true;
+            player1Name.Text = username; 
         }
         public MultiPlay_InRoom(string username, MultiPlay_ShowRoom showRoom, string ipAddress) // 게스트
         {
@@ -40,6 +42,8 @@ namespace shishen_sho
             this.username = username;
             this.showRoom = showRoom;
             this.hostIpAddress = ipAddress;
+            readyButton2.Enabled = true;
+            player2Name.Text = username;
         }
 
         private void StartBroadcasting()
@@ -80,15 +84,29 @@ namespace shishen_sho
             multiplay.Show();
             this.Close();
         }
-   
-        private void metroButton2_Click(object sender, EventArgs e)
-        {
 
+        private void readyButton1_Click(object sender, EventArgs e)
+        {
+            if (readyButton1.Text.Equals("준비"))
+            {
+                readyButton1.Text = "준비완료";
+            }
+            else
+            {
+                readyButton1.Text = "준비";
+            }
         }
 
-        private void metroButton1_Click(object sender, EventArgs e)
+        private void readyButton2_Click(object sender, EventArgs e)
         {
-
+            if (readyButton2.Text.Equals("준비"))
+            {
+                readyButton2.Text = "준비완료";
+            }
+            else
+            {
+                readyButton2.Text = "준비";
+            }
         }
     }
 }
