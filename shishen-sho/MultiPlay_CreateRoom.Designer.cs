@@ -1,6 +1,6 @@
 ﻿namespace shishen_sho
 {
-    partial class InGame
+    partial class MultiPlay_CreateRoom
     {
         /// <summary>
         /// Required designer variable.
@@ -28,19 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.SuspendLayout();
             // 
-            // InGame
+            // metroLabel1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.metroLabel1.AutoSize = true;
+            this.metroLabel1.Location = new System.Drawing.Point(23, 86);
+            this.metroLabel1.Name = "metroLabel1";
+            this.metroLabel1.Size = new System.Drawing.Size(81, 19);
+            this.metroLabel1.TabIndex = 0;
+            this.metroLabel1.Text = "metroLabel1";
+            // 
+            // MultiPlay_CreateRoom
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(754, 450);
-            this.Name = "InGame";
-            this.Text = "InGame";
+            this.ClientSize = new System.Drawing.Size(524, 440);
+            this.Controls.Add(this.metroLabel1);
+            this.Name = "MultiPlay_CreateRoom";
+            this.Text = "MultiPlay_CreateRoom";
+            this.Load += new System.EventHandler(this.MultiPlay_CreateRoom_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
+
+        private MetroFramework.Controls.MetroLabel metroLabel1;
     }
 }
