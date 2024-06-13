@@ -10,14 +10,13 @@ using System.Windows.Forms;
 
 namespace shishen_sho
 {
-    public partial class MultiPlay_CreateRoom : Form
+    public partial class MultiPlay_CreateRoom : MetroFramework.Forms.MetroForm
     {
         private string username;
         public MultiPlay_CreateRoom()
         {
             InitializeComponent();
         }
-
         public MultiPlay_CreateRoom(string username)
         {
             InitializeComponent();
