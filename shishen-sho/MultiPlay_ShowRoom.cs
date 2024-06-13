@@ -86,26 +86,31 @@ namespace shishen_sho
                     discoveredHosts.Add(endPoint.Address.ToString());
                     discoveredHostsList.Add(endPoint.Address.ToString());
 
+                    byte[] data2 = udpClient.Receive(ref endPoint);
+                    string hostUserName = Encoding.ASCII.GetString(data2);
+
                     Console.WriteLine(endPoint.Address.ToString());
+
                     if (discoveredHosts.Count == 1)
                     {
                         room1 = true;
+                        UpdateRoomStatus(hostUserName);
                     }
                     else if (discoveredHosts.Count == 2)
                     {
                         room2 = true;
+                        UpdateRoomStatus(hostUserName);
                     }
                     else if (discoveredHosts.Count == 3)
                     {
                         room3 = true;
+                        UpdateRoomStatus(hostUserName);
                     }
-
-                    UpdateRoomStatus();
                 }
             }
         }
 
-        private void UpdateRoomStatus()
+        private void UpdateRoomStatus(string hostUserName)
         {
             // UI 스레드에서 UI 요소 업데이트
             this.Invoke((MethodInvoker)delegate
@@ -113,6 +118,7 @@ namespace shishen_sho
                 if (room1)
                 {
                     room1Available.Text = "입장 가능";
+                    nickname1.Text = hostUserName;
                     enterButton1.Enabled = true;
                 }
                 
@@ -136,10 +142,15 @@ namespace shishen_sho
 
         private void enterButton1_Click(object sender, EventArgs e)
         {
-            MultiPlay_InRoom inRoom = new MultiPlay_InRoom(username, this, discoveredHostsList[0]);
+            MultiPlay_InRoom inRoom = new MultiPlay_InRoom(nickname1.Text, username, this, discoveredHostsList[0]);
             listenThread.Abort();
             this.Hide();
             inRoom.Show();
+
+        }
+
+        private void metroPanel1_Paint(object sender, PaintEventArgs e)
+        {
 
         }
     }

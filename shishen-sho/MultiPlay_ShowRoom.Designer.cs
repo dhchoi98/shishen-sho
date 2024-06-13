@@ -66,9 +66,9 @@
             // 
             // metroButton1
             // 
-            this.metroButton1.Location = new System.Drawing.Point(476, 508);
+            this.metroButton1.Location = new System.Drawing.Point(476, 500);
             this.metroButton1.Name = "metroButton1";
-            this.metroButton1.Size = new System.Drawing.Size(110, 35);
+            this.metroButton1.Size = new System.Drawing.Size(110, 43);
             this.metroButton1.TabIndex = 1;
             this.metroButton1.Text = "나가기";
             this.metroButton1.UseSelectable = true;
@@ -126,6 +126,7 @@
             this.metroPanel1.VerticalScrollbarBarColor = true;
             this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
             this.metroPanel1.VerticalScrollbarSize = 10;
+            this.metroPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.metroPanel1_Paint);
             // 
             // room1Available
             // 
@@ -171,9 +172,9 @@
             // 
             // metroButton2
             // 
-            this.metroButton2.Location = new System.Drawing.Point(476, 452);
+            this.metroButton2.Location = new System.Drawing.Point(476, 434);
             this.metroButton2.Name = "metroButton2";
-            this.metroButton2.Size = new System.Drawing.Size(110, 38);
+            this.metroButton2.Size = new System.Drawing.Size(110, 41);
             this.metroButton2.TabIndex = 7;
             this.metroButton2.Text = "새로고침";
             this.metroButton2.UseSelectable = true;
