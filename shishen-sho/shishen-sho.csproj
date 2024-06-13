@@ -55,6 +55,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MultiPlay_CreateRoom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MultiPlay_CreateRoom.Designer.cs">
+      <DependentUpon>MultiPlay_CreateRoom.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pause.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,6 +111,9 @@
     <Compile Include="Score.Designer.cs">
       <DependentUpon>Score.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="MultiPlay_CreateRoom.resx">
+      <DependentUpon>MultiPlay_CreateRoom.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pause.resx">
       <DependentUpon>Pause.cs</DependentUpon>
     </EmbeddedResource>
