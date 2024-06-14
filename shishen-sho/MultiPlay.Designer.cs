@@ -58,6 +58,7 @@
             this.metroButton2.TabIndex = 2;
             this.metroButton2.Text = "방 조회";
             this.metroButton2.UseSelectable = true;
+            this.metroButton2.Click += new System.EventHandler(this.metroButton2_Click);
             // 
             // metroLabel1
             // 
@@ -77,6 +78,7 @@
             this.metroButton3.TabIndex = 5;
             this.metroButton3.Text = "나가기";
             this.metroButton3.UseSelectable = true;
+            this.metroButton3.Click += new System.EventHandler(this.metroButton3_Click);
             // 
             // textBox1
             // 
