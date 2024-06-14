@@ -30,7 +30,7 @@
         {
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.readyButton1 = new MetroFramework.Controls.MetroButton();
-            this.metroButton2 = new MetroFramework.Controls.MetroButton();
+            this.startButton = new MetroFramework.Controls.MetroButton();
             this.exitButton = new MetroFramework.Controls.MetroButton();
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.readyButton2 = new MetroFramework.Controls.MetroButton();
@@ -58,15 +58,16 @@
             this.readyButton1.UseSelectable = true;
             this.readyButton1.Click += new System.EventHandler(this.readyButton1_Click);
             // 
-            // metroButton2
+            // startButton
             // 
-            this.metroButton2.Location = new System.Drawing.Point(429, 139);
-            this.metroButton2.Name = "metroButton2";
-            this.metroButton2.Size = new System.Drawing.Size(144, 62);
-            this.metroButton2.TabIndex = 2;
-            this.metroButton2.Text = "게임시작";
-            this.metroButton2.UseSelectable = true;
-            this.metroButton2.Click += new System.EventHandler(this.metroButton2_Click);
+            this.startButton.Enabled = false;
+            this.startButton.Location = new System.Drawing.Point(429, 139);
+            this.startButton.Name = "startButton";
+            this.startButton.Size = new System.Drawing.Size(144, 62);
+            this.startButton.TabIndex = 2;
+            this.startButton.Text = "게임시작";
+            this.startButton.UseSelectable = true;
+            this.startButton.Click += new System.EventHandler(this.metroButton2_Click);
             // 
             // exitButton
             // 
@@ -126,11 +127,12 @@
             this.Controls.Add(this.readyButton2);
             this.Controls.Add(this.metroLabel2);
             this.Controls.Add(this.exitButton);
-            this.Controls.Add(this.metroButton2);
+            this.Controls.Add(this.startButton);
             this.Controls.Add(this.readyButton1);
             this.Controls.Add(this.metroLabel1);
             this.Name = "MultiPlay_InRoom";
             this.Text = "방 대기화면";
+            this.Load += new System.EventHandler(this.MultiPlay_InRoom_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -140,7 +142,7 @@
 
         private MetroFramework.Controls.MetroLabel metroLabel1;
         private MetroFramework.Controls.MetroButton readyButton1;
-        private MetroFramework.Controls.MetroButton metroButton2;
+        private MetroFramework.Controls.MetroButton startButton;
         private MetroFramework.Controls.MetroButton exitButton;
         private MetroFramework.Controls.MetroLabel metroLabel2;
         private MetroFramework.Controls.MetroButton readyButton2;

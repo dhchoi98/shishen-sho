@@ -47,6 +47,7 @@ namespace shishen_sho
         private void metroButton1_Click(object sender, EventArgs e)
         {
             multiplay.Show();
+            listenThread.Abort();
             this.Close();
         }
 

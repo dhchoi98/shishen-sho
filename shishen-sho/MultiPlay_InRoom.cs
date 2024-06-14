@@ -23,7 +23,6 @@ namespace shishen_sho
         private MultiPlay_ShowRoom showRoom;
         private bool host = false; // 방장일 때
 
-
         private bool p1Ready = false;
         private bool p2Ready = false;
 
@@ -102,10 +101,8 @@ namespace shishen_sho
                 Console.WriteLine("브로드 캐스트");
 
                 // 데이터 수신
-               
                 try
                 {
-                    
                     byte[] receivedData = receiveUdpClient.Receive(ref receiveEndPoint);
                     string receivedMessage = Encoding.ASCII.GetString(receivedData);
 
@@ -116,6 +113,8 @@ namespace shishen_sho
                     {
                         p2Ready = true;
                         Console.WriteLine("게스트가 준비 완료 상태입니다.");
+                        isBroadcasting = false;
+                        UpdateRoomStatus();
                     }
                     else
                     {
@@ -158,11 +157,11 @@ namespace shishen_sho
                 {
                     // 호스트 IP 주소로 전송
                     udpClient.Send(guestName, guestName.Length, hostEndPoint);
+
                     // 로컬 호스트 IP 주소로 전송
                     udpClient.Send(guestName, guestName.Length, localEndPoint);
-                    Thread.Sleep(1000);
-                    
-
+                   
+ 
                     if (p2Ready)
                     {
                         // 준비 상태 메시지를 호스트와 로컬 호스트로 전송
@@ -170,6 +169,7 @@ namespace shishen_sho
                         udpClient.Send(ready, ready.Length, localEndPoint); 
                         Console.WriteLine("게스트 준비 완료 전송");
                     }
+                    Thread.Sleep(1000);
                 }
 
                 udpClient.Close();
@@ -190,6 +190,14 @@ namespace shishen_sho
             this.Invoke((MethodInvoker)delegate
             {
                 player2Name.Text = guestname;
+
+                if (p2Ready)
+                {
+                    readyButton2.Text = "준비완료";
+                    if(p1Ready)
+                        startButton.Enabled = true;
+                }
+                
             });
         }
 
@@ -205,19 +213,17 @@ namespace shishen_sho
 
         private void StopThreads()
         {
-            isBroadcasting = false;
-            isSendingGuest = false;
-
             if (broadcastThread != null && broadcastThread.IsAlive)
             {
-                broadcastThread.Join(); // 스레드가 종료될 때까지 대기
+                broadcastThread.Abort();
             }
 
             if (udpSendThread != null && udpSendThread.IsAlive)
             {
-                udpSendThread.Join(); // 스레드가 종료될 때까지 대기
+                udpSendThread.Abort();
             }
         }
+
 
         private void readyButton1_Click(object sender, EventArgs e)
         {
@@ -246,8 +252,14 @@ namespace shishen_sho
                 p2Ready = false;
             }
         }
-
+        
+        // 스타트 버튼
         private void metroButton2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MultiPlay_InRoom_Load(object sender, EventArgs e)
         {
 
         }
