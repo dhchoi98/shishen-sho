@@ -166,6 +166,7 @@
             this.Quit = new System.Windows.Forms.Button();
             this.btnPause = new System.Windows.Forms.Button();
             this.lblScore = new MetroFramework.Controls.MetroLabel();
+            this.remaininglbl = new MetroFramework.Controls.MetroLabel();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -1927,11 +1928,23 @@
             this.lblScore.TabIndex = 6;
             this.lblScore.Text = "0";
             // 
+            // remaininglbl
+            // 
+            this.remaininglbl.AutoSize = true;
+            this.remaininglbl.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.remaininglbl.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.remaininglbl.Location = new System.Drawing.Point(234, 872);
+            this.remaininglbl.Name = "remaininglbl";
+            this.remaininglbl.Size = new System.Drawing.Size(71, 25);
+            this.remaininglbl.TabIndex = 7;
+            this.remaininglbl.Text = "남은 패";
+            // 
             // InGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1664, 1006);
+            this.Controls.Add(this.remaininglbl);
             this.Controls.Add(this.lblScore);
             this.Controls.Add(this.btnPause);
             this.Controls.Add(this.Quit);
@@ -2218,5 +2231,6 @@
         private System.Windows.Forms.Button Quit;
         private System.Windows.Forms.Button btnPause;
         private MetroFramework.Controls.MetroLabel lblScore;
+        private MetroFramework.Controls.MetroLabel remaininglbl;
     }
 }
