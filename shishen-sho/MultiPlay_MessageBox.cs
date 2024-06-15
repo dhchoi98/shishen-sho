@@ -19,17 +19,21 @@ namespace shishen_sho
         }
         private void MultiPlay_MessageBox_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // 폼이 닫히지 않도록 설정
-            e.Cancel = true;
+            
         }
         private void MultiPlay_MessageBox_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

@@ -141,7 +141,7 @@ namespace shishen_sho
             udpClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
 
             UdpClient receiveUdpClient = new UdpClient();
-            receiveUdpClient.Client.ReceiveTimeout = 2000; // 수신 타임아웃 2초 설정
+            receiveUdpClient.Client.ReceiveTimeout = 2000; // 수신 타임아웃 1초 설정
 
             IPEndPoint receiveEndPoint = new IPEndPoint(IPAddress.Any, 8889);
             receiveUdpClient.Client.Bind(receiveEndPoint);
@@ -160,19 +160,55 @@ namespace shishen_sho
 
                 while (isSendingGuest)
                 {
-                    // 호스트 IP 주소로 전송
-                    udpClient.Send(guestName, guestName.Length, hostEndPoint);
-
-                    // 로컬 호스트 IP 주소로 전송
-                    udpClient.Send(guestName, guestName.Length, localEndPoint);
-                   
- 
+                    
                     if (p2Ready)
                     {
                         // 준비 상태 메시지를 호스트와 로컬 호스트로 전송
                         udpClient.Send(ready, ready.Length, hostEndPoint);
                         udpClient.Send(ready, ready.Length, localEndPoint); 
                         Console.WriteLine("게스트 준비 완료 전송");
+
+                        try
+                        {
+                            byte[] receivedData = receiveUdpClient.Receive(ref receiveEndPoint); //8889
+                            string receivedMessage = Encoding.ASCII.GetString(receivedData);
+
+                            // 수신된 메시지 처리
+                            if (receivedMessage.Equals("start"))
+                            {
+                                Console.WriteLine("게임 시작");
+                                
+
+                                isBroadcasting = false;
+                                isSendingGuest = false;
+
+                                this.Invoke((MethodInvoker)delegate
+                                {
+                                    MultiPlay_InGame inGame = new MultiPlay_InGame(5, hostIpAddress);
+                                    this.Hide();
+                                    inGame.Show();
+                                });
+
+
+                                StopThreads();
+
+                                
+                            }
+                        }
+                        catch (SocketException ex)
+                        {
+                            Console.WriteLine("수신 중 오류 발생: " + ex.Message);
+                        }
+
+                    }
+                    else
+                    {
+                        // 호스트 IP 주소로 전송
+                        udpClient.Send(guestName, guestName.Length, hostEndPoint);
+
+                        // 로컬 호스트 IP 주소로 전송
+                        udpClient.Send(guestName, guestName.Length, localEndPoint);
+
                     }
                     Thread.Sleep(1000);
                 }

@@ -7,7 +7,10 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
@@ -21,6 +24,10 @@ namespace shishen_sho
         private PictureBox secondClicked = null;
         private int totalTime;
         private int score;
+
+        private string hostIpAddress = null;
+
+        // 방장
         public MultiPlay_InGame(int minutes)
         {
             InitializeComponent();
@@ -28,7 +35,8 @@ namespace shishen_sho
             // 타이머 1초마다 초기화
             gameTimer.Interval = 1000;
             gameTimer.Tick += GameTimer_Tick;
-            gameTimer.Start();
+            // gameTimer.Start();
+
             // 시간을 표시할 라벨 초기화
             this.Controls.Add(timeLabel);
             // 게임 시작 시간 설정
@@ -45,6 +53,38 @@ namespace shishen_sho
             this.Controls.Add(lblScore);
 
              
+
+        }
+
+        // 게스트
+        public MultiPlay_InGame(int minutes, string hostIpAddress)
+        {
+            InitializeComponent();
+            InitializePictureBoxEvents();
+            // 타이머 1초마다 초기화
+            gameTimer.Interval = 1000;
+            gameTimer.Tick += GameTimer_Tick;
+            // gameTimer.Start();
+
+
+            // 시간을 표시할 라벨 초기화
+            this.Controls.Add(timeLabel);
+            // 게임 시작 시간 설정
+            TimeLeft = TimeSpan.FromMinutes(minutes);
+
+            progressBar.Style = MetroColorStyle.Silver;
+            totalTime = minutes * 60;
+            progressBar.Minimum = 0;
+            progressBar.Maximum = totalTime;
+            progressBar.Value = progressBar.Maximum;  // 시작 값은 0에서 시작
+
+            score = 0;
+            lblScore.Text = "Score: 0";
+            this.Controls.Add(lblScore);
+
+            this.hostIpAddress = hostIpAddress;
+
+
 
         }
         private void InitializePictureBoxEvents()
@@ -188,19 +228,69 @@ namespace shishen_sho
         }
 
 
-        private void InGame_Load(object sender, EventArgs e)
+        private async void InGame_Load(object sender, EventArgs e)
         {
             ShufflePictureBoxes();
 
+            // 소켓 연결
+
+            if (hostIpAddress == null) // 방장이면
+            {
+                UdpClient udpClient = new UdpClient();
+                IPEndPoint endPoint = new IPEndPoint(IPAddress.Broadcast, 8889);
+                byte[] message = Encoding.ASCII.GetBytes("start");
+
+                for (int i = 0; i < 5; i++)
+                {
+                    // 메시지 전송
+                    Console.WriteLine("게임시작 메세지 전송");
+                    udpClient.Send(message, message.Length, endPoint);
+                    Thread.Sleep(1000);
+                }
+            }
+
+
+            // 비동기 소켓 연결 작업 시작
+            await PerformSocketConnectionAsync();
+
+        }
+
+
+        private async Task PerformSocketConnectionAsync()
+        {
             MultiPlay_MessageBox messageBox = new MultiPlay_MessageBox();
             this.Enabled = false;
 
+            // 비동기 작업을 통해 소켓 연결을 수행하고, 메시지 박스를 닫습니다.
+            var task = Task.Run(() =>
+            {
+                // 소켓 연결 로직 (예제 대기 시간)
+                Thread.Sleep(3000); // 실제 연결 로직으로 대체
+            });
+
+            messageBox.Shown += async (s, e) =>
+            {
+                Console.WriteLine("소켓 연결 시작");
+
+                // 소켓 연결 작업을 비동기적으로 수행
+                await task;
+
+                Console.WriteLine("소켓 연결 완료");
+
+                // 메시지 박스를 닫기
+                messageBox.Invoke(new Action(() => messageBox.Close()));
+            };
+
             messageBox.ShowDialog();
 
+            // 메시지 박스가 닫힌 후 InGame 폼의 컨트롤을 활성화
+            this.Enabled = true;
 
-            // 소켓 연결
-
+            // 추가 작업
+            Console.WriteLine("메시지 박스가 닫혔습니다. 추가 작업을 수행합니다.");
         }
+
+
         private void ShufflePictureBoxes()
         {
             // 모든 PictureBox를 리스트에 저장
