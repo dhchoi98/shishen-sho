@@ -286,5 +286,169 @@ namespace shishen_sho
         {
             Application.Exit();
         }
+
+
+            private const int BOARD_WIDTH = 16; // 게임판 너비
+            private const int BOARD_HEIGHT = 8; // 게임판 높이
+            private string[,] board = new string[BOARD_WIDTH, BOARD_HEIGHT]; // 게임판 데이터 (문자열)
+            private Button[,] buttons = new Button[BOARD_WIDTH, BOARD_HEIGHT]; // 버튼 배열
+            private Point selectedTile1 = new Point(-1, -1); // 첫 번째 선택된 타일 좌표
+            private Point selectedTile2 = new Point(-1, -1); // 두 번째 선택된 타일 좌표
+
+
+            // 게임 시작 시 게임판 초기화
+            private void InitializeBoard()
+            {
+                for (int i = 0; i < BOARD_WIDTH; i++)
+                {
+                    for (int j = 0; j < BOARD_HEIGHT; j++)
+                    {
+                        string buttonName = $"button_{i}_{j}";
+                        buttons[i, j] = this.Controls.Find(buttonName, true).FirstOrDefault() as Button;
+                        if (buttons[i, j] != null)
+                        {
+                            buttons[i, j].Click += TileButtonClick;
+                            //board[i, j] = buttons[i, j].Tag?.ToString() ?? ""; // 실제 타일 종류 설정 필요
+                            // 임시로 테스트용 타일 설정
+                            board[i, j] = (i + j) % 2 == 0 ? "bamboo1" : "";
+                        }
+                    }
+                }
+            }
+
+            // 타일 버튼 클릭 이벤트 핸들러
+            private void TileButtonClick(object sender, EventArgs e)
+            {
+                Button clickedButton = sender as Button;
+                if (clickedButton == null) return;
+
+                int x = clickedButton.Location.X / clickedButton.Width;
+                int y = clickedButton.Location.Y / clickedButton.Height;
+                Point clickedTile = new Point(x, y);
+
+                if (selectedTile1 == new Point(-1, -1)) // 첫 번째 타일 선택
+                {
+                    selectedTile1 = clickedTile;
+                    clickedButton.BackColor = Color.Yellow; // 선택된 타일 표시
+                }
+                else if (selectedTile2 == new Point(-1, -1)) // 두 번째 타일 선택
+                {
+                    selectedTile2 = clickedTile;
+                    clickedButton.BackColor = Color.Yellow;
+
+                    if (FindPath(selectedTile1, selectedTile2))
+                    {
+                        // 경로 찾음, 처리 (타일 제거 및 UI 업데이트)
+                        board[selectedTile1.X, selectedTile1.Y] = "";
+                        board[selectedTile2.X, selectedTile2.Y] = "";
+                        buttons[selectedTile1.X, selectedTile1.Y].Visible = false;
+                        buttons[selectedTile2.X, selectedTile2.Y].Visible = false;
+                        ResetTileColors();
+                    }
+                    else
+                    {
+                        // 경로 없음, 메시지 출력 등
+                        MessageBox.Show("경로를 찾을 수 없습니다.");
+                        ResetTileColors();
+                    }
+
+                    selectedTile1 = new Point(-1, -1);
+                    selectedTile2 = new Point(-1, -1);
+                }
+            }
+
+            // 깊이 우선 탐색 (DFS) 알고리즘
+            private bool FindPath(Point start, Point end)
+            {
+                var visited = new HashSet<Point>();
+                var stack = new Stack<(Point, int)>(); // (좌표, 꺾인 횟수)
+                stack.Push((start, 0));
+
+                while (stack.Count > 0)
+                {
+                    var (current, turns) = stack.Pop();
+                    visited.Add(current);
+
+                    if (current == end)
+                        return true; // 경로 찾음
+
+                    foreach (var neighbor in GetNeighbors(current))
+                    {
+                        if (!visited.Contains(neighbor) && IsValidTurn(current, neighbor, turns))
+                            stack.Push((neighbor, turns + (IsTurn(current, neighbor) ? 1 : 0)));
+                    }
+                }
+                return false; // 경로 없음
+            }
+
+            // 이웃 칸 좌표 반환
+            private List<Point> GetNeighbors(Point current)
+            {
+                var neighbors = new List<Point>();
+                int[] dx = { -1, 0, 1, 0 };
+                int[] dy = { 0, -1, 0, 1 };
+
+                for (int i = 0; i < 4; i++)
+                {
+                    int nx = current.X + dx[i];
+                    int ny = current.Y + dy[i];
+                    if (nx >= 0 && nx < BOARD_WIDTH && ny >= 0 && ny < BOARD_HEIGHT && board[nx, ny] == "")
+                        neighbors.Add(new Point(nx, ny));
+                }
+                return neighbors;
+            }
+
+            // 유효한 이동인지 판단 (꺾임 횟수, 장애물, 경로 길이)
+            private bool IsValidTurn(Point current, Point next, int turns)
+            {
+                return turns < 2 && !HasObstacleBetween(current, next) && GetDistance(current, next) <= 2;
+            }
+
+            // 직각으로 꺾이는 이동인지 판단
+            private bool IsTurn(Point current, Point next)
+            {
+                return current.X != next.X && current.Y != next.Y;
+            }
+
+            // 두 칸 사이에 장애물이 있는지 판단 (Bresenham's line algorithm)
+            private bool HasObstacleBetween(Point start, Point end)
+            {
+                int dx = Math.Abs(end.X - start.X);
+                int dy = Math.Abs(end.Y - start.Y);
+                int sx = (start.X < end.X) ? 1 : -1;
+                int sy = (start.Y < end.Y) ? 1 : -1;
+                int err = dx - dy;
+                int x = start.X;
+                int y = start.Y;
+
+                while (true)
+                {
+                    if (x == end.X && y == end.Y) break; // 목표 지점 도달
+                    if (board[x, y] != "") return true; // 장애물 발견
+
+                    int e2 = 2 * err;
+                    if (e2 > -dy) { err -= dy; x += sx; }
+                    if (e2 < dx) { err += dx; y += sy; }
+                }
+                return false; // 장애물 없음
+            }
+
+            // 두 칸 사이의 거리 계산
+            private int GetDistance(Point p1, Point p2)
+            {
+                return Math.Abs(p1.X - p2.X) + Math.Abs(p1.Y - p2.Y);
+            }
+
+            // 타일 색상 초기화
+            private void ResetTileColors()
+            {
+                foreach (Button button in buttons)
+                {
+                    button.BackColor = default(Color); // 기본 색상으로 변경
+                }
+            }
+        }
     }
+
+}
 }
