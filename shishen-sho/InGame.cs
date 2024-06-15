@@ -21,10 +21,16 @@ namespace shishen_sho
         private PictureBox secondClicked = null;
         private int totalTime;
         private int score;
+        private const int ROWS = 8;
+        private const int COLS = 16;
+        private PictureBox[,] graph = new PictureBox[ROWS, COLS]; // 2차원 배열 그래프
+
         public InGame(int minutes)
         {
             InitializeComponent();
-            InitializePictureBoxEvents();
+            InitializeGraph();
+
+            //InitializePictureBoxEvents();
             // 타이머 1초마다 초기화
             gameTimer.Interval = 1000;
             gameTimer.Tick += GameTimer_Tick;
@@ -44,6 +50,33 @@ namespace shishen_sho
             lblScore.Text = "Score: 0";
             this.Controls.Add(lblScore);
         }
+
+        private void InitializeGraph()
+        {
+            for (int i = 1; i <= 128; i++)
+            {
+                PictureBox pictureBox = this.Controls.Find("pictureBox" + i, true).FirstOrDefault() as PictureBox;
+
+                if (pictureBox != null)
+                {
+                    if(i <= 64)
+                    {
+                        int row = (i - 1) / 8; // 행 계산
+                        int col = (i - 1) % 8; // 열 계산
+                        graph[row, col] = pictureBox;
+                        pictureBox.Click += new EventHandler(PictureBox_Click);
+                    }
+                    else
+                    {
+                        int row = (i - 65) / 8;
+                        int col = 8 + (i - 65) % 8;
+                        graph[row, col] = pictureBox;
+                        pictureBox.Click += new EventHandler(PictureBox_Click);
+                    }
+                }
+            }
+        }
+
         private void InitializePictureBoxEvents()
         {
             // 폼에 있는 128개의 PictureBox를 반복하여 이벤트 핸들러를 등록
@@ -54,7 +87,6 @@ namespace shishen_sho
                 if (pictureBox != null)
                 {
                     // PictureBox에 클릭 이벤트 핸들러 추가
-                    pictureBox.Click += new EventHandler(PictureBox_Click);
                 }
             }
         }
@@ -106,44 +138,6 @@ namespace shishen_sho
             }
         }
 
-        // 두 개의 클릭된 PictureBox를 비교하는 메소드
-        private async void CheckForMatch()
-        {
-            // 이미지의 Tag를 비교하여 동일한 경우 두 PictureBox를 숨김
-            if (firstClicked.Tag != null && secondClicked.Tag != null &&
-                firstClicked.Tag.ToString() == secondClicked.Tag.ToString())
-            {
-                await Task.Delay(300); // 딜레이//
-                firstClicked.Hide();
-                secondClicked.Hide();
-
-                score += 500; // 패 매칭 성공 시 점수 500점 추가
-                lblScore.Text = "Score: " + score;
-                
-                RemainingLabel();
-
-                // 모든 PictureBox를 없앴는지 확인
-                if (AllPicturesCleared())
-                {
-                    gameTimer.Stop();
-                    AddTimeBonus(); // 남은 시간 점수 추가
-                    Result scoreForm = new Result(score);
-                    scoreForm.ShowDialog();
-                    this.Close();
-                }
-            }
-            else
-            {
-                // 매칭되지 않으면 테두리 초기화
-                firstClicked.Padding = new Padding(0);
-                firstClicked.BackColor = Color.Transparent;
-                secondClicked.Padding = new Padding(0);
-                secondClicked.BackColor = Color.Transparent;
-            }
-
-            firstClicked = null;
-            secondClicked = null;
-        }
         private bool AllPicturesCleared() // 모든 타일을 없애면 CLEAR
         {
             for (int i = 1; i <= 128; i++)
@@ -205,6 +199,7 @@ namespace shishen_sho
             ShufflePictureBoxes();
             RemainingLabel();
         }
+
         private void ShufflePictureBoxes()
         {
             // 모든 PictureBox를 리스트에 저장
@@ -286,169 +281,202 @@ namespace shishen_sho
         {
             Application.Exit();
         }
+        // 타일 색상 초기화
 
+        private void pictureBox66_Click(object sender, EventArgs e)
+        {
 
-            private const int BOARD_WIDTH = 16; // 게임판 너비
-            private const int BOARD_HEIGHT = 8; // 게임판 높이
-            private string[,] board = new string[BOARD_WIDTH, BOARD_HEIGHT]; // 게임판 데이터 (문자열)
-            private Button[,] buttons = new Button[BOARD_WIDTH, BOARD_HEIGHT]; // 버튼 배열
-            private Point selectedTile1 = new Point(-1, -1); // 첫 번째 선택된 타일 좌표
-            private Point selectedTile2 = new Point(-1, -1); // 두 번째 선택된 타일 좌표
+        }
 
-
-            // 게임 시작 시 게임판 초기화
-            private void InitializeBoard()
+        // 두 개의 클릭된 PictureBox를 비교하는 메소드
+        private async void CheckForMatch()
+        {
+            // 이미지의 Tag를 비교하여 동일한 경우 두 PictureBox를 숨김
+            if (firstClicked.Tag != null && secondClicked.Tag != null &&
+                firstClicked.Tag.ToString() == secondClicked.Tag.ToString() && CheckPathAndHide()) //여기 마지막 조건이 없엇어서 그냥 Tag가 같으면 지웠음
             {
-                for (int i = 0; i < BOARD_WIDTH; i++)
+                MessageBox.Show("True");
+                await Task.Delay(300); // 딜레이//
+                firstClicked.Tag = null;
+                secondClicked.Tag = null;
+                firstClicked.Hide();
+                secondClicked.Hide();
+
+                score += 500; // 패 매칭 성공 시 점수 500점 추가
+                lblScore.Text = "Score: " + score;
+
+                RemainingLabel();
+
+                // 모든 PictureBox를 없앴는지 확인
+                if (AllPicturesCleared())
                 {
-                    for (int j = 0; j < BOARD_HEIGHT; j++)
-                    {
-                        string buttonName = $"button_{i}_{j}";
-                        buttons[i, j] = this.Controls.Find(buttonName, true).FirstOrDefault() as Button;
-                        if (buttons[i, j] != null)
-                        {
-                            buttons[i, j].Click += TileButtonClick;
-                            //board[i, j] = buttons[i, j].Tag?.ToString() ?? ""; // 실제 타일 종류 설정 필요
-                            // 임시로 테스트용 타일 설정
-                            board[i, j] = (i + j) % 2 == 0 ? "bamboo1" : "";
-                        }
-                    }
+                    gameTimer.Stop();
+                    AddTimeBonus(); // 남은 시간 점수 추가
+                    Result scoreForm = new Result(score);
+                    scoreForm.ShowDialog();
+                    this.Close();
                 }
             }
-
-            // 타일 버튼 클릭 이벤트 핸들러
-            private void TileButtonClick(object sender, EventArgs e)
+            else
             {
-                Button clickedButton = sender as Button;
-                if (clickedButton == null) return;
-
-                int x = clickedButton.Location.X / clickedButton.Width;
-                int y = clickedButton.Location.Y / clickedButton.Height;
-                Point clickedTile = new Point(x, y);
-
-                if (selectedTile1 == new Point(-1, -1)) // 첫 번째 타일 선택
-                {
-                    selectedTile1 = clickedTile;
-                    clickedButton.BackColor = Color.Yellow; // 선택된 타일 표시
-                }
-                else if (selectedTile2 == new Point(-1, -1)) // 두 번째 타일 선택
-                {
-                    selectedTile2 = clickedTile;
-                    clickedButton.BackColor = Color.Yellow;
-
-                    if (FindPath(selectedTile1, selectedTile2))
-                    {
-                        // 경로 찾음, 처리 (타일 제거 및 UI 업데이트)
-                        board[selectedTile1.X, selectedTile1.Y] = "";
-                        board[selectedTile2.X, selectedTile2.Y] = "";
-                        buttons[selectedTile1.X, selectedTile1.Y].Visible = false;
-                        buttons[selectedTile2.X, selectedTile2.Y].Visible = false;
-                        ResetTileColors();
-                    }
-                    else
-                    {
-                        // 경로 없음, 메시지 출력 등
-                        MessageBox.Show("경로를 찾을 수 없습니다.");
-                        ResetTileColors();
-                    }
-
-                    selectedTile1 = new Point(-1, -1);
-                    selectedTile2 = new Point(-1, -1);
-                }
+                // 매칭되지 않으면 테두리 초기화
+                firstClicked.Padding = new Padding(0);
+                firstClicked.BackColor = Color.Transparent;
+                secondClicked.Padding = new Padding(0);
+                secondClicked.BackColor = Color.Transparent;
             }
 
-            // 깊이 우선 탐색 (DFS) 알고리즘
-            private bool FindPath(Point start, Point end)
+            firstClicked = null;
+            secondClicked = null;
+        }
+
+        // 경로의 꺾임 횟수 계산 메서드
+        private bool CheckPathAndHide()
+        {
+            Tuple<int, int> firstIndex = FindIndex(firstClicked);
+            Tuple<int, int> secondIndex = FindIndex(secondClicked);
+
+            MessageBox.Show("start: " + firstIndex.Item1 +  " " + firstIndex.Item2 + " " + firstClicked.Tag);
+
+            // 유효한 인덱스인지 확인 (-1, -1이 아닌 경우)
+            if (firstIndex.Item1 != -1 && firstIndex.Item2 != -1 &&
+                secondIndex.Item1 != -1 && secondIndex.Item2 != -1)
             {
-                var visited = new HashSet<Point>();
-                var stack = new Stack<(Point, int)>(); // (좌표, 꺾인 횟수)
-                stack.Push((start, 0));
-
-                while (stack.Count > 0)
-                {
-                    var (current, turns) = stack.Pop();
-                    visited.Add(current);
-
-                    if (current == end)
-                        return true; // 경로 찾음
-
-                    foreach (var neighbor in GetNeighbors(current))
-                    {
-                        if (!visited.Contains(neighbor) && IsValidTurn(current, neighbor, turns))
-                            stack.Push((neighbor, turns + (IsTurn(current, neighbor) ? 1 : 0)));
-                    }
-                }
-                return false; // 경로 없음
+                return FindPathWithMaxTwoBends(firstIndex, secondIndex);
             }
-
-            // 이웃 칸 좌표 반환
-            private List<Point> GetNeighbors(Point current)
+            else
             {
-                var neighbors = new List<Point>();
-                int[] dx = { -1, 0, 1, 0 };
-                int[] dy = { 0, -1, 0, 1 };
-
-                for (int i = 0; i < 4; i++)
-                {
-                    int nx = current.X + dx[i];
-                    int ny = current.Y + dy[i];
-                    if (nx >= 0 && nx < BOARD_WIDTH && ny >= 0 && ny < BOARD_HEIGHT && board[nx, ny] == "")
-                        neighbors.Add(new Point(nx, ny));
-                }
-                return neighbors;
-            }
-
-            // 유효한 이동인지 판단 (꺾임 횟수, 장애물, 경로 길이)
-            private bool IsValidTurn(Point current, Point next, int turns)
-            {
-                return turns < 2 && !HasObstacleBetween(current, next) && GetDistance(current, next) <= 2;
-            }
-
-            // 직각으로 꺾이는 이동인지 판단
-            private bool IsTurn(Point current, Point next)
-            {
-                return current.X != next.X && current.Y != next.Y;
-            }
-
-            // 두 칸 사이에 장애물이 있는지 판단 (Bresenham's line algorithm)
-            private bool HasObstacleBetween(Point start, Point end)
-            {
-                int dx = Math.Abs(end.X - start.X);
-                int dy = Math.Abs(end.Y - start.Y);
-                int sx = (start.X < end.X) ? 1 : -1;
-                int sy = (start.Y < end.Y) ? 1 : -1;
-                int err = dx - dy;
-                int x = start.X;
-                int y = start.Y;
-
-                while (true)
-                {
-                    if (x == end.X && y == end.Y) break; // 목표 지점 도달
-                    if (board[x, y] != "") return true; // 장애물 발견
-
-                    int e2 = 2 * err;
-                    if (e2 > -dy) { err -= dy; x += sx; }
-                    if (e2 < dx) { err += dx; y += sy; }
-                }
-                return false; // 장애물 없음
-            }
-
-            // 두 칸 사이의 거리 계산
-            private int GetDistance(Point p1, Point p2)
-            {
-                return Math.Abs(p1.X - p2.X) + Math.Abs(p1.Y - p2.Y);
-            }
-
-            // 타일 색상 초기화
-            private void ResetTileColors()
-            {
-                foreach (Button button in buttons)
-                {
-                    button.BackColor = default(Color); // 기본 색상으로 변경
-                }
+                // 잘못된 클릭 처리 (예: 메시지 박스 표시)
+                MessageBox.Show("Invalid tile selection.");
+                return false;
             }
         }
-    }
 
-}
+        // 2차원 배열에서 PictureBox 찾기
+        private Tuple<int, int> FindIndex(PictureBox pictureBox)
+        {
+            for (int col = 0; col < COLS; col++)
+            {
+                for (int row = 0; row < ROWS; row++)
+                {
+                    if (graph[row, col] == pictureBox)
+                    {
+                        return Tuple.Create(row, col); // 열, 행 순서로 튜플 생성
+                    }
+                }
+            }
+            return Tuple.Create(-1, -1); // PictureBox를 찾지 못한 경우 (-1, -1) 튜플 반환
+        }
+
+        private List<Tuple<int, int>> GetNextPoints(Tuple<int, int> current, HashSet<Tuple<int, int>> visited)
+        {
+            List<Tuple<int, int>> nextPoints = new List<Tuple<int, int>>();
+            int x = current.Item1;
+            int y = current.Item2;
+
+            if (y > 0)
+            {
+                MessageBox.Show("find: " + graph[x, y - 1].Tag + " " + graph[x, y].Tag);
+                if (graph[x, y - 1].Tag == null || graph[x, y - 1].Tag.Equals(graph[x, y].Tag))
+                {
+                    nextPoints.Add(Tuple.Create(x, y - 1));
+                }
+            }
+            
+            if (y < 14)
+            {
+                MessageBox.Show("find: " + graph[x, y + 1].Tag + " " + graph[x, y].Tag);
+
+                if (graph[x, y + 1].Tag == null || graph[x, y + 1].Tag.Equals(graph[x, y].Tag))
+                {
+                    nextPoints.Add(Tuple.Create(x, y + 1));
+                }
+            }   
+            if (x > 0)
+            {
+                MessageBox.Show("find: " + graph[x - 1, y].Tag + " " + graph[x, y].Tag);
+
+                if (graph[x - 1, y].Tag == null || graph[x - 1, y].Tag.Equals(graph[x, y].Tag))
+                {
+                    nextPoints.Add(Tuple.Create(x - 1, y));
+                }
+            }
+                
+            if (x < 6)
+            {
+                MessageBox.Show("find: " + graph[x + 1, y].Tag + " " + graph[x, y].Tag);
+
+                if (graph[x + 1, y].Tag == null || graph[x + 1, y].Tag.Equals(graph[x, y].Tag))
+                {
+                    nextPoints.Add(Tuple.Create(x + 1, y));
+                }
+            }
+                
+
+            return nextPoints;
+        }
+
+        private bool FindPathWithMaxTwoBends(Tuple<int, int> start, Tuple<int, int> end)
+        {
+            Stack<(Tuple<int, int> node, int bends)> stack = new Stack<(Tuple<int, int>, int)>();
+            HashSet<Tuple<int, int>> visited = new HashSet<Tuple<int, int>>();
+
+            stack.Push((start, 0)); // 시작 노드와 꺾임 횟수 0을 스택에 추가
+
+            while (stack.Count > 0)
+            {
+                var (current, bends) = stack.Pop(); // 스택에서 노드와 꺾임 횟수를 가져옴
+
+                if (graph[current.Item1, current.Item2].Equals(graph[end.Item1, end.Item2]))
+                {
+                    return bends <= 2; // 목표 지점에 도착했고 꺾임 횟수가 2 이하이면 true 반환
+                }
+
+                if (bends > 2 || visited.Contains(current))
+                {
+                    continue; // 조건에 맞지 않으면 다음 노드 탐색
+                }
+
+                visited.Add(current); // 현재 노드를 방문했다고 표시
+
+                foreach (Tuple<int, int> next in GetNextPoints(current, visited))
+                {
+                    stack.Push((next, bends + (IsBend(current, next) ? 1 : 0))); // 다음 노드와 꺾임 횟수를 스택에 추가
+                }
+            }
+
+            return false; // 스택이 비어있으면 경로를 찾지 못한 것
+        }
+
+
+        private bool IsBend(Tuple<int, int> current, Tuple<int, int> next)
+        {
+            return current.Item1 != next.Item1 && current.Item2 != next.Item2;
+        }
+
+        /*private bool IsObstacle(Tuple<int, int> point)
+        {
+            int x = point.Item1;
+            int y = point.Item2;
+
+            if (x < 0 || x >= COLS || y < 0 || y >= ROWS)
+                return false; // 범위를 벗어나는 경우는 장애물이 아님
+
+            return graph[x, y] != null && graph[x, y].Visible;
+        }
+
+
+
+        /*private bool IsObstacle(Tuple<int, int> point)
+        {
+            int x = point.Item1;
+            int y = point.Item2;
+
+            // 범위를 벗어나는 경우 false 반환 (장애물이 아님)
+            if (x < 0 || x >= COLS || y < 0 || y >= ROWS)
+                return false;
+
+            return graph[x, y] != null && graph[x, y].Visible; // 행, 열 순서에 유의 (수정됨)
+        }*/
+    }
 }

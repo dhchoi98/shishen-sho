@@ -1205,6 +1205,7 @@
             this.pictureBox66.TabIndex = 65;
             this.pictureBox66.TabStop = false;
             this.pictureBox66.Tag = "Image17";
+            this.pictureBox66.Click += new System.EventHandler(this.pictureBox66_Click);
             // 
             // pictureBox67
             // 
