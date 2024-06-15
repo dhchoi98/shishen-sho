@@ -113,7 +113,6 @@ namespace shishen_sho
                     {
                         p2Ready = true;
                         Console.WriteLine("게스트가 준비 완료 상태입니다.");
-                        isBroadcasting = false;
                         UpdateRoomStatus();
                     }
                     else
@@ -140,6 +139,12 @@ namespace shishen_sho
         {
             UdpClient udpClient = new UdpClient();
             udpClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+
+            UdpClient receiveUdpClient = new UdpClient();
+            receiveUdpClient.Client.ReceiveTimeout = 2000; // 수신 타임아웃 2초 설정
+
+            IPEndPoint receiveEndPoint = new IPEndPoint(IPAddress.Any, 8889);
+            receiveUdpClient.Client.Bind(receiveEndPoint);
 
             try
             {
@@ -213,6 +218,8 @@ namespace shishen_sho
 
         private void StopThreads()
         {
+            
+
             if (broadcastThread != null && broadcastThread.IsAlive)
             {
                 broadcastThread.Abort();
@@ -253,10 +260,19 @@ namespace shishen_sho
             }
         }
         
-        // 스타트 버튼
+        // 게임시작  버튼
         private void metroButton2_Click(object sender, EventArgs e)
         {
+            MultiPlay_InGame inGame = new MultiPlay_InGame(5);
 
+            this.Hide();
+            inGame.Show();
+
+            isBroadcasting = false;
+            isSendingGuest = false;
+
+            Thread.Sleep(3000);
+            StopThreads();
         }
 
         private void MultiPlay_InRoom_Load(object sender, EventArgs e)

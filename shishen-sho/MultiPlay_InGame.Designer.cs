@@ -1,6 +1,6 @@
 ﻿namespace shishen_sho
 {
-    partial class InGame
+    partial class MultiPlay_InGame
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InGame));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MultiPlay_InGame));
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
             this.timeLabel = new MetroFramework.Controls.MetroLabel();
             this.progressBar = new MetroFramework.Controls.MetroProgressBar();

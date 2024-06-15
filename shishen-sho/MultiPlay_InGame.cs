@@ -14,14 +14,14 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
 
 namespace shishen_sho
 {
-    public partial class InGame : MetroFramework.Forms.MetroForm
+    public partial class MultiPlay_InGame : MetroFramework.Forms.MetroForm
     {
         // 클릭한 PictureBox를 저장해주는 변수 2개
         private PictureBox firstClicked = null;
         private PictureBox secondClicked = null;
         private int totalTime;
         private int score;
-        public InGame(int minutes)
+        public MultiPlay_InGame(int minutes)
         {
             InitializeComponent();
             InitializePictureBoxEvents();
@@ -43,6 +43,9 @@ namespace shishen_sho
             score = 0;
             lblScore.Text = "Score: 0";
             this.Controls.Add(lblScore);
+
+             
+
         }
         private void InitializePictureBoxEvents()
         {
@@ -190,7 +193,13 @@ namespace shishen_sho
             ShufflePictureBoxes();
 
             MultiPlay_MessageBox messageBox = new MultiPlay_MessageBox();
-            messageBox.Show();
+            this.Enabled = false;
+
+            messageBox.ShowDialog();
+
+
+            // 소켓 연결
+
         }
         private void ShufflePictureBoxes()
         {
