@@ -7,15 +7,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net;
+using System.Net.Sockets;
+using System.Threading;
+
 
 namespace shishen_sho
 {
     public partial class MultiPlay : MetroFramework.Forms.MetroForm
     {
-        public MultiPlay()
+        Main main = null;
+        public MultiPlay(Main main)
         {
             InitializeComponent();
+            this.main = main;
         }
+
 
         private void MultiPlay_Load(object sender, EventArgs e)
         {
@@ -29,9 +36,25 @@ namespace shishen_sho
 
         private void metroButton1_Click(object sender, EventArgs e)
         {
-            MultiPlay_CreateRoom createRoom = new MultiPlay_CreateRoom(textBox1.Text);
+            MultiPlay_InRoom inRoom = new MultiPlay_InRoom(textBox1.Text, this);
             this.Hide();
-            createRoom.Show();
+            inRoom.Show();
+        }
+
+
+     
+
+        private void metroButton3_Click(object sender, EventArgs e)
+        { 
+            main.Show(); 
+            this.Close();
+        }
+
+        private void metroButton2_Click(object sender, EventArgs e)
+        {
+            MultiPlay_ShowRoom showRoom = new MultiPlay_ShowRoom(textBox1.Text, this);
+            this.Hide();
+            showRoom.Show();
         }
     }
 }

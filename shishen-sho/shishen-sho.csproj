@@ -55,11 +55,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MultiPlay_CreateRoom.cs">
+    <Compile Include="MultiPlay_InRoom.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MultiPlay_CreateRoom.Designer.cs">
-      <DependentUpon>MultiPlay_CreateRoom.cs</DependentUpon>
+    <Compile Include="MultiPlay_InRoom.Designer.cs">
+      <DependentUpon>MultiPlay_InRoom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MultiPlay_ShowRoom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MultiPlay_ShowRoom.Designer.cs">
+      <DependentUpon>MultiPlay_ShowRoom.cs</DependentUpon>
     </Compile>
     <Compile Include="Pause.cs">
       <SubType>Form</SubType>
@@ -111,8 +117,11 @@
     <Compile Include="Score.Designer.cs">
       <DependentUpon>Score.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="MultiPlay_CreateRoom.resx">
-      <DependentUpon>MultiPlay_CreateRoom.cs</DependentUpon>
+    <EmbeddedResource Include="MultiPlay_InRoom.resx">
+      <DependentUpon>MultiPlay_InRoom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MultiPlay_ShowRoom.resx">
+      <DependentUpon>MultiPlay_ShowRoom.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pause.resx">
       <DependentUpon>Pause.cs</DependentUpon>
