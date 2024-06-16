@@ -10,11 +10,12 @@ using System.Windows.Forms;
 
 namespace shishen_sho
 {
-    public partial class Main : Form
+    public partial class Result : MetroFramework.Forms.MetroForm
     {
-        public Main()
+        public Result(int finalScore)
         {
             InitializeComponent();
+            lblFinalScore.Text = "최종 점수: " + finalScore;
         }
     }
 }

@@ -41,7 +41,7 @@ namespace shishen_sho
 
         private void btnMulti_Click_1(object sender, EventArgs e)
         {
-            MultiPlay multi = new MultiPlay();
+            MultiPlay multi = new MultiPlay(this);
             this.Hide();
             multi.Show();
         }
