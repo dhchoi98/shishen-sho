@@ -291,6 +291,7 @@ namespace shishen_sho
         // 두 개의 클릭된 PictureBox를 비교하는 메소드
         private async void CheckForMatch()
         {
+            MessageBox.Show("CheckFOrMatch");
             // 이미지의 Tag를 비교하여 동일한 경우 두 PictureBox를 숨김
             if (firstClicked.Tag != null && secondClicked.Tag != null &&
                 firstClicked.Tag.ToString() == secondClicked.Tag.ToString() && CheckPathAndHide()) //여기 마지막 조건이 없엇어서 그냥 Tag가 같으면 지웠음
@@ -336,7 +337,8 @@ namespace shishen_sho
             Tuple<int, int> firstIndex = FindIndex(firstClicked);
             Tuple<int, int> secondIndex = FindIndex(secondClicked);
 
-            MessageBox.Show("start: " + firstIndex.Item1 +  " " + firstIndex.Item2 + " " + firstClicked.Tag);
+            MessageBox.Show("start: " + firstIndex.Item1 +  " " + firstIndex.Item2 + " " + firstClicked.Tag +
+                "\n" + "end : " + secondIndex.Item1  + " " + secondIndex.Item2 + " " + secondClicked.Tag );
 
             // 유효한 인덱스인지 확인 (-1, -1이 아닌 경우)
             if (firstIndex.Item1 != -1 && firstIndex.Item2 != -1 &&
@@ -376,7 +378,9 @@ namespace shishen_sho
 
             if (y > 0)
             {
-                MessageBox.Show("find: " + graph[x, y - 1].Tag + " " + graph[x, y].Tag);
+                MessageBox.Show("start: "  + x  + ", " + (y-1) + " tag : "+ graph[x, y - 1].Tag + "\n " + "end: " + x + ", " + y + " tag : " +graph[x, y].Tag );
+                
+
                 if (graph[x, y - 1].Tag == null || graph[x, y - 1].Tag.Equals(graph[x, y].Tag))
                 {
                     nextPoints.Add(Tuple.Create(x, y - 1));
@@ -385,7 +389,7 @@ namespace shishen_sho
             
             if (y < 14)
             {
-                MessageBox.Show("find: " + graph[x, y + 1].Tag + " " + graph[x, y].Tag);
+                MessageBox.Show("start: "  + x + ", " + (y + 1) + " tag : " + graph[x, y + 1].Tag + "\n " + "end: " + x + ", " + y + " tag : " + graph[x, y].Tag);
 
                 if (graph[x, y + 1].Tag == null || graph[x, y + 1].Tag.Equals(graph[x, y].Tag))
                 {
@@ -394,7 +398,7 @@ namespace shishen_sho
             }   
             if (x > 0)
             {
-                MessageBox.Show("find: " + graph[x - 1, y].Tag + " " + graph[x, y].Tag);
+                MessageBox.Show("start: " + (x-1) + ", " + y + " tag : " + graph[x - 1, y].Tag + "\n " + "end: " + x + ", " + y + " tag : " + graph[x, y].Tag);
 
                 if (graph[x - 1, y].Tag == null || graph[x - 1, y].Tag.Equals(graph[x, y].Tag))
                 {
@@ -404,7 +408,7 @@ namespace shishen_sho
                 
             if (x < 6)
             {
-                MessageBox.Show("find: " + graph[x + 1, y].Tag + " " + graph[x, y].Tag);
+                MessageBox.Show("start: " + (x + 1) + ", " + y + " tag : " + graph[x + 1, y].Tag + "\n " + "end: " + x + ", " + y + " tag : " + graph[x, y].Tag);
 
                 if (graph[x + 1, y].Tag == null || graph[x + 1, y].Tag.Equals(graph[x, y].Tag))
                 {
@@ -452,6 +456,11 @@ namespace shishen_sho
         private bool IsBend(Tuple<int, int> current, Tuple<int, int> next)
         {
             return current.Item1 != next.Item1 && current.Item2 != next.Item2;
+        }
+
+        private void progressBar_Click(object sender, EventArgs e)
+        {
+
         }
 
         /*private bool IsObstacle(Tuple<int, int> point)
