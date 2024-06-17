@@ -21,6 +21,7 @@ namespace shishen_sho
         private PictureBox secondClicked = null;
         private int totalTime;
         private int score;
+        private int difficulty;
         public InGame(int minutes)
         {
             InitializeComponent();
@@ -43,6 +44,7 @@ namespace shishen_sho
             score = 0;
             lblScore.Text = "Score: 0";
             this.Controls.Add(lblScore);
+            difficulty = minutes;
         }
         private void InitializePictureBoxEvents()
         {
@@ -127,6 +129,9 @@ namespace shishen_sho
                 {
                     gameTimer.Stop();
                     AddTimeBonus(); // 남은 시간 점수 추가
+                    Score sendScore = new Score();
+                    sendScore.AddScore(score, difficulty);
+                    sendScore.Show();
                     Result scoreForm = new Result(score);
                     scoreForm.ShowDialog();
                     this.Close();
