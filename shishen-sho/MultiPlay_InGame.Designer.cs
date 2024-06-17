@@ -1,6 +1,6 @@
 ﻿namespace shishen_sho
 {
-    partial class InGame
+    partial class MultiPlay_InGame
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InGame));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MultiPlay_InGame));
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
             this.timeLabel = new MetroFramework.Controls.MetroLabel();
             this.progressBar = new MetroFramework.Controls.MetroProgressBar();
@@ -166,7 +166,6 @@
             this.Quit = new System.Windows.Forms.Button();
             this.btnPause = new System.Windows.Forms.Button();
             this.lblScore = new MetroFramework.Controls.MetroLabel();
-            this.remaininglbl = new MetroFramework.Controls.MetroLabel();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -1206,7 +1205,6 @@
             this.pictureBox66.TabIndex = 65;
             this.pictureBox66.TabStop = false;
             this.pictureBox66.Tag = "Image17";
-            this.pictureBox66.Click += new System.EventHandler(this.pictureBox66_Click);
             // 
             // pictureBox67
             // 
@@ -1930,23 +1928,11 @@
             this.lblScore.TabIndex = 6;
             this.lblScore.Text = "0";
             // 
-            // remaininglbl
-            // 
-            this.remaininglbl.AutoSize = true;
-            this.remaininglbl.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.remaininglbl.FontWeight = MetroFramework.MetroLabelWeight.Bold;
-            this.remaininglbl.Location = new System.Drawing.Point(234, 872);
-            this.remaininglbl.Name = "remaininglbl";
-            this.remaininglbl.Size = new System.Drawing.Size(71, 25);
-            this.remaininglbl.TabIndex = 7;
-            this.remaininglbl.Text = "남은 패";
-            // 
             // InGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1664, 1006);
-            this.Controls.Add(this.remaininglbl);
             this.Controls.Add(this.lblScore);
             this.Controls.Add(this.btnPause);
             this.Controls.Add(this.Quit);
@@ -2233,6 +2219,5 @@
         private System.Windows.Forms.Button Quit;
         private System.Windows.Forms.Button btnPause;
         private MetroFramework.Controls.MetroLabel lblScore;
-        private MetroFramework.Controls.MetroLabel remaininglbl;
     }
 }
