@@ -16,60 +16,84 @@ namespace shishen_sho
 {
     public partial class InGame : MetroFramework.Forms.MetroForm
     {
-        // 클릭한 PictureBox를 저장해주는 변수 2개
         private PictureBox firstClicked = null;
         private PictureBox secondClicked = null;
         private int totalTime;
         private int score;
+        private const int ROWS = 8;
+        private const int COLS = 16;
+        private PictureBox[,] graph = new PictureBox[ROWS, COLS];
+        private List<Tuple<int, int>> currentPath = null; // 경로를 저장할 변수
         private int difficulty;
+        
         public InGame(int minutes)
         {
             InitializeComponent();
-            InitializePictureBoxEvents();
-            // 타이머 1초마다 초기화
+            InitializeGraph();
+
+            this.Paint += InGame_Paint; // Paint 이벤트 등록
+
             gameTimer.Interval = 1000;
             gameTimer.Tick += GameTimer_Tick;
             gameTimer.Start();
-            // 시간을 표시할 라벨 초기화
+
             this.Controls.Add(timeLabel);
-            // 게임 시작 시간 설정
             TimeLeft = TimeSpan.FromMinutes(minutes);
 
             progressBar.Style = MetroColorStyle.Silver;
             totalTime = minutes * 60;
             progressBar.Minimum = 0;
             progressBar.Maximum = totalTime;
-            progressBar.Value = progressBar.Maximum;  // 시작 값은 0에서 시작
-            
+            progressBar.Value = progressBar.Maximum;
+
             score = 0;
             lblScore.Text = "Score: 0";
             this.Controls.Add(lblScore);
             difficulty = minutes;
         }
-        private void InitializePictureBoxEvents()
+
+        private void InitializeGraph()
         {
-            // 폼에 있는 128개의 PictureBox를 반복하여 이벤트 핸들러를 등록
             for (int i = 1; i <= 128; i++)
             {
-                // 이름을 통해 PictureBox를 찾음
                 PictureBox pictureBox = this.Controls.Find("pictureBox" + i, true).FirstOrDefault() as PictureBox;
+
                 if (pictureBox != null)
                 {
-                    // PictureBox에 클릭 이벤트 핸들러 추가
-                    pictureBox.Click += new EventHandler(PictureBox_Click);
+                    if (i <= 64)
+                    {
+                        int row = ((i - 1) / 8) + 1; // 행 계산
+                        int col = ((i - 1) % 8) + 1; // 열 계산
+                        graph[row, col] = pictureBox;
+                        pictureBox.Click += new EventHandler(PictureBox_Click);
+                    }
+                    else
+                    {
+                        int row = ((i - 65) / 8) + 1;
+                        int col = 9 + (i - 65) % 8;
+                        graph[row, col] = pictureBox;
+                        pictureBox.Click += new EventHandler(PictureBox_Click);
+                    }
                 }
+            }
+            for(int i = 0; i < 18; i ++)
+            {
+                PictureBox picture = new PictureBox();
+                picture.Tag = null;
+                graph[0, i] = picture;
+                graph[i, 0] = picture;
+                graph[i, 17] = picture;
+                graph[8, i] = picture;
             }
         }
 
         private void PictureBox_Click(object sender, EventArgs e)
         {
-            // 두 개의 PictureBox가 이미 선택된 경우 더 이상 처리하지 않음
             if (firstClicked != null && secondClicked != null)
                 return;
 
-            // 클릭된 PictureBox를 가져옴
             PictureBox clickedPictureBox = sender as PictureBox;
-            // 이미 선택된 PictureBox를 다시 클릭하면 선택 취소
+
             if (firstClicked == clickedPictureBox)
             {
                 firstClicked.Padding = new Padding(0);
@@ -85,11 +109,10 @@ namespace shishen_sho
                 secondClicked = null;
                 return;
             }
-            // 클릭된 PictureBox가 null이거나 이미지가 없는 경우 처리하지 않음
+
             if (clickedPictureBox == null || clickedPictureBox.Image == null)
                 return;
 
-            // 첫 번째 클릭
             if (firstClicked == null)
             {
                 firstClicked = clickedPictureBox;
@@ -98,7 +121,6 @@ namespace shishen_sho
                 return;
             }
 
-            // 두 번째 클릭
             if (firstClicked != null && firstClicked != clickedPictureBox)
             {
                 secondClicked = clickedPictureBox;
@@ -108,48 +130,7 @@ namespace shishen_sho
             }
         }
 
-        // 두 개의 클릭된 PictureBox를 비교하는 메소드
-        private async void CheckForMatch()
-        {
-            // 이미지의 Tag를 비교하여 동일한 경우 두 PictureBox를 숨김
-            if (firstClicked.Tag != null && secondClicked.Tag != null &&
-                firstClicked.Tag.ToString() == secondClicked.Tag.ToString())
-            {
-                await Task.Delay(300); // 딜레이//
-                firstClicked.Hide();
-                secondClicked.Hide();
-
-                score += 500; // 패 매칭 성공 시 점수 500점 추가
-                lblScore.Text = "Score: " + score;
-                
-                RemainingLabel();
-
-                // 모든 PictureBox를 없앴는지 확인
-                if (AllPicturesCleared())
-                {
-                    gameTimer.Stop();
-                    AddTimeBonus(); // 남은 시간 점수 추가
-                    Score sendScore = new Score();
-                    sendScore.AddScore(score, difficulty);
-                    sendScore.Show();
-                    Result scoreForm = new Result(score);
-                    scoreForm.ShowDialog();
-                    this.Close();
-                }
-            }
-            else
-            {
-                // 매칭되지 않으면 테두리 초기화
-                firstClicked.Padding = new Padding(0);
-                firstClicked.BackColor = Color.Transparent;
-                secondClicked.Padding = new Padding(0);
-                secondClicked.BackColor = Color.Transparent;
-            }
-
-            firstClicked = null;
-            secondClicked = null;
-        }
-        private bool AllPicturesCleared() // 모든 타일을 없애면 CLEAR
+        private bool AllPicturesCleared()
         {
             for (int i = 1; i <= 128; i++)
             {
@@ -161,7 +142,8 @@ namespace shishen_sho
             }
             return true;
         }
-        private void RemainingLabel() // 남은 패가 몇개인지 보여줌
+
+        private void RemainingLabel()
         {
             int remainingCount = 0;
             for (int i = 1; i <= 128; i++)
@@ -174,48 +156,43 @@ namespace shishen_sho
             }
             remaininglbl.Text = "남은 패: " + remainingCount + "개";
         }
-        private void AddTimeBonus() // 시간 남으면 보너스점수로 전환(초당 100점)
+
+        private void AddTimeBonus()
         {
             int timeBonus = (int)TimeLeft.TotalSeconds * 100;
             score += timeBonus;
             lblScore.Text = "Score: " + score;
         }
-        private TimeSpan TimeLeft;
 
+        private TimeSpan TimeLeft;
 
         private void GameTimer_Tick(object sender, EventArgs e)
         {
-            // 시간 감소
             TimeLeft -= TimeSpan.FromSeconds(1);
             progressBar.Value -= 1;
-            if (progressBar.Value < progressBar.Maximum / 2) // 제한시간 반 남으면 분홍색
+            if (progressBar.Value < progressBar.Maximum / 2)
                 progressBar.Style = MetroColorStyle.Pink;
-            if (progressBar.Value < 60)  // 제한시간 1분 남으면 빨간색
+            if (progressBar.Value < 60)
                 progressBar.Style = MetroColorStyle.Red;
-            // 시간 표시 업데이트
             timeLabel.Text = TimeLeft.ToString("mm':'ss");
-            // 시간이 0이 되면 타이머 중지
             if (TimeLeft <= TimeSpan.Zero)
             {
-            
                 gameTimer.Stop();
                 MessageBox.Show("실패하였습니다");
                 this.Close();
             }
         }
 
-
         private void InGame_Load(object sender, EventArgs e)
         {
             ShufflePictureBoxes();
             RemainingLabel();
         }
+
         private void ShufflePictureBoxes()
         {
-            // 모든 PictureBox를 리스트에 저장
             List<PictureBox> pictureBoxes = new List<PictureBox>();
 
-            // 128개의 PictureBox 중에서 숨겨지지 않은 PictureBox만 리스트에 추가
             for (int i = 1; i <= 128; i++)
             {
                 PictureBox pictureBox = this.Controls.Find("pictureBox" + i, true).FirstOrDefault() as PictureBox;
@@ -225,39 +202,34 @@ namespace shishen_sho
                 }
             }
 
-            // 랜덤하게 섞기 위해 Random 객체 생성
             Random random = new Random();
 
-            // Fisher-Yates shuffle 알고리즘을 사용하여 리스트를 섞음
             for (int i = pictureBoxes.Count - 1; i > 0; i--)
             {
                 int j = random.Next(i + 1);
-                // 두 PictureBox의 이미지를 교환
                 Image tempImage = pictureBoxes[i].Image;
                 pictureBoxes[i].Image = pictureBoxes[j].Image;
                 pictureBoxes[j].Image = tempImage;
 
-                // 두 PictureBox의 태그를 교환
                 object tempTag = pictureBoxes[i].Tag;
                 pictureBoxes[i].Tag = pictureBoxes[j].Tag;
                 pictureBoxes[j].Tag = tempTag;
             }
             RemainingLabel();
         }
+
         private void ShuffleButton_Click(object sender, EventArgs e)
         {
             ShufflePictureBoxes();
-            score -= 3000; // 셔플 버튼 클릭 시 점수 3000점 감소
-            if (score < 0) score = 0; // 점수가 음수인 경우는 제외했음
+            score -= 3000;
+            if (score < 0) score = 0;
             lblScore.Text = "Score: " + score;
         }
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
-            // 모든 PictureBox를 리스트에 저장
             List<PictureBox> pictureBoxes = new List<PictureBox>();
 
-            // 128개의 PictureBox 중에서 숨겨지지 않은 PictureBox만 리스트에 추가
             for (int i = 1; i <= 128; i++)
             {
                 PictureBox pictureBox = this.Controls.Find("pictureBox" + i, true).FirstOrDefault() as PictureBox;
@@ -270,18 +242,15 @@ namespace shishen_sho
 
         private void btnPause_Click(object sender, EventArgs e)
         {
-            //타이머 일시정지
             gameTimer.Stop();
-            //modal 대화상자로 정지하는 동안 상호작용할 수 없게 만듦.
             Pause pause = new Pause();
             DialogResult dialog = pause.ShowDialog();
 
-            //continue 버튼을 누른 경우. 타이머 이어서 시작.
-            if(dialog == DialogResult.OK)
-            {                
+            if (dialog == DialogResult.OK)
+            {
                 gameTimer.Start();
-            }//restart 버튼을 누른 경우.
-            else if(dialog == DialogResult.Cancel)
+            }
+            else if (dialog == DialogResult.Cancel)
             {
                 this.Close();
             }
@@ -292,9 +261,159 @@ namespace shishen_sho
             Application.Exit();
         }
 
-        private void progressBar_Click(object sender, EventArgs e)
+        private void pictureBox66_Click(object sender, EventArgs e)
         {
-
         }
+
+        private List<Tuple<int, int>> CheckPathAndHide()
+        {
+            Tuple<int, int> firstIndex = FindIndex(firstClicked);
+            Tuple<int, int> secondIndex = FindIndex(secondClicked);
+
+            if (firstIndex.Item1 != -1 && firstIndex.Item2 != -1 &&
+                secondIndex.Item1 != -1 && secondIndex.Item2 != -1)
+            {
+                return FindPathWithMaxThreeBends(firstIndex, secondIndex);
+            }
+            else
+            {
+                return null;
+            }
+        }
+        private void InGame_Paint(object sender, PaintEventArgs e)
+        {
+            if (currentPath != null && currentPath.Count > 1)
+            {
+                using (Pen pen = new Pen(Color.Red, 2))
+                {
+                    for (int i = 0; i < currentPath.Count - 1; i++)
+                    {
+                        var start = currentPath[i];
+                        var end = currentPath[i + 1];
+                        var startPoint = new Point(graph[start.Item1, start.Item2].Left + graph[start.Item1, start.Item2].Width / 2,
+                                                   graph[start.Item1, start.Item2].Top + graph[start.Item1, start.Item2].Height / 2);
+                        var endPoint = new Point(graph[end.Item1, end.Item2].Left + graph[end.Item1, end.Item2].Width / 2,
+                                                 graph[end.Item1, end.Item2].Top + graph[end.Item1, end.Item2].Height / 2);
+
+                        e.Graphics.DrawLine(pen, startPoint, endPoint);
+                    }
+                }
+            }
+        }
+        private async void CheckForMatch()
+        {
+            if (firstClicked.Tag != null && secondClicked.Tag != null &&
+                firstClicked.Tag.ToString() == secondClicked.Tag.ToString())
+            {
+                var path = CheckPathAndHide();
+                if (path != null)
+                {
+                    currentPath = path;
+                    this.Invalidate(); // 경로를 다시 그리기 위해 Invalidate 호출
+                    await Task.Delay(300); // 딜레이
+                    firstClicked.Tag = null;
+                    secondClicked.Tag = null;
+                    firstClicked.Hide();
+                    secondClicked.Hide();
+
+                    score += 500; // 패 매칭 성공 시 점수 500점 추가
+                    lblScore.Text = "Score: " + score;
+
+                    RemainingLabel();
+
+                    if (AllPicturesCleared())
+                    {
+                        gameTimer.Stop();
+                        AddTimeBonus(); // 남은 시간 점수 추가
+                        Result scoreForm = new Result(score);
+                        scoreForm.ShowDialog();
+                        this.Close();
+                    }
+                }
+                else
+                {
+                    firstClicked.Padding = new Padding(0);
+                    firstClicked.BackColor = Color.Transparent;
+                    secondClicked.Padding = new Padding(0);
+                    secondClicked.BackColor = Color.Transparent;
+                }
+
+                firstClicked = null;
+                secondClicked = null;
+            }
+        }
+
+
+
+        private Tuple<int, int> FindIndex(PictureBox pictureBox)
+        {
+            for (int col = 0; col < graph.GetLength(0); col++)
+            {
+                for (int row = 0; row < graph.GetLength(1); row++)
+                {
+                    if (graph[col, row] == pictureBox)
+                    {
+                        return Tuple.Create(col, row);
+                    }
+                }
+            }
+            return Tuple.Create(-1, -1);
+        }
+
+        private List<Tuple<int, int>> FindPathWithMaxThreeBends(Tuple<int, int> start, Tuple<int, int> end)
+        {
+            int startX = start.Item1, startY = start.Item2;
+            int endX = end.Item1, endY = end.Item2;
+
+            int[][] directions = new int[][]
+            {
+        new int[] { -1, 0 },
+        new int[] { 1, 0 },
+        new int[] { 0, -1 },
+        new int[] { 0, 1 }
+            };
+
+            Queue<Tuple<int, int, int, int, List<Tuple<int, int>>>> queue = new Queue<Tuple<int, int, int, int, List<Tuple<int, int>>>>();
+            bool[,] visited = new bool[ROWS, COLS];
+
+            queue.Enqueue(Tuple.Create(startX, startY, -1, 0, new List<Tuple<int, int>> { Tuple.Create(startX, startY) }));
+            visited[startX, startY] = true;
+
+            while (queue.Count > 0)
+            {
+                var node = queue.Dequeue();
+                int x = node.Item1;
+                int y = node.Item2;
+                int prevDir = node.Item3;
+                int bends = node.Item4;
+                var path = node.Item5;
+
+                if (x == endX && y == endY)
+                {
+                    return path;
+                }
+
+                for (int dir = 0; dir < 4; dir++)
+                {
+                    int nx = x + directions[dir][0];
+                    int ny = y + directions[dir][1];
+
+                    if (nx >= 0 && nx < ROWS && ny >= 0 && ny < COLS && !visited[nx, ny] && (graph[nx, ny].Tag == null || (nx == endX && ny == endY)))
+                    {
+                        int newBends = bends + (dir != prevDir ? 1 : 0);
+
+                        if (newBends <= 3)
+                        {
+                            var newPath = new List<Tuple<int, int>>(path) { Tuple.Create(nx, ny) };
+                            queue.Enqueue(Tuple.Create(nx, ny, dir, newBends, newPath));
+                            visited[nx, ny] = true;
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
     }
 }
