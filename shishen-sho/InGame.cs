@@ -20,8 +20,8 @@ namespace shishen_sho
         private PictureBox secondClicked = null;
         private int totalTime;
         private int score;
-        private const int ROWS = 10;
-        private const int COLS = 18;
+        private const int ROWS = 8;
+        private const int COLS = 16;
         private PictureBox[,] graph = new PictureBox[ROWS, COLS];
         private List<Tuple<int, int>> currentPath = null; // 경로를 저장할 변수
 
