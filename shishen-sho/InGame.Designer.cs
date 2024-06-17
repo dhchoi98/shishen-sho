@@ -34,6 +34,10 @@
             this.timeLabel = new MetroFramework.Controls.MetroLabel();
             this.progressBar = new MetroFramework.Controls.MetroProgressBar();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.ShuffleButton = new System.Windows.Forms.Button();
+            this.lblScore = new MetroFramework.Controls.MetroLabel();
+            this.remaininglbl = new MetroFramework.Controls.MetroLabel();
+            this.btnPause = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
@@ -162,11 +166,6 @@
             this.pictureBox126 = new System.Windows.Forms.PictureBox();
             this.pictureBox127 = new System.Windows.Forms.PictureBox();
             this.pictureBox128 = new System.Windows.Forms.PictureBox();
-            this.ShuffleButton = new System.Windows.Forms.Button();
-            this.Quit = new System.Windows.Forms.Button();
-            this.btnPause = new System.Windows.Forms.Button();
-            this.lblScore = new MetroFramework.Controls.MetroLabel();
-            this.remaininglbl = new MetroFramework.Controls.MetroLabel();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -314,11 +313,11 @@
             this.progressBar.Size = new System.Drawing.Size(1308, 19);
             this.progressBar.Style = MetroFramework.MetroColorStyle.Pink;
             this.progressBar.TabIndex = 1;
-            this.progressBar.Click += new System.EventHandler(this.progressBar_Click);
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.AllowDrop = true;
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(15)))), ((int)(((byte)(153)))));
             this.tableLayoutPanel1.ColumnCount = 16;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.25F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.25F));
@@ -478,6 +477,47 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1298, 756);
             this.tableLayoutPanel1.TabIndex = 2;
             this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
+            // 
+            // ShuffleButton
+            // 
+            this.ShuffleButton.Location = new System.Drawing.Point(1400, 60);
+            this.ShuffleButton.Name = "ShuffleButton";
+            this.ShuffleButton.Size = new System.Drawing.Size(91, 53);
+            this.ShuffleButton.TabIndex = 3;
+            this.ShuffleButton.Text = "Shuffle";
+            this.ShuffleButton.UseVisualStyleBackColor = true;
+            this.ShuffleButton.Click += new System.EventHandler(this.ShuffleButton_Click);
+            // 
+            // lblScore
+            // 
+            this.lblScore.AutoSize = true;
+            this.lblScore.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.lblScore.Location = new System.Drawing.Point(69, 872);
+            this.lblScore.Name = "lblScore";
+            this.lblScore.Size = new System.Drawing.Size(21, 25);
+            this.lblScore.TabIndex = 6;
+            this.lblScore.Text = "0";
+            // 
+            // remaininglbl
+            // 
+            this.remaininglbl.AutoSize = true;
+            this.remaininglbl.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.remaininglbl.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.remaininglbl.Location = new System.Drawing.Point(234, 872);
+            this.remaininglbl.Name = "remaininglbl";
+            this.remaininglbl.Size = new System.Drawing.Size(71, 25);
+            this.remaininglbl.TabIndex = 7;
+            this.remaininglbl.Text = "남은 패";
+            // 
+            // btnPause
+            // 
+            this.btnPause.Image = global::shishen_sho.Properties.Resources.pause;
+            this.btnPause.Location = new System.Drawing.Point(1400, 129);
+            this.btnPause.Name = "btnPause";
+            this.btnPause.Size = new System.Drawing.Size(91, 49);
+            this.btnPause.TabIndex = 5;
+            this.btnPause.UseVisualStyleBackColor = true;
+            this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
             // 
             // pictureBox1
             // 
@@ -1206,6 +1246,7 @@
             this.pictureBox66.TabIndex = 65;
             this.pictureBox66.TabStop = false;
             this.pictureBox66.Tag = "Image17";
+            this.pictureBox66.Click += new System.EventHandler(this.pictureBox66_Click);
             // 
             // pictureBox67
             // 
@@ -1889,57 +1930,6 @@
             this.pictureBox128.TabStop = false;
             this.pictureBox128.Tag = "Image32";
             // 
-            // ShuffleButton
-            // 
-            this.ShuffleButton.Location = new System.Drawing.Point(1400, 60);
-            this.ShuffleButton.Name = "ShuffleButton";
-            this.ShuffleButton.Size = new System.Drawing.Size(91, 53);
-            this.ShuffleButton.TabIndex = 3;
-            this.ShuffleButton.Text = "Shuffle";
-            this.ShuffleButton.UseVisualStyleBackColor = true;
-            this.ShuffleButton.Click += new System.EventHandler(this.ShuffleButton_Click);
-            // 
-            // Quit
-            // 
-            this.Quit.Location = new System.Drawing.Point(1400, 119);
-            this.Quit.Name = "Quit";
-            this.Quit.Size = new System.Drawing.Size(91, 49);
-            this.Quit.TabIndex = 4;
-            this.Quit.Text = "나가기";
-            this.Quit.UseVisualStyleBackColor = true;
-            this.Quit.Click += new System.EventHandler(this.Quit_Click);
-            // 
-            // btnPause
-            // 
-            this.btnPause.Image = global::shishen_sho.Properties.Resources.pause;
-            this.btnPause.Location = new System.Drawing.Point(1400, 174);
-            this.btnPause.Name = "btnPause";
-            this.btnPause.Size = new System.Drawing.Size(91, 49);
-            this.btnPause.TabIndex = 5;
-            this.btnPause.UseVisualStyleBackColor = true;
-            this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
-            // 
-            // lblScore
-            // 
-            this.lblScore.AutoSize = true;
-            this.lblScore.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.lblScore.Location = new System.Drawing.Point(69, 872);
-            this.lblScore.Name = "lblScore";
-            this.lblScore.Size = new System.Drawing.Size(21, 25);
-            this.lblScore.TabIndex = 6;
-            this.lblScore.Text = "0";
-            // 
-            // remaininglbl
-            // 
-            this.remaininglbl.AutoSize = true;
-            this.remaininglbl.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.remaininglbl.FontWeight = MetroFramework.MetroLabelWeight.Bold;
-            this.remaininglbl.Location = new System.Drawing.Point(234, 872);
-            this.remaininglbl.Name = "remaininglbl";
-            this.remaininglbl.Size = new System.Drawing.Size(71, 25);
-            this.remaininglbl.TabIndex = 7;
-            this.remaininglbl.Text = "남은 패";
-            // 
             // InGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -1948,7 +1938,6 @@
             this.Controls.Add(this.remaininglbl);
             this.Controls.Add(this.lblScore);
             this.Controls.Add(this.btnPause);
-            this.Controls.Add(this.Quit);
             this.Controls.Add(this.ShuffleButton);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.progressBar);
@@ -2229,7 +2218,6 @@
         private System.Windows.Forms.PictureBox pictureBox126;
         private System.Windows.Forms.PictureBox pictureBox127;
         private System.Windows.Forms.PictureBox pictureBox128;
-        private System.Windows.Forms.Button Quit;
         private System.Windows.Forms.Button btnPause;
         private MetroFramework.Controls.MetroLabel lblScore;
         private MetroFramework.Controls.MetroLabel remaininglbl;
