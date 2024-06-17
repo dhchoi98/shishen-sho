@@ -119,6 +119,8 @@ namespace shishen_sho
 
                 score += 500; // 패 매칭 성공 시 점수 500점 추가
                 lblScore.Text = "Score: " + score;
+                
+                RemainingLabel();
 
                 // 모든 PictureBox를 없앴는지 확인
                 if (AllPicturesCleared())
@@ -154,6 +156,19 @@ namespace shishen_sho
             }
             return true;
         }
+        private void RemainingLabel() // 남은 패가 몇개인지 보여줌
+        {
+            int remainingCount = 0;
+            for (int i = 1; i <= 128; i++)
+            {
+                PictureBox pictureBox = this.Controls.Find("pictureBox" + i, true).FirstOrDefault() as PictureBox;
+                if (pictureBox != null && pictureBox.Visible)
+                {
+                    remainingCount++;
+                }
+            }
+            remaininglbl.Text = "남은 패: " + remainingCount + "개";
+        }
         private void AddTimeBonus() // 시간 남으면 보너스점수로 전환(초당 100점)
         {
             int timeBonus = (int)TimeLeft.TotalSeconds * 100;
@@ -188,9 +203,7 @@ namespace shishen_sho
         private void InGame_Load(object sender, EventArgs e)
         {
             ShufflePictureBoxes();
-
-            MultiPlay_MessageBox messageBox = new MultiPlay_MessageBox();
-            messageBox.Show();
+            RemainingLabel();
         }
         private void ShufflePictureBoxes()
         {
@@ -224,6 +237,7 @@ namespace shishen_sho
                 pictureBoxes[i].Tag = pictureBoxes[j].Tag;
                 pictureBoxes[j].Tag = tempTag;
             }
+            RemainingLabel();
         }
         private void ShuffleButton_Click(object sender, EventArgs e)
         {
