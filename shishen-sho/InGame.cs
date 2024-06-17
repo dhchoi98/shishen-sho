@@ -60,19 +60,28 @@ namespace shishen_sho
                 {
                     if (i <= 64)
                     {
-                        int row = (i - 1) / 8; // 행 계산
-                        int col = (i - 1) % 8; // 열 계산
+                        int row = ((i - 1) / 8) + 1; // 행 계산
+                        int col = ((i - 1) % 8) + 1; // 열 계산
                         graph[row, col] = pictureBox;
                         pictureBox.Click += new EventHandler(PictureBox_Click);
                     }
                     else
                     {
-                        int row = (i - 65) / 8;
-                        int col = 8 + (i - 65) % 8;
+                        int row = ((i - 65) / 8) + 1;
+                        int col = 9 + (i - 65) % 8;
                         graph[row, col] = pictureBox;
                         pictureBox.Click += new EventHandler(PictureBox_Click);
                     }
                 }
+            }
+            for(int i = 0; i < 18; i ++)
+            {
+                PictureBox picture = new PictureBox();
+                picture.Tag = null;
+                graph[0, i] = picture;
+                graph[i, 0] = picture;
+                graph[i, 17] = picture;
+                graph[8, i] = picture;
             }
         }
 
