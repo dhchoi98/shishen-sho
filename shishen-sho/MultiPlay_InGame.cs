@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Text;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -25,7 +26,24 @@ namespace shishen_sho
         private int totalTime;
         private int score;
 
+
+        private TcpListener server = null;
+        private TcpClient guest = null;
+        private TcpClient hClient = null;
         private string hostIpAddress = null;
+        private IPAddress localAddr = IPAddress.Parse("127.0.0.1");
+        private IPAddress hostAddr;
+        private int port = 8886;
+        public bool m_bConnect = false;
+        public bool m_bStop = false;
+
+        private Thread thHost;
+        private Thread thSend;
+        private Thread thReader;
+
+        public NetworkStream m_Stream;
+        public StreamReader m_Read;
+        public StreamWriter m_Write;
 
         // 방장
         public MultiPlay_InGame(int minutes)
@@ -83,9 +101,231 @@ namespace shishen_sho
             this.Controls.Add(lblScore);
 
             this.hostIpAddress = hostIpAddress;
+            hostAddr = IPAddress.Parse(hostIpAddress);
 
+        }
 
+        private async void InGame_Load(object sender, EventArgs e)
+        {
+            ShufflePictureBoxes();
 
+            if (hostIpAddress == null)
+            {
+                BroadcastStartMessage();
+            }
+
+            // 비동기 소켓 연결 작업 시작
+            await PerformSocketConnectionAsync();
+
+            // 소켓 연결이 완료된 후에 코드 실행
+            if (m_bConnect)
+            {
+                m_bStop = true;
+                if (hostIpAddress == null)
+                {
+                    thHost = new Thread(new ThreadStart(ServerStart));
+                    thHost.Start();
+                }
+                thSend = new Thread(new ThreadStart(Send));
+                thSend.Start();
+            }
+            gameTimer.Start();
+        }
+
+        private void BroadcastStartMessage()
+        {
+            UdpClient udpClient = new UdpClient();
+            IPEndPoint endPoint = new IPEndPoint(IPAddress.Broadcast, 8889);
+            byte[] message = Encoding.ASCII.GetBytes("start");
+
+            for (int i = 0; i < 5; i++)
+            {
+                // 메시지 전송
+                Console.WriteLine("게임시작 메세지 전송");
+                udpClient.Send(message, message.Length, endPoint);
+                Thread.Sleep(1000);
+            }
+        }
+
+        private async Task PerformSocketConnectionAsync()
+        {
+            MultiPlay_MessageBox messageBox = new MultiPlay_MessageBox();
+            this.Enabled = false;
+
+            var task = Task.Run(() =>
+            {
+                if (hostIpAddress == null) // 호스트 입장, 소켓 연결 대기
+                {
+                    try
+                    {
+                        server = new TcpListener(port);
+                        server.Start();
+
+                        m_bStop = true;
+                        Console.WriteLine("클라이언트 접속 대기중");
+
+                        while (!m_bConnect)
+                        {
+                            hClient = server.AcceptTcpClient();
+
+                            if (hClient.Connected)
+                            {
+                                m_bConnect = true;
+                                Console.WriteLine("클라이언트 접속");
+                            }
+                        }
+                    }
+                    catch
+                    {
+                        Console.WriteLine("시작 도중에 오류 발생");
+                        return;
+                    }
+                }
+                else // 게스트 입장, 소켓 연결
+                {
+                    Thread.Sleep(2000);
+                    Connect();
+                }
+            });
+
+            messageBox.Shown += async (s, e) =>
+            {
+                Console.WriteLine("소켓 연결 시작");
+
+                // 소켓 연결 작업을 비동기적으로 수행
+                await task;
+
+                Console.WriteLine("소켓 연결 완료");
+
+                // 메시지 박스를 닫기
+                messageBox.Invoke(new Action(() => messageBox.Close()));
+            };
+
+            messageBox.ShowDialog();
+
+            // 메시지 박스가 닫힌 후 InGame 폼의 컨트롤을 활성화
+            this.Enabled = true;
+
+            // 추가 작업
+            Console.WriteLine("메시지 박스가 닫혔습니다. 추가 작업을 수행합니다.");
+        }
+
+        public void ServerStart()
+        {
+            while (m_bStop)
+            {
+                if (hClient.Connected)
+                {
+                    m_Stream = hClient.GetStream();
+                    m_Read = new StreamReader(m_Stream);
+                    m_Write = new StreamWriter(m_Stream);
+
+                    thReader = new Thread(new ThreadStart(Receive));
+                    thReader.Start();
+                }
+            }
+        }
+
+        public void ServerStop()
+        {
+            if (!m_bStop)
+                return;
+
+            server.Stop();
+            CloseStreams();
+            thReader.Abort();
+            thHost.Abort();
+
+            Console.WriteLine("서비스 종료");
+        }
+
+        public void Disconnect()
+        {
+            if (!m_bConnect)
+                return;
+
+            m_bConnect = false;
+            CloseStreams();
+            thReader.Abort();
+
+            Console.WriteLine("상대방과 연결 중단");
+        }
+
+        private void CloseStreams()
+        {
+            m_Read.Close();
+            m_Write.Close();
+            m_Stream.Close();
+        }
+
+        public void Connect()
+        {
+            guest = new TcpClient();
+
+            try
+            {
+                guest.Connect("127.0.0.1", port);
+            }
+            catch
+            {
+                Console.WriteLine("게스트 : 로컬 IP 연결 실패, hostAddr로 재시도");
+                try
+                {
+                    guest.Connect(hostAddr, port);
+                }
+                catch
+                {
+                    m_bConnect = false;
+                    Console.WriteLine("게스트 : hostAddr로 연결 실패");
+                    return;
+                }
+            }
+
+            m_bConnect = true;
+            Console.WriteLine("게스트 : 서버에 연결");
+
+            m_Stream = guest.GetStream();
+            m_Read = new StreamReader(m_Stream);
+            m_Write = new StreamWriter(m_Stream);
+
+            thReader = new Thread(new ThreadStart(Receive));
+            thReader.Start();
+        }
+
+        public void Receive()
+        {
+            try
+            {
+                while (m_bConnect)
+                {
+                    string szMessage = m_Read.ReadLine();
+
+                    if (szMessage != null)
+                        Console.WriteLine("상대방 : " + szMessage);
+                }
+            }
+            catch
+            {
+                Console.WriteLine("데이터를 읽는 과정에서 오류가 발생");
+            }
+        }
+
+        void Send()
+        {
+            while (m_bConnect)
+            {
+                Thread.Sleep(500);
+                try
+                {
+                    m_Write.WriteLine("남은패 : ");
+                    m_Write.Flush();
+                    Console.WriteLine(">>> : ");
+                }
+                catch
+                {
+                    Console.WriteLine("데이터 전송 실패");
+                }
+            }
         }
         private void InitializePictureBoxEvents()
         {
@@ -226,70 +466,6 @@ namespace shishen_sho
                 this.Close();
             }
         }
-
-
-        private async void InGame_Load(object sender, EventArgs e)
-        {
-            ShufflePictureBoxes();
-
-            // 소켓 연결
-
-            if (hostIpAddress == null) // 방장이면
-            {
-                UdpClient udpClient = new UdpClient();
-                IPEndPoint endPoint = new IPEndPoint(IPAddress.Broadcast, 8889);
-                byte[] message = Encoding.ASCII.GetBytes("start");
-
-                for (int i = 0; i < 5; i++)
-                {
-                    // 메시지 전송
-                    Console.WriteLine("게임시작 메세지 전송");
-                    udpClient.Send(message, message.Length, endPoint);
-                    Thread.Sleep(1000);
-                }
-            }
-
-
-            // 비동기 소켓 연결 작업 시작
-            await PerformSocketConnectionAsync();
-
-        }
-
-
-        private async Task PerformSocketConnectionAsync()
-        {
-            MultiPlay_MessageBox messageBox = new MultiPlay_MessageBox();
-            this.Enabled = false;
-
-            // 비동기 작업을 통해 소켓 연결을 수행하고, 메시지 박스를 닫습니다.
-            var task = Task.Run(() =>
-            {
-                // 소켓 연결 로직 (예제 대기 시간)
-                Thread.Sleep(3000); // 실제 연결 로직으로 대체
-            });
-
-            messageBox.Shown += async (s, e) =>
-            {
-                Console.WriteLine("소켓 연결 시작");
-
-                // 소켓 연결 작업을 비동기적으로 수행
-                await task;
-
-                Console.WriteLine("소켓 연결 완료");
-
-                // 메시지 박스를 닫기
-                messageBox.Invoke(new Action(() => messageBox.Close()));
-            };
-
-            messageBox.ShowDialog();
-
-            // 메시지 박스가 닫힌 후 InGame 폼의 컨트롤을 활성화
-            this.Enabled = true;
-
-            // 추가 작업
-            Console.WriteLine("메시지 박스가 닫혔습니다. 추가 작업을 수행합니다.");
-        }
-
 
         private void ShufflePictureBoxes()
         {
