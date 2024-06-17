@@ -15,9 +15,8 @@ namespace shishen_sho
         public Main()
         {
             InitializeComponent();
-            lblTitle.Parent = pictureBox1;
-            lblTitle.BackColor = Color.Transparent;
-
+            ImageTitle.Parent = pictureBox1;
+            ImageTitle.BackColor = Color.Transparent;
 
             //부모가 pictureBox1로 지정되면서 로케이션을 새로 지정
         }
@@ -51,11 +50,6 @@ namespace shishen_sho
             Explain explain = new Explain();
             this.Hide();
             explain.Show();
-        }
-
-        private void lblTitle_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void btnScore_Click(object sender, EventArgs e)
