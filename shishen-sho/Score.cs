@@ -35,11 +35,11 @@ namespace shishen_sho
             
             // Mode 항목 추가
             string modeText = null;
-            if (mode == 1)
+            if (mode == 15)
             {
                 modeText = "Easy";
             }
-            else if (mode == 2)
+            else if (mode == 10)
             {
                 modeText = "Normal";
             }
@@ -53,6 +53,13 @@ namespace shishen_sho
             scoreItem.SubItems.Add(score.ToString()); // Mode 값을 두 번째 열에 추가
 
             ListViewScore.Items.Add(scoreItem); 
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            Main main = new Main();
+            this.Hide();
+            main.Show();
         }
     }
 }
