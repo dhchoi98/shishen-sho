@@ -46,8 +46,7 @@ namespace shishen_sho
         {
             //main화면을 띄우고 닫음.
             Main main = new Main();
-            this.Close();
-            main.Show();
+            Application.Exit();
         }
     }
 }
