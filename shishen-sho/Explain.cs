@@ -10,11 +10,28 @@ using System.Windows.Forms;
 
 namespace shishen_sho
 {
-    public partial class Explain : Form
+    public partial class Explain : MetroFramework.Forms.MetroForm
     {
         public Explain()
         {
             InitializeComponent();
+        }
+
+        private void Explain_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            Main main = new Main();
+            this.Hide();
+            main.Show();
         }
     }
 }
