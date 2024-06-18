@@ -15,7 +15,6 @@ namespace shishen_sho
     {
         public int listViewWidth; 
         public static List<ScoreData> scoreList = new List<ScoreData> ();
-        private const string scoreFilePath = "scores.txt";
 
         public Score()
         {
@@ -71,7 +70,6 @@ namespace shishen_sho
             }
 
             scoreList.Add(new ScoreData(modeText, score));
-            SaveScores();
 
             ListViewItem scoreItem = new ListViewItem(modeText); // Score 값을 첫 번째 열에 추가
 
@@ -89,15 +87,7 @@ namespace shishen_sho
                 ListViewScore.Items.Add(scoreItem);
             }
         }
-        private void SaveScores()
-        {
-            List<string> lines = new List<string>();
-            foreach (var scoreData in scoreList)
-            {
-                lines.Add($"{scoreData.Mode},{scoreData.Score}");
-            }
-            File.WriteAllLines(scoreFilePath, lines);
-        }
+
         private void btnBack_Click(object sender, EventArgs e)
         {
             Main main = new Main();
