@@ -265,11 +265,6 @@ namespace shishen_sho
             }
         }
 
-        private void Quit_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
         private void pictureBox66_Click(object sender, EventArgs e)
         {
         }

@@ -315,7 +315,6 @@
             this.progressBar.Size = new System.Drawing.Size(1308, 19);
             this.progressBar.Style = MetroFramework.MetroColorStyle.Pink;
             this.progressBar.TabIndex = 1;
-            this.progressBar.Click += new System.EventHandler(this.progressBar_Click);
             // 
             // ShuffleButton
             // 
