@@ -164,8 +164,8 @@
             this.pictureBox126 = new System.Windows.Forms.PictureBox();
             this.pictureBox127 = new System.Windows.Forms.PictureBox();
             this.pictureBox128 = new System.Windows.Forms.PictureBox();
-            this.lblScore = new MetroFramework.Controls.MetroLabel();
             this.remaininglbl = new MetroFramework.Controls.MetroLabel();
+            this.lblScore = new MetroFramework.Controls.MetroLabel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -1912,18 +1912,6 @@
             this.pictureBox128.TabStop = false;
             this.pictureBox128.Tag = "Image32";
             // 
-            // lblScore
-            // 
-            this.lblScore.AutoSize = true;
-            this.lblScore.BackColor = System.Drawing.Color.Transparent;
-            this.lblScore.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.lblScore.FontWeight = MetroFramework.MetroLabelWeight.Bold;
-            this.lblScore.Location = new System.Drawing.Point(72, 895);
-            this.lblScore.Name = "lblScore";
-            this.lblScore.Size = new System.Drawing.Size(22, 25);
-            this.lblScore.TabIndex = 6;
-            this.lblScore.Text = "0";
-            // 
             // remaininglbl
             // 
             this.remaininglbl.AutoSize = true;
@@ -1936,6 +1924,18 @@
             this.remaininglbl.TabIndex = 7;
             this.remaininglbl.Text = "남은 패";
             // 
+            // lblScore
+            // 
+            this.lblScore.AutoSize = true;
+            this.lblScore.BackColor = System.Drawing.Color.Transparent;
+            this.lblScore.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.lblScore.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.lblScore.Location = new System.Drawing.Point(72, 895);
+            this.lblScore.Name = "lblScore";
+            this.lblScore.Size = new System.Drawing.Size(22, 25);
+            this.lblScore.TabIndex = 6;
+            this.lblScore.Text = "0";
+            // 
             // panel1
             // 
             this.panel1.BackgroundImage = global::shishen_sho.Properties.Resources.back;
@@ -1944,6 +1944,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1614, 1006);
             this.panel1.TabIndex = 8;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // InGame
             // 
@@ -2240,8 +2241,8 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private MetroFramework.Controls.MetroLabel lblScore;
         private MetroFramework.Controls.MetroLabel remaininglbl;
+        private MetroFramework.Controls.MetroLabel lblScore;
         private System.Windows.Forms.Panel panel1;
     }
 }
