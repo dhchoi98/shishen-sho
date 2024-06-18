@@ -44,10 +44,9 @@ namespace shishen_sho
 
         private void btnQuit_Click(object sender, EventArgs e)
         {
-            //main화면을 띄우고 닫음.
+            //종료.
             Main main = new Main();
-            this.Close();
-            main.Show();
+            Application.Exit();
         }
     }
 }

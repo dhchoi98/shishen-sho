@@ -383,6 +383,16 @@ namespace shishen_sho.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
+        internal static System.Drawing.Bitmap back {
+            get {
+                object obj = ResourceManager.GetObject("back", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
         internal static System.Drawing.Bitmap back1 {
             get {
                 object obj = ResourceManager.GetObject("back1", resourceCulture);
@@ -403,9 +413,29 @@ namespace shishen_sho.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
+        internal static System.Drawing.Bitmap ea5691cd45c77297e4b8230827adf04f {
+            get {
+                object obj = ResourceManager.GetObject("ea5691cd45c77297e4b8230827adf04f", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
         internal static System.Drawing.Bitmap explain1 {
             get {
                 object obj = ResourceManager.GetObject("explain1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.Drawing.Bitmap gameTitle {
+            get {
+                object obj = ResourceManager.GetObject("gameTitle", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

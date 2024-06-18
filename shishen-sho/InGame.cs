@@ -24,7 +24,8 @@ namespace shishen_sho
         private const int COLS = 16;
         private PictureBox[,] graph = new PictureBox[ROWS, COLS];
         private List<Tuple<int, int>> currentPath = null; // 경로를 저장할 변수
-
+        private int difficulty;
+        
         public InGame(int minutes)
         {
             InitializeComponent();
@@ -36,7 +37,7 @@ namespace shishen_sho
             gameTimer.Tick += GameTimer_Tick;
             gameTimer.Start();
 
-            this.Controls.Add(timeLabel);
+    
             TimeLeft = TimeSpan.FromMinutes(minutes);
 
             progressBar.Style = MetroColorStyle.Silver;
@@ -47,10 +48,11 @@ namespace shishen_sho
 
             score = 0;
             lblScore.Text = "Score: 0";
-            this.Controls.Add(lblScore);
+          
+            difficulty = minutes;
         }
 
-        private void InitializeGraph()
+         private void InitializeGraph()
         {
             for (int i = 1; i <= 128; i++)
             {
@@ -62,27 +64,19 @@ namespace shishen_sho
                     {
                         int row = ((i - 1) / 8) + 1; // 행 계산
                         int col = ((i - 1) % 8) + 1; // 열 계산
-                        graph[row, col] = pictureBox;
+                        graph[row - 1, col - 1] = pictureBox;
                         pictureBox.Click += new EventHandler(PictureBox_Click);
                     }
                     else
                     {
                         int row = ((i - 65) / 8) + 1;
                         int col = 9 + (i - 65) % 8;
-                        graph[row, col] = pictureBox;
+                        graph[row - 1, col - 1] = pictureBox;
                         pictureBox.Click += new EventHandler(PictureBox_Click);
                     }
                 }
             }
-            for(int i = 0; i < 18; i ++)
-            {
-                PictureBox picture = new PictureBox();
-                picture.Tag = null;
-                graph[0, i] = picture;
-                graph[i, 0] = picture;
-                graph[i, 17] = picture;
-                graph[8, i] = picture;
-            }
+
         }
 
         private void PictureBox_Click(object sender, EventArgs e)
@@ -252,11 +246,6 @@ namespace shishen_sho
             {
                 this.Close();
             }
-        }
-
-        private void Quit_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
         }
 
         private void pictureBox66_Click(object sender, EventArgs e)

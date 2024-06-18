@@ -31,7 +31,7 @@ namespace shishen_sho
         }
         private void Difficulty_Load(object sender, EventArgs e)
         {
-
+            
         }
     }
 }

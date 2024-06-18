@@ -1,6 +1,6 @@
 ﻿namespace shishen_sho
 {
-    partial class InGame
+    partial class MultiPlay_InGame
     {
         /// <summary>
         /// Required designer variable.
@@ -29,12 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InGame));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MultiPlay_InGame));
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
             this.timeLabel = new MetroFramework.Controls.MetroLabel();
             this.progressBar = new MetroFramework.Controls.MetroProgressBar();
-            this.ShuffleButton = new System.Windows.Forms.Button();
-            this.btnPause = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -164,9 +162,10 @@
             this.pictureBox126 = new System.Windows.Forms.PictureBox();
             this.pictureBox127 = new System.Windows.Forms.PictureBox();
             this.pictureBox128 = new System.Windows.Forms.PictureBox();
+            this.ShuffleButton = new System.Windows.Forms.Button();
+            this.Quit = new System.Windows.Forms.Button();
+            this.btnPause = new System.Windows.Forms.Button();
             this.lblScore = new MetroFramework.Controls.MetroLabel();
-            this.remaininglbl = new MetroFramework.Controls.MetroLabel();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -296,7 +295,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox126)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox127)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox128)).BeginInit();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // timeLabel
@@ -317,31 +315,9 @@
             this.progressBar.TabIndex = 1;
             this.progressBar.Click += new System.EventHandler(this.progressBar_Click);
             // 
-            // ShuffleButton
-            // 
-            this.ShuffleButton.Location = new System.Drawing.Point(1400, 60);
-            this.ShuffleButton.Name = "ShuffleButton";
-            this.ShuffleButton.Size = new System.Drawing.Size(129, 53);
-            this.ShuffleButton.TabIndex = 3;
-            this.ShuffleButton.Text = "패 섞기 (-2000)";
-            this.ShuffleButton.UseVisualStyleBackColor = true;
-            this.ShuffleButton.Click += new System.EventHandler(this.ShuffleButton_Click);
-            // 
-            // btnPause
-            // 
-            this.btnPause.Image = global::shishen_sho.Properties.Resources.pause;
-            this.btnPause.Location = new System.Drawing.Point(1400, 129);
-            this.btnPause.Name = "btnPause";
-            this.btnPause.Size = new System.Drawing.Size(129, 49);
-            this.btnPause.TabIndex = 5;
-            this.btnPause.UseVisualStyleBackColor = true;
-            this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
-            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.AllowDrop = true;
-            this.tableLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.tableLayoutPanel1.BackgroundImage = global::shishen_sho.Properties.Resources.back;
             this.tableLayoutPanel1.ColumnCount = 16;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.25F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.25F));
@@ -504,7 +480,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Image = global::shishen_sho.Properties.Resources._1;
             this.pictureBox1.Location = new System.Drawing.Point(3, 3);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(75, 88);
@@ -515,7 +491,7 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Image = global::shishen_sho.Properties.Resources._1;
             this.pictureBox2.Location = new System.Drawing.Point(84, 3);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(75, 88);
@@ -526,7 +502,7 @@
             // 
             // pictureBox3
             // 
-            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+            this.pictureBox3.Image = global::shishen_sho.Properties.Resources._1;
             this.pictureBox3.Location = new System.Drawing.Point(165, 3);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(75, 88);
@@ -537,7 +513,7 @@
             // 
             // pictureBox4
             // 
-            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
+            this.pictureBox4.Image = global::shishen_sho.Properties.Resources._1;
             this.pictureBox4.Location = new System.Drawing.Point(246, 3);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(75, 88);
@@ -548,7 +524,7 @@
             // 
             // pictureBox5
             // 
-            this.pictureBox5.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox5.Image")));
+            this.pictureBox5.Image = global::shishen_sho.Properties.Resources._2;
             this.pictureBox5.Location = new System.Drawing.Point(327, 3);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(75, 88);
@@ -559,7 +535,7 @@
             // 
             // pictureBox6
             // 
-            this.pictureBox6.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox6.Image")));
+            this.pictureBox6.Image = global::shishen_sho.Properties.Resources._2;
             this.pictureBox6.Location = new System.Drawing.Point(408, 3);
             this.pictureBox6.Name = "pictureBox6";
             this.pictureBox6.Size = new System.Drawing.Size(75, 88);
@@ -570,7 +546,7 @@
             // 
             // pictureBox7
             // 
-            this.pictureBox7.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox7.Image")));
+            this.pictureBox7.Image = global::shishen_sho.Properties.Resources._2;
             this.pictureBox7.Location = new System.Drawing.Point(489, 3);
             this.pictureBox7.Name = "pictureBox7";
             this.pictureBox7.Size = new System.Drawing.Size(75, 88);
@@ -582,7 +558,7 @@
             // pictureBox8
             // 
             this.pictureBox8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox8.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox8.Image")));
+            this.pictureBox8.Image = global::shishen_sho.Properties.Resources._2;
             this.pictureBox8.Location = new System.Drawing.Point(570, 3);
             this.pictureBox8.Name = "pictureBox8";
             this.pictureBox8.Size = new System.Drawing.Size(75, 88);
@@ -593,7 +569,7 @@
             // 
             // pictureBox9
             // 
-            this.pictureBox9.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox9.Image")));
+            this.pictureBox9.Image = global::shishen_sho.Properties.Resources._3;
             this.pictureBox9.Location = new System.Drawing.Point(3, 97);
             this.pictureBox9.Name = "pictureBox9";
             this.pictureBox9.Size = new System.Drawing.Size(75, 88);
@@ -604,7 +580,7 @@
             // 
             // pictureBox10
             // 
-            this.pictureBox10.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox10.Image")));
+            this.pictureBox10.Image = global::shishen_sho.Properties.Resources._3;
             this.pictureBox10.Location = new System.Drawing.Point(84, 97);
             this.pictureBox10.Name = "pictureBox10";
             this.pictureBox10.Size = new System.Drawing.Size(75, 88);
@@ -615,7 +591,7 @@
             // 
             // pictureBox11
             // 
-            this.pictureBox11.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox11.Image")));
+            this.pictureBox11.Image = global::shishen_sho.Properties.Resources._3;
             this.pictureBox11.Location = new System.Drawing.Point(165, 97);
             this.pictureBox11.Name = "pictureBox11";
             this.pictureBox11.Size = new System.Drawing.Size(75, 88);
@@ -626,7 +602,7 @@
             // 
             // pictureBox12
             // 
-            this.pictureBox12.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox12.Image")));
+            this.pictureBox12.Image = global::shishen_sho.Properties.Resources._3;
             this.pictureBox12.Location = new System.Drawing.Point(246, 97);
             this.pictureBox12.Name = "pictureBox12";
             this.pictureBox12.Size = new System.Drawing.Size(75, 88);
@@ -637,7 +613,7 @@
             // 
             // pictureBox13
             // 
-            this.pictureBox13.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox13.Image")));
+            this.pictureBox13.Image = global::shishen_sho.Properties.Resources._4;
             this.pictureBox13.Location = new System.Drawing.Point(327, 97);
             this.pictureBox13.Name = "pictureBox13";
             this.pictureBox13.Size = new System.Drawing.Size(75, 88);
@@ -649,7 +625,7 @@
             // pictureBox14
             // 
             this.pictureBox14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox14.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox14.Image")));
+            this.pictureBox14.Image = global::shishen_sho.Properties.Resources._4;
             this.pictureBox14.Location = new System.Drawing.Point(408, 97);
             this.pictureBox14.Name = "pictureBox14";
             this.pictureBox14.Size = new System.Drawing.Size(75, 88);
@@ -660,7 +636,7 @@
             // 
             // pictureBox15
             // 
-            this.pictureBox15.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox15.Image")));
+            this.pictureBox15.Image = global::shishen_sho.Properties.Resources._4;
             this.pictureBox15.Location = new System.Drawing.Point(489, 97);
             this.pictureBox15.Name = "pictureBox15";
             this.pictureBox15.Size = new System.Drawing.Size(75, 88);
@@ -671,7 +647,7 @@
             // 
             // pictureBox16
             // 
-            this.pictureBox16.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox16.Image")));
+            this.pictureBox16.Image = global::shishen_sho.Properties.Resources._4;
             this.pictureBox16.Location = new System.Drawing.Point(570, 97);
             this.pictureBox16.Name = "pictureBox16";
             this.pictureBox16.Size = new System.Drawing.Size(75, 88);
@@ -682,7 +658,7 @@
             // 
             // pictureBox17
             // 
-            this.pictureBox17.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox17.Image")));
+            this.pictureBox17.Image = global::shishen_sho.Properties.Resources._5;
             this.pictureBox17.Location = new System.Drawing.Point(3, 191);
             this.pictureBox17.Name = "pictureBox17";
             this.pictureBox17.Size = new System.Drawing.Size(75, 88);
@@ -693,7 +669,7 @@
             // 
             // pictureBox18
             // 
-            this.pictureBox18.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox18.Image")));
+            this.pictureBox18.Image = global::shishen_sho.Properties.Resources._5;
             this.pictureBox18.Location = new System.Drawing.Point(84, 191);
             this.pictureBox18.Name = "pictureBox18";
             this.pictureBox18.Size = new System.Drawing.Size(75, 88);
@@ -704,7 +680,7 @@
             // 
             // pictureBox19
             // 
-            this.pictureBox19.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox19.Image")));
+            this.pictureBox19.Image = global::shishen_sho.Properties.Resources._5;
             this.pictureBox19.Location = new System.Drawing.Point(165, 191);
             this.pictureBox19.Name = "pictureBox19";
             this.pictureBox19.Size = new System.Drawing.Size(75, 88);
@@ -715,7 +691,7 @@
             // 
             // pictureBox20
             // 
-            this.pictureBox20.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox20.Image")));
+            this.pictureBox20.Image = global::shishen_sho.Properties.Resources._5;
             this.pictureBox20.Location = new System.Drawing.Point(246, 191);
             this.pictureBox20.Name = "pictureBox20";
             this.pictureBox20.Size = new System.Drawing.Size(75, 88);
@@ -726,7 +702,7 @@
             // 
             // pictureBox21
             // 
-            this.pictureBox21.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox21.Image")));
+            this.pictureBox21.Image = global::shishen_sho.Properties.Resources._6;
             this.pictureBox21.Location = new System.Drawing.Point(327, 191);
             this.pictureBox21.Name = "pictureBox21";
             this.pictureBox21.Size = new System.Drawing.Size(75, 88);
@@ -737,7 +713,7 @@
             // 
             // pictureBox22
             // 
-            this.pictureBox22.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox22.Image")));
+            this.pictureBox22.Image = global::shishen_sho.Properties.Resources._6;
             this.pictureBox22.Location = new System.Drawing.Point(408, 191);
             this.pictureBox22.Name = "pictureBox22";
             this.pictureBox22.Size = new System.Drawing.Size(75, 88);
@@ -748,7 +724,7 @@
             // 
             // pictureBox23
             // 
-            this.pictureBox23.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox23.Image")));
+            this.pictureBox23.Image = global::shishen_sho.Properties.Resources._6;
             this.pictureBox23.Location = new System.Drawing.Point(489, 191);
             this.pictureBox23.Name = "pictureBox23";
             this.pictureBox23.Size = new System.Drawing.Size(75, 88);
@@ -759,7 +735,7 @@
             // 
             // pictureBox24
             // 
-            this.pictureBox24.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox24.Image")));
+            this.pictureBox24.Image = global::shishen_sho.Properties.Resources._6;
             this.pictureBox24.Location = new System.Drawing.Point(570, 191);
             this.pictureBox24.Name = "pictureBox24";
             this.pictureBox24.Size = new System.Drawing.Size(75, 88);
@@ -770,7 +746,7 @@
             // 
             // pictureBox25
             // 
-            this.pictureBox25.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox25.Image")));
+            this.pictureBox25.Image = global::shishen_sho.Properties.Resources._7;
             this.pictureBox25.Location = new System.Drawing.Point(3, 285);
             this.pictureBox25.Name = "pictureBox25";
             this.pictureBox25.Size = new System.Drawing.Size(75, 88);
@@ -781,7 +757,7 @@
             // 
             // pictureBox26
             // 
-            this.pictureBox26.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox26.Image")));
+            this.pictureBox26.Image = global::shishen_sho.Properties.Resources._7;
             this.pictureBox26.Location = new System.Drawing.Point(84, 285);
             this.pictureBox26.Name = "pictureBox26";
             this.pictureBox26.Size = new System.Drawing.Size(75, 88);
@@ -792,7 +768,7 @@
             // 
             // pictureBox27
             // 
-            this.pictureBox27.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox27.Image")));
+            this.pictureBox27.Image = global::shishen_sho.Properties.Resources._7;
             this.pictureBox27.Location = new System.Drawing.Point(165, 285);
             this.pictureBox27.Name = "pictureBox27";
             this.pictureBox27.Size = new System.Drawing.Size(75, 88);
@@ -803,7 +779,7 @@
             // 
             // pictureBox28
             // 
-            this.pictureBox28.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox28.Image")));
+            this.pictureBox28.Image = global::shishen_sho.Properties.Resources._7;
             this.pictureBox28.Location = new System.Drawing.Point(246, 285);
             this.pictureBox28.Name = "pictureBox28";
             this.pictureBox28.Size = new System.Drawing.Size(75, 88);
@@ -814,7 +790,7 @@
             // 
             // pictureBox29
             // 
-            this.pictureBox29.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox29.Image")));
+            this.pictureBox29.Image = global::shishen_sho.Properties.Resources._8;
             this.pictureBox29.Location = new System.Drawing.Point(327, 285);
             this.pictureBox29.Name = "pictureBox29";
             this.pictureBox29.Size = new System.Drawing.Size(75, 88);
@@ -825,7 +801,7 @@
             // 
             // pictureBox30
             // 
-            this.pictureBox30.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox30.Image")));
+            this.pictureBox30.Image = global::shishen_sho.Properties.Resources._8;
             this.pictureBox30.Location = new System.Drawing.Point(408, 285);
             this.pictureBox30.Name = "pictureBox30";
             this.pictureBox30.Size = new System.Drawing.Size(75, 88);
@@ -836,7 +812,7 @@
             // 
             // pictureBox31
             // 
-            this.pictureBox31.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox31.Image")));
+            this.pictureBox31.Image = global::shishen_sho.Properties.Resources._8;
             this.pictureBox31.Location = new System.Drawing.Point(489, 285);
             this.pictureBox31.Name = "pictureBox31";
             this.pictureBox31.Size = new System.Drawing.Size(75, 88);
@@ -847,7 +823,7 @@
             // 
             // pictureBox32
             // 
-            this.pictureBox32.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox32.Image")));
+            this.pictureBox32.Image = global::shishen_sho.Properties.Resources._8;
             this.pictureBox32.Location = new System.Drawing.Point(570, 285);
             this.pictureBox32.Name = "pictureBox32";
             this.pictureBox32.Size = new System.Drawing.Size(75, 88);
@@ -1228,7 +1204,8 @@
             this.pictureBox66.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox66.TabIndex = 65;
             this.pictureBox66.TabStop = false;
-            this.pictureBox66.Tag = "Image17";            // 
+            this.pictureBox66.Tag = "Image17";
+            // 
             // pictureBox67
             // 
             this.pictureBox67.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox67.Image")));
@@ -1911,7 +1888,6 @@
             this.pictureBox128.TabStop = false;
             this.pictureBox128.Tag = "Image32";
             // 
-<<<<<<< HEAD
             // ShuffleButton
             // 
             this.ShuffleButton.Location = new System.Drawing.Point(1400, 60);
@@ -1934,7 +1910,7 @@
             // 
             // btnPause
             // 
-            this.btnPause.Image = ((System.Drawing.Image)(resources.GetObject("btnPause.Image")));
+            this.btnPause.Image = global::shishen_sho.Properties.Resources.pause;
             this.btnPause.Location = new System.Drawing.Point(1400, 174);
             this.btnPause.Name = "btnPause";
             this.btnPause.Size = new System.Drawing.Size(91, 49);
@@ -1942,65 +1918,33 @@
             this.btnPause.UseVisualStyleBackColor = true;
             this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
             // 
-=======
->>>>>>> e4e08702b4ab2a229914cbaad082b1faa53b4dde
             // lblScore
             // 
             this.lblScore.AutoSize = true;
-            this.lblScore.BackColor = System.Drawing.Color.Transparent;
             this.lblScore.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.lblScore.FontWeight = MetroFramework.MetroLabelWeight.Bold;
-            this.lblScore.Location = new System.Drawing.Point(72, 895);
+            this.lblScore.Location = new System.Drawing.Point(69, 872);
             this.lblScore.Name = "lblScore";
-            this.lblScore.Size = new System.Drawing.Size(22, 25);
+            this.lblScore.Size = new System.Drawing.Size(21, 25);
             this.lblScore.TabIndex = 6;
             this.lblScore.Text = "0";
             // 
-            // remaininglbl
-            // 
-            this.remaininglbl.AutoSize = true;
-            this.remaininglbl.BackColor = System.Drawing.Color.Transparent;
-            this.remaininglbl.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.remaininglbl.FontWeight = MetroFramework.MetroLabelWeight.Bold;
-            this.remaininglbl.Location = new System.Drawing.Point(218, 895);
-            this.remaininglbl.Name = "remaininglbl";
-            this.remaininglbl.Size = new System.Drawing.Size(71, 25);
-            this.remaininglbl.TabIndex = 7;
-            this.remaininglbl.Text = "남은 패";
-            // 
-            // panel1
-            // 
-            this.panel1.BackgroundImage = global::shishen_sho.Properties.Resources.back;
-            this.panel1.Controls.Add(this.lblScore);
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1614, 1006);
-            this.panel1.TabIndex = 8;
-            // 
             // InGame
             // 
-<<<<<<< HEAD
-=======
-            this.ApplyImageInvert = true;
->>>>>>> e4e08702b4ab2a229914cbaad082b1faa53b4dde
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::shishen_sho.Properties.Resources.back;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.BackImage = global::shishen_sho.Properties.Resources.back;
-            this.ClientSize = new System.Drawing.Size(1612, 1000);
-            this.Controls.Add(this.timeLabel);
-            this.Controls.Add(this.remaininglbl);
+            this.ClientSize = new System.Drawing.Size(1664, 1006);
+            this.Controls.Add(this.lblScore);
             this.Controls.Add(this.btnPause);
+            this.Controls.Add(this.Quit);
             this.Controls.Add(this.ShuffleButton);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.progressBar);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.timeLabel);
             this.Font = new System.Drawing.Font("돋움", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "InGame";
             this.Tag = "Image24";
-            this.Text = "싱글 플레이";
+            this.Text = "InGame";
             this.TransparencyKey = System.Drawing.Color.Empty;
             this.Load += new System.EventHandler(this.InGame_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -2132,8 +2076,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox126)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox127)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox128)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2144,139 +2086,138 @@
         private System.Windows.Forms.Timer gameTimer;
         private MetroFramework.Controls.MetroLabel timeLabel;
         private MetroFramework.Controls.MetroProgressBar progressBar;
-        private System.Windows.Forms.Button ShuffleButton;
-        private System.Windows.Forms.Button btnPause;
-        private System.Windows.Forms.PictureBox pictureBox128;
-        private System.Windows.Forms.PictureBox pictureBox127;
-        private System.Windows.Forms.PictureBox pictureBox126;
-        private System.Windows.Forms.PictureBox pictureBox125;
-        private System.Windows.Forms.PictureBox pictureBox124;
-        private System.Windows.Forms.PictureBox pictureBox123;
-        private System.Windows.Forms.PictureBox pictureBox122;
-        private System.Windows.Forms.PictureBox pictureBox121;
-        private System.Windows.Forms.PictureBox pictureBox120;
-        private System.Windows.Forms.PictureBox pictureBox119;
-        private System.Windows.Forms.PictureBox pictureBox118;
-        private System.Windows.Forms.PictureBox pictureBox117;
-        private System.Windows.Forms.PictureBox pictureBox116;
-        private System.Windows.Forms.PictureBox pictureBox115;
-        private System.Windows.Forms.PictureBox pictureBox114;
-        private System.Windows.Forms.PictureBox pictureBox113;
-        private System.Windows.Forms.PictureBox pictureBox112;
-        private System.Windows.Forms.PictureBox pictureBox111;
-        private System.Windows.Forms.PictureBox pictureBox110;
-        private System.Windows.Forms.PictureBox pictureBox109;
-        private System.Windows.Forms.PictureBox pictureBox108;
-        private System.Windows.Forms.PictureBox pictureBox107;
-        private System.Windows.Forms.PictureBox pictureBox106;
-        private System.Windows.Forms.PictureBox pictureBox105;
-        private System.Windows.Forms.PictureBox pictureBox104;
-        private System.Windows.Forms.PictureBox pictureBox103;
-        private System.Windows.Forms.PictureBox pictureBox102;
-        private System.Windows.Forms.PictureBox pictureBox101;
-        private System.Windows.Forms.PictureBox pictureBox100;
-        private System.Windows.Forms.PictureBox pictureBox99;
-        private System.Windows.Forms.PictureBox pictureBox98;
-        private System.Windows.Forms.PictureBox pictureBox97;
-        private System.Windows.Forms.PictureBox pictureBox96;
-        private System.Windows.Forms.PictureBox pictureBox95;
-        private System.Windows.Forms.PictureBox pictureBox94;
-        private System.Windows.Forms.PictureBox pictureBox93;
-        private System.Windows.Forms.PictureBox pictureBox92;
-        private System.Windows.Forms.PictureBox pictureBox91;
-        private System.Windows.Forms.PictureBox pictureBox90;
-        private System.Windows.Forms.PictureBox pictureBox89;
-        private System.Windows.Forms.PictureBox pictureBox88;
-        private System.Windows.Forms.PictureBox pictureBox87;
-        private System.Windows.Forms.PictureBox pictureBox86;
-        private System.Windows.Forms.PictureBox pictureBox85;
-        private System.Windows.Forms.PictureBox pictureBox84;
-        private System.Windows.Forms.PictureBox pictureBox83;
-        private System.Windows.Forms.PictureBox pictureBox82;
-        private System.Windows.Forms.PictureBox pictureBox81;
-        private System.Windows.Forms.PictureBox pictureBox80;
-        private System.Windows.Forms.PictureBox pictureBox79;
-        private System.Windows.Forms.PictureBox pictureBox78;
-        private System.Windows.Forms.PictureBox pictureBox77;
-        private System.Windows.Forms.PictureBox pictureBox76;
-        private System.Windows.Forms.PictureBox pictureBox75;
-        private System.Windows.Forms.PictureBox pictureBox74;
-        private System.Windows.Forms.PictureBox pictureBox73;
-        private System.Windows.Forms.PictureBox pictureBox72;
-        private System.Windows.Forms.PictureBox pictureBox71;
-        private System.Windows.Forms.PictureBox pictureBox70;
-        private System.Windows.Forms.PictureBox pictureBox69;
-        private System.Windows.Forms.PictureBox pictureBox68;
-        private System.Windows.Forms.PictureBox pictureBox67;
-        private System.Windows.Forms.PictureBox pictureBox66;
-        private System.Windows.Forms.PictureBox pictureBox65;
-        private System.Windows.Forms.PictureBox pictureBox64;
-        private System.Windows.Forms.PictureBox pictureBox63;
-        private System.Windows.Forms.PictureBox pictureBox62;
-        private System.Windows.Forms.PictureBox pictureBox61;
-        private System.Windows.Forms.PictureBox pictureBox60;
-        private System.Windows.Forms.PictureBox pictureBox59;
-        private System.Windows.Forms.PictureBox pictureBox58;
-        private System.Windows.Forms.PictureBox pictureBox57;
-        private System.Windows.Forms.PictureBox pictureBox56;
-        private System.Windows.Forms.PictureBox pictureBox55;
-        private System.Windows.Forms.PictureBox pictureBox54;
-        private System.Windows.Forms.PictureBox pictureBox53;
-        private System.Windows.Forms.PictureBox pictureBox52;
-        private System.Windows.Forms.PictureBox pictureBox51;
-        private System.Windows.Forms.PictureBox pictureBox50;
-        private System.Windows.Forms.PictureBox pictureBox49;
-        private System.Windows.Forms.PictureBox pictureBox48;
-        private System.Windows.Forms.PictureBox pictureBox47;
-        private System.Windows.Forms.PictureBox pictureBox46;
-        private System.Windows.Forms.PictureBox pictureBox45;
-        private System.Windows.Forms.PictureBox pictureBox44;
-        private System.Windows.Forms.PictureBox pictureBox43;
-        private System.Windows.Forms.PictureBox pictureBox42;
-        private System.Windows.Forms.PictureBox pictureBox41;
-        private System.Windows.Forms.PictureBox pictureBox40;
-        private System.Windows.Forms.PictureBox pictureBox39;
-        private System.Windows.Forms.PictureBox pictureBox38;
-        private System.Windows.Forms.PictureBox pictureBox37;
-        private System.Windows.Forms.PictureBox pictureBox36;
-        private System.Windows.Forms.PictureBox pictureBox35;
-        private System.Windows.Forms.PictureBox pictureBox34;
-        private System.Windows.Forms.PictureBox pictureBox33;
-        private System.Windows.Forms.PictureBox pictureBox32;
-        private System.Windows.Forms.PictureBox pictureBox31;
-        private System.Windows.Forms.PictureBox pictureBox30;
-        private System.Windows.Forms.PictureBox pictureBox29;
-        private System.Windows.Forms.PictureBox pictureBox28;
-        private System.Windows.Forms.PictureBox pictureBox27;
-        private System.Windows.Forms.PictureBox pictureBox26;
-        private System.Windows.Forms.PictureBox pictureBox25;
-        private System.Windows.Forms.PictureBox pictureBox24;
-        private System.Windows.Forms.PictureBox pictureBox23;
-        private System.Windows.Forms.PictureBox pictureBox22;
-        private System.Windows.Forms.PictureBox pictureBox21;
-        private System.Windows.Forms.PictureBox pictureBox20;
-        private System.Windows.Forms.PictureBox pictureBox19;
-        private System.Windows.Forms.PictureBox pictureBox18;
-        private System.Windows.Forms.PictureBox pictureBox17;
-        private System.Windows.Forms.PictureBox pictureBox16;
-        private System.Windows.Forms.PictureBox pictureBox15;
-        private System.Windows.Forms.PictureBox pictureBox14;
-        private System.Windows.Forms.PictureBox pictureBox13;
-        private System.Windows.Forms.PictureBox pictureBox12;
-        private System.Windows.Forms.PictureBox pictureBox11;
-        private System.Windows.Forms.PictureBox pictureBox10;
-        private System.Windows.Forms.PictureBox pictureBox9;
-        private System.Windows.Forms.PictureBox pictureBox8;
-        private System.Windows.Forms.PictureBox pictureBox7;
-        private System.Windows.Forms.PictureBox pictureBox6;
-        private System.Windows.Forms.PictureBox pictureBox5;
-        private System.Windows.Forms.PictureBox pictureBox4;
-        private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.PictureBox pictureBox5;
+        private System.Windows.Forms.PictureBox pictureBox6;
+        private System.Windows.Forms.PictureBox pictureBox7;
+        private System.Windows.Forms.PictureBox pictureBox8;
+        private System.Windows.Forms.PictureBox pictureBox9;
+        private System.Windows.Forms.PictureBox pictureBox10;
+        private System.Windows.Forms.PictureBox pictureBox11;
+        private System.Windows.Forms.PictureBox pictureBox12;
+        private System.Windows.Forms.PictureBox pictureBox13;
+        private System.Windows.Forms.PictureBox pictureBox14;
+        private System.Windows.Forms.PictureBox pictureBox15;
+        private System.Windows.Forms.PictureBox pictureBox16;
+        private System.Windows.Forms.PictureBox pictureBox17;
+        private System.Windows.Forms.PictureBox pictureBox18;
+        private System.Windows.Forms.PictureBox pictureBox19;
+        private System.Windows.Forms.PictureBox pictureBox20;
+        private System.Windows.Forms.PictureBox pictureBox21;
+        private System.Windows.Forms.PictureBox pictureBox22;
+        private System.Windows.Forms.PictureBox pictureBox23;
+        private System.Windows.Forms.PictureBox pictureBox24;
+        private System.Windows.Forms.PictureBox pictureBox25;
+        private System.Windows.Forms.PictureBox pictureBox26;
+        private System.Windows.Forms.PictureBox pictureBox27;
+        private System.Windows.Forms.PictureBox pictureBox28;
+        private System.Windows.Forms.PictureBox pictureBox29;
+        private System.Windows.Forms.PictureBox pictureBox30;
+        private System.Windows.Forms.PictureBox pictureBox31;
+        private System.Windows.Forms.PictureBox pictureBox32;
+        private System.Windows.Forms.PictureBox pictureBox33;
+        private System.Windows.Forms.PictureBox pictureBox34;
+        private System.Windows.Forms.PictureBox pictureBox35;
+        private System.Windows.Forms.PictureBox pictureBox36;
+        private System.Windows.Forms.PictureBox pictureBox37;
+        private System.Windows.Forms.PictureBox pictureBox38;
+        private System.Windows.Forms.PictureBox pictureBox39;
+        private System.Windows.Forms.PictureBox pictureBox40;
+        private System.Windows.Forms.PictureBox pictureBox41;
+        private System.Windows.Forms.PictureBox pictureBox42;
+        private System.Windows.Forms.PictureBox pictureBox43;
+        private System.Windows.Forms.PictureBox pictureBox44;
+        private System.Windows.Forms.PictureBox pictureBox45;
+        private System.Windows.Forms.PictureBox pictureBox46;
+        private System.Windows.Forms.PictureBox pictureBox47;
+        private System.Windows.Forms.PictureBox pictureBox48;
+        private System.Windows.Forms.PictureBox pictureBox49;
+        private System.Windows.Forms.PictureBox pictureBox50;
+        private System.Windows.Forms.PictureBox pictureBox51;
+        private System.Windows.Forms.PictureBox pictureBox52;
+        private System.Windows.Forms.PictureBox pictureBox53;
+        private System.Windows.Forms.PictureBox pictureBox54;
+        private System.Windows.Forms.PictureBox pictureBox55;
+        private System.Windows.Forms.PictureBox pictureBox56;
+        private System.Windows.Forms.PictureBox pictureBox57;
+        private System.Windows.Forms.PictureBox pictureBox58;
+        private System.Windows.Forms.PictureBox pictureBox59;
+        private System.Windows.Forms.PictureBox pictureBox60;
+        private System.Windows.Forms.PictureBox pictureBox61;
+        private System.Windows.Forms.PictureBox pictureBox62;
+        private System.Windows.Forms.PictureBox pictureBox63;
+        private System.Windows.Forms.PictureBox pictureBox64;
+        private System.Windows.Forms.Button ShuffleButton;
+        private System.Windows.Forms.PictureBox pictureBox65;
+        private System.Windows.Forms.PictureBox pictureBox66;
+        private System.Windows.Forms.PictureBox pictureBox67;
+        private System.Windows.Forms.PictureBox pictureBox68;
+        private System.Windows.Forms.PictureBox pictureBox69;
+        private System.Windows.Forms.PictureBox pictureBox70;
+        private System.Windows.Forms.PictureBox pictureBox71;
+        private System.Windows.Forms.PictureBox pictureBox72;
+        private System.Windows.Forms.PictureBox pictureBox73;
+        private System.Windows.Forms.PictureBox pictureBox74;
+        private System.Windows.Forms.PictureBox pictureBox75;
+        private System.Windows.Forms.PictureBox pictureBox76;
+        private System.Windows.Forms.PictureBox pictureBox77;
+        private System.Windows.Forms.PictureBox pictureBox78;
+        private System.Windows.Forms.PictureBox pictureBox79;
+        private System.Windows.Forms.PictureBox pictureBox80;
+        private System.Windows.Forms.PictureBox pictureBox81;
+        private System.Windows.Forms.PictureBox pictureBox82;
+        private System.Windows.Forms.PictureBox pictureBox83;
+        private System.Windows.Forms.PictureBox pictureBox84;
+        private System.Windows.Forms.PictureBox pictureBox85;
+        private System.Windows.Forms.PictureBox pictureBox86;
+        private System.Windows.Forms.PictureBox pictureBox87;
+        private System.Windows.Forms.PictureBox pictureBox88;
+        private System.Windows.Forms.PictureBox pictureBox89;
+        private System.Windows.Forms.PictureBox pictureBox90;
+        private System.Windows.Forms.PictureBox pictureBox91;
+        private System.Windows.Forms.PictureBox pictureBox92;
+        private System.Windows.Forms.PictureBox pictureBox93;
+        private System.Windows.Forms.PictureBox pictureBox94;
+        private System.Windows.Forms.PictureBox pictureBox95;
+        private System.Windows.Forms.PictureBox pictureBox96;
+        private System.Windows.Forms.PictureBox pictureBox97;
+        private System.Windows.Forms.PictureBox pictureBox98;
+        private System.Windows.Forms.PictureBox pictureBox99;
+        private System.Windows.Forms.PictureBox pictureBox100;
+        private System.Windows.Forms.PictureBox pictureBox101;
+        private System.Windows.Forms.PictureBox pictureBox102;
+        private System.Windows.Forms.PictureBox pictureBox103;
+        private System.Windows.Forms.PictureBox pictureBox104;
+        private System.Windows.Forms.PictureBox pictureBox105;
+        private System.Windows.Forms.PictureBox pictureBox106;
+        private System.Windows.Forms.PictureBox pictureBox107;
+        private System.Windows.Forms.PictureBox pictureBox108;
+        private System.Windows.Forms.PictureBox pictureBox109;
+        private System.Windows.Forms.PictureBox pictureBox110;
+        private System.Windows.Forms.PictureBox pictureBox111;
+        private System.Windows.Forms.PictureBox pictureBox112;
+        private System.Windows.Forms.PictureBox pictureBox113;
+        private System.Windows.Forms.PictureBox pictureBox114;
+        private System.Windows.Forms.PictureBox pictureBox115;
+        private System.Windows.Forms.PictureBox pictureBox116;
+        private System.Windows.Forms.PictureBox pictureBox117;
+        private System.Windows.Forms.PictureBox pictureBox118;
+        private System.Windows.Forms.PictureBox pictureBox119;
+        private System.Windows.Forms.PictureBox pictureBox120;
+        private System.Windows.Forms.PictureBox pictureBox121;
+        private System.Windows.Forms.PictureBox pictureBox122;
+        private System.Windows.Forms.PictureBox pictureBox123;
+        private System.Windows.Forms.PictureBox pictureBox124;
+        private System.Windows.Forms.PictureBox pictureBox125;
+        private System.Windows.Forms.PictureBox pictureBox126;
+        private System.Windows.Forms.PictureBox pictureBox127;
+        private System.Windows.Forms.PictureBox pictureBox128;
+        private System.Windows.Forms.Button Quit;
+        private System.Windows.Forms.Button btnPause;
         private MetroFramework.Controls.MetroLabel lblScore;
-        private MetroFramework.Controls.MetroLabel remaininglbl;
-        private System.Windows.Forms.Panel panel1;
     }
 }
