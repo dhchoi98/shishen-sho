@@ -20,12 +20,10 @@ namespace shishen_sho
         private PictureBox secondClicked = null;
         private int totalTime;
         private int score;
-        private const int ROWS = 8;
-        private const int COLS = 16;
+        private const int ROWS = 10;
+        private const int COLS = 18;
         private PictureBox[,] graph = new PictureBox[ROWS, COLS];
         private List<Tuple<int, int>> currentPath = null; // 경로를 저장할 변수
-        private int difficulty;
-        
         public InGame(int minutes)
         {
             InitializeComponent();
@@ -37,7 +35,6 @@ namespace shishen_sho
             gameTimer.Tick += GameTimer_Tick;
             gameTimer.Start();
 
-    
             TimeLeft = TimeSpan.FromMinutes(minutes);
 
             progressBar.Style = MetroColorStyle.Silver;
@@ -48,11 +45,9 @@ namespace shishen_sho
 
             score = 0;
             lblScore.Text = "Score: 0";
-          
-            difficulty = minutes;
         }
 
-         private void InitializeGraph()
+        private void InitializeGraph()
         {
             for (int i = 1; i <= 128; i++)
             {
@@ -62,21 +57,36 @@ namespace shishen_sho
                 {
                     if (i <= 64)
                     {
-                        int row = ((i - 1) / 8) + 1; // 행 계산
-                        int col = ((i - 1) % 8) + 1; // 열 계산
-                        graph[row - 1, col - 1] = pictureBox;
+                        int row = (i - 1) / 8 + 1; // 행 계산
+                        int col = (i - 1) % 8 + 1; // 열 계산
+                        graph[row, col] = pictureBox;
                         pictureBox.Click += new EventHandler(PictureBox_Click);
                     }
                     else
                     {
-                        int row = ((i - 65) / 8) + 1;
+                        int row = (i - 65) / 8 + 1;
                         int col = 9 + (i - 65) % 8;
-                        graph[row - 1, col - 1] = pictureBox;
+                        graph[row, col] = pictureBox;
                         pictureBox.Click += new EventHandler(PictureBox_Click);
                     }
                 }
             }
+            for (int i = 0; i < 18; i++)
+            {
+                PictureBox picture = new PictureBox();
+                picture.Tag = null;
+                graph[0, i] = picture;
+                graph[9, i] = picture;
 
+            }
+            for (int i = 0; i < 10; i++)
+            {
+                PictureBox picture = new PictureBox();
+                picture.Tag = null;
+                graph[i, 0] = picture;
+                graph[i, 17] = picture;
+
+            }
         }
 
         private void PictureBox_Click(object sender, EventArgs e)
@@ -88,6 +98,7 @@ namespace shishen_sho
 
             if (firstClicked == clickedPictureBox)
             {
+                Console.WriteLine("1");
                 firstClicked.Padding = new Padding(0);
                 firstClicked.BackColor = Color.Transparent;
                 firstClicked = null;
@@ -96,6 +107,7 @@ namespace shishen_sho
 
             if (secondClicked == clickedPictureBox)
             {
+                Console.WriteLine("2");
                 secondClicked.Padding = new Padding(0);
                 secondClicked.BackColor = Color.Transparent;
                 secondClicked = null;
@@ -107,14 +119,16 @@ namespace shishen_sho
 
             if (firstClicked == null)
             {
+                Console.WriteLine("3");
                 firstClicked = clickedPictureBox;
                 firstClicked.Padding = new Padding(0);
                 firstClicked.BackColor = Color.LightYellow; // 테두리 색상 설정
                 return;
             }
-
+            // 두번째 클릭
             if (firstClicked != null && firstClicked != clickedPictureBox)
             {
+                Console.WriteLine("4");
                 secondClicked = clickedPictureBox;
                 secondClicked.Padding = new Padding(0);
                 secondClicked.BackColor = Color.LightYellow; // 테두리 색상 설정
@@ -248,6 +262,11 @@ namespace shishen_sho
             }
         }
 
+        private void Quit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
         private void pictureBox66_Click(object sender, EventArgs e)
         {
         }
@@ -289,12 +308,15 @@ namespace shishen_sho
         }
         private async void CheckForMatch()
         {
+            Console.WriteLine("check for match : start");
             if (firstClicked.Tag != null && secondClicked.Tag != null &&
                 firstClicked.Tag.ToString() == secondClicked.Tag.ToString())
             {
+                Console.WriteLine("check for match : if");
                 var path = CheckPathAndHide();
                 if (path != null)
                 {
+                    Console.WriteLine("check for match : if1");
                     currentPath = path;
                     this.Invalidate(); // 경로를 다시 그리기 위해 Invalidate 호출
                     await Task.Delay(300); // 딜레이
@@ -317,17 +339,16 @@ namespace shishen_sho
                         this.Close();
                     }
                 }
-                else
-                {
-                    firstClicked.Padding = new Padding(0);
-                    firstClicked.BackColor = Color.Transparent;
-                    secondClicked.Padding = new Padding(0);
-                    secondClicked.BackColor = Color.Transparent;
-                }
-
-                firstClicked = null;
-                secondClicked = null;
+                
             }
+            firstClicked.Padding = new Padding(0);
+            firstClicked.BackColor = Color.Transparent;
+            secondClicked.Padding = new Padding(0);
+            secondClicked.BackColor = Color.Transparent;
+
+            firstClicked = null;
+            secondClicked = null;
+            Console.WriteLine("check for match : return");
         }
 
 
@@ -354,10 +375,10 @@ namespace shishen_sho
 
             int[][] directions = new int[][]
             {
-        new int[] { -1, 0 },
-        new int[] { 1, 0 },
-        new int[] { 0, -1 },
-        new int[] { 0, 1 }
+    new int[] { -1, 0 },
+    new int[] { 1, 0 },
+    new int[] { 0, -1 },
+    new int[] { 0, 1 }
             };
 
             Queue<Tuple<int, int, int, int, List<Tuple<int, int>>>> queue = new Queue<Tuple<int, int, int, int, List<Tuple<int, int>>>>();
@@ -402,5 +423,9 @@ namespace shishen_sho
             return null;
         }
 
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
