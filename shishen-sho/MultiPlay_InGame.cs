@@ -317,8 +317,7 @@ namespace shishen_sho
                 if (parts.Length == 2 && int.TryParse(parts[1].Trim(), out int remaining))
                 {
                     // remaining 값을 처리
-                    Console.WriteLine("남은 패: " + remaining);
-                    // 여기에 remaining 값을 사용하는 로직을 추가합니다.
+                    enemyRemain.Text = "남은 패: " + remainingCount + "개";
                 }
             }
             else if (message.StartsWith("score"))
@@ -327,8 +326,7 @@ namespace shishen_sho
                 if (parts.Length == 2 && int.TryParse(parts[1].Trim(), out int score))
                 {
                     // score 값을 처리
-                    Console.WriteLine("점수: " + score);
-                    // 여기에 score 값을 사용하는 로직을 추가합니다.
+                    enemyScore.Text = "Score: " + score;
                 }
             }
             else
@@ -336,6 +334,7 @@ namespace shishen_sho
                 // 기타 메시지 처리
                 Console.WriteLine("알 수 없는 메시지: " + message);
             }
+            Thread.Sleep(500);
         }
 
 
