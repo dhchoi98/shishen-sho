@@ -24,13 +24,13 @@ namespace shishen_sho
         private PictureBox secondClicked = null;
         private int totalTime;
         private int score;
+        private int enemyScoreValue;
         private const int ROWS = 8;
         private const int COLS = 16;
         private PictureBox[,] graph = new PictureBox[ROWS, COLS];
         private List<Tuple<int, int>> currentPath = null; // 경로를 저장할 변수
         private int difficulty;
         int remainingCount = 0;
-
 
         private TcpListener server = null;
         private TcpClient guest = null;
@@ -42,37 +42,31 @@ namespace shishen_sho
         public bool m_bConnect = false;
         public bool m_bStop = false;
 
-        private Thread thHost;
-        private Thread thSend;
-        private Thread thReader;
+        private Task serverTask;
+        private Task sendTask;
+        private Task readerTask;
 
-        public NetworkStream m_Stream;
-        public StreamReader m_Read;
-        public StreamWriter m_Write;
+        private NetworkStream m_Stream;
+        private StreamReader m_Read;
+        private StreamWriter m_Write;
 
         // 방장
         public MultiPlay_InGame(int minutes)
         {
             InitializeComponent();
             InitializeGraph();
-            // 타이머 1초마다 초기화
             gameTimer.Interval = 1000;
             gameTimer.Tick += GameTimer_Tick;
-            // gameTimer.Start();
-
-            
-            // 게임 시작 시간 설정
             TimeLeft = TimeSpan.FromMinutes(minutes);
 
             progressBar.Style = MetroColorStyle.Silver;
             totalTime = minutes * 60;
             progressBar.Minimum = 0;
             progressBar.Maximum = totalTime;
-            progressBar.Value = progressBar.Maximum;  // 시작 값은 0에서 시작
+            progressBar.Value = progressBar.Maximum;
 
             score = 0;
-            lblScore.Text = "Score: 0";
-           
+            lblScore1.Text = "Score: 0";
         }
 
         // 게스트
@@ -80,27 +74,21 @@ namespace shishen_sho
         {
             InitializeComponent();
             InitializeGraph();
-            // 타이머 1초마다 초기화
             gameTimer.Interval = 1000;
             gameTimer.Tick += GameTimer_Tick;
-            // gameTimer.Start();
-
-
-            // 게임 시작 시간 설정
             TimeLeft = TimeSpan.FromMinutes(minutes);
 
             progressBar.Style = MetroColorStyle.Silver;
             totalTime = minutes * 60;
             progressBar.Minimum = 0;
             progressBar.Maximum = totalTime;
-            progressBar.Value = progressBar.Maximum;  // 시작 값은 0에서 시작
+            progressBar.Value = progressBar.Maximum;
 
             score = 0;
-            lblScore.Text = "Score: 0";
+            lblScore1.Text = "Score: 0";
 
             this.hostIpAddress = hostIpAddress;
             hostAddr = IPAddress.Parse(hostIpAddress);
-
         }
 
         private async void InGame_Load(object sender, EventArgs e)
@@ -112,20 +100,16 @@ namespace shishen_sho
                 BroadcastStartMessage();
             }
 
-            // 비동기 소켓 연결 작업 시작
             await PerformSocketConnectionAsync();
 
-            // 소켓 연결이 완료된 후에 코드 실행
             if (m_bConnect)
             {
                 m_bStop = true;
                 if (hostIpAddress == null)
                 {
-                    thHost = new Thread(new ThreadStart(ServerStart));
-                    thHost.Start();
+                    serverTask = Task.Run(() => ServerStart());
                 }
-                thSend = new Thread(new ThreadStart(Send));
-                thSend.Start();
+                sendTask = Task.Run(() => Send());
             }
             gameTimer.Start();
         }
@@ -138,7 +122,6 @@ namespace shishen_sho
 
             for (int i = 0; i < 5; i++)
             {
-                // 메시지 전송
                 Console.WriteLine("게임시작 메세지 전송");
                 udpClient.Send(message, message.Length, endPoint);
                 Thread.Sleep(1000);
@@ -152,7 +135,7 @@ namespace shishen_sho
 
             var task = Task.Run(() =>
             {
-                if (hostIpAddress == null) // 호스트 입장, 소켓 연결 대기
+                if (hostIpAddress == null)
                 {
                     try
                     {
@@ -179,7 +162,7 @@ namespace shishen_sho
                         return;
                     }
                 }
-                else // 게스트 입장, 소켓 연결
+                else
                 {
                     Thread.Sleep(2000);
                     Connect();
@@ -190,21 +173,15 @@ namespace shishen_sho
             {
                 Console.WriteLine("소켓 연결 시작");
 
-                // 소켓 연결 작업을 비동기적으로 수행
                 await task;
 
                 Console.WriteLine("소켓 연결 완료");
 
-                // 메시지 박스를 닫기
                 messageBox.Invoke(new Action(() => messageBox.Close()));
             };
 
             messageBox.ShowDialog();
-
-            // 메시지 박스가 닫힌 후 InGame 폼의 컨트롤을 활성화
             this.Enabled = true;
-
-            // 추가 작업
             Console.WriteLine("메시지 박스가 닫혔습니다. 추가 작업을 수행합니다.");
         }
 
@@ -215,11 +192,10 @@ namespace shishen_sho
                 if (hClient.Connected)
                 {
                     m_Stream = hClient.GetStream();
-                    m_Read = new StreamReader(m_Stream);
-                    m_Write = new StreamWriter(m_Stream);
+                    m_Read = new StreamReader(m_Stream, Encoding.UTF8, true, 4096);
+                    m_Write = new StreamWriter(m_Stream, Encoding.UTF8, 4096) { AutoFlush = true };
 
-                    thReader = new Thread(new ThreadStart(Receive));
-                    thReader.Start();
+                    readerTask = Task.Run(() => Receive());
                 }
             }
         }
@@ -231,9 +207,6 @@ namespace shishen_sho
 
             server.Stop();
             CloseStreams();
-            thReader.Abort();
-            thHost.Abort();
-
             Console.WriteLine("서비스 종료");
         }
 
@@ -244,16 +217,14 @@ namespace shishen_sho
 
             m_bConnect = false;
             CloseStreams();
-            thReader.Abort();
-
             Console.WriteLine("상대방과 연결 중단");
         }
 
         private void CloseStreams()
         {
-            m_Read.Close();
-            m_Write.Close();
-            m_Stream.Close();
+            m_Read?.Close();
+            m_Write?.Close();
+            m_Stream?.Close();
         }
 
         public void Connect()
@@ -283,11 +254,10 @@ namespace shishen_sho
             Console.WriteLine("게스트 : 서버에 연결");
 
             m_Stream = guest.GetStream();
-            m_Read = new StreamReader(m_Stream);
-            m_Write = new StreamWriter(m_Stream);
+            m_Read = new StreamReader(m_Stream, Encoding.UTF8, true, 4096);
+            m_Write = new StreamWriter(m_Stream, Encoding.UTF8, 4096) { AutoFlush = true };
 
-            thReader = new Thread(new ThreadStart(Receive));
-            thReader.Start();
+            readerTask = Task.Run(() => Receive());
         }
 
         public void Receive()
@@ -300,12 +270,15 @@ namespace shishen_sho
 
                     if (szMessage != null)
                         ProcessReceivedMessage(szMessage);
-
                 }
             }
-            catch
+            catch (IOException ex)
             {
-                Console.WriteLine("데이터를 읽는 과정에서 오류가 발생");
+                Console.WriteLine("데이터를 읽는 과정에서 오류가 발생: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("알 수 없는 오류가 발생: " + ex.Message);
             }
         }
 
@@ -316,27 +289,35 @@ namespace shishen_sho
                 string[] parts = message.Split(':');
                 if (parts.Length == 2 && int.TryParse(parts[1].Trim(), out int remaining))
                 {
-                    // remaining 값을 처리
-                    enemyRemain.Text = "남은 패: " + remainingCount + "개";
+                    UpdateUI(() => enemyRemain.Text = "남은 패: " + remaining + "개");
                 }
             }
             else if (message.StartsWith("score"))
             {
                 string[] parts = message.Split(':');
-                if (parts.Length == 2 && int.TryParse(parts[1].Trim(), out int score))
+                if (parts.Length == 2 && int.TryParse(parts[1].Trim(), out int scoreValue))
                 {
-                    // score 값을 처리
-                    enemyScore.Text = "Score: " + score;
+                    enemyScoreValue = scoreValue;
+                    UpdateUI(() => enemyScore.Text = "Score: " + scoreValue);
                 }
             }
             else
             {
-                // 기타 메시지 처리
                 Console.WriteLine("알 수 없는 메시지: " + message);
             }
-            Thread.Sleep(500);
         }
 
+        private void UpdateUI(Action updateAction)
+        {
+            if (enemyRemain.InvokeRequired)
+            {
+                enemyRemain.Invoke(updateAction);
+            }
+            else
+            {
+                updateAction();
+            }
+        }
 
         void Send()
         {
@@ -347,8 +328,6 @@ namespace shishen_sho
                 {
                     m_Write.WriteLine("remain : " + remainingCount);
                     m_Write.WriteLine("score : " + score);
-                    m_Write.Flush();
-              
                 }
                 catch
                 {
@@ -356,6 +335,8 @@ namespace shishen_sho
                 }
             }
         }
+    
+
 
 
         private void InitializeGraph()
@@ -459,7 +440,7 @@ namespace shishen_sho
         {
             int timeBonus = (int)TimeLeft.TotalSeconds * 100;
             score += timeBonus;
-            lblScore.Text = "Score: " + score;
+            lblScore1.Text = "Score: " + score;
         }
 
         private TimeSpan TimeLeft;
@@ -476,7 +457,19 @@ namespace shishen_sho
             if (TimeLeft <= TimeSpan.Zero)
             {
                 gameTimer.Stop();
-                MessageBox.Show("실패하였습니다");
+                if (score > enemyScoreValue)
+                {
+                    MessageBox.Show("승리하였습니다");
+                }
+                else if (score < enemyScoreValue)
+                {
+                    MessageBox.Show("패배하였습니다");
+                }
+                else
+                {
+                    MessageBox.Show("무승부입니다");
+                }
+
                 this.Close();
             }
         }
@@ -516,7 +509,7 @@ namespace shishen_sho
             ShufflePictureBoxes();
             score -= 3000;
             if (score < 0) score = 0;
-            lblScore.Text = "Score: " + score;
+            lblScore1.Text = "Score: " + score;
         }
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
@@ -535,7 +528,6 @@ namespace shishen_sho
 
         private void btnPause_Click(object sender, EventArgs e)
         {
-            gameTimer.Stop();
             Pause pause = new Pause();
             DialogResult dialog = pause.ShowDialog();
 
@@ -606,7 +598,7 @@ namespace shishen_sho
                     secondClicked.Hide();
 
                     score += 500; // 패 매칭 성공 시 점수 500점 추가
-                    lblScore.Text = "Score: " + score;
+                    lblScore1.Text = "Score: " + score;
 
                     RemainingLabel();
 

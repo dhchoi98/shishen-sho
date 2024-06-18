@@ -164,12 +164,12 @@
             this.pictureBox126 = new System.Windows.Forms.PictureBox();
             this.pictureBox127 = new System.Windows.Forms.PictureBox();
             this.pictureBox128 = new System.Windows.Forms.PictureBox();
-            this.lblScore = new MetroFramework.Controls.MetroLabel();
+            this.lblScore1 = new MetroFramework.Controls.MetroLabel();
             this.remaininglbl = new MetroFramework.Controls.MetroLabel();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.enemyScore = new MetroFramework.Controls.MetroLabel();
             this.enemyRemain = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -299,7 +299,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox126)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox127)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox128)).BeginInit();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // timeLabel
@@ -343,7 +342,6 @@
             // 
             this.tableLayoutPanel1.AllowDrop = true;
             this.tableLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.tableLayoutPanel1.BackgroundImage = global::shishen_sho.Properties.Resources.back;
             this.tableLayoutPanel1.ColumnCount = 16;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.25F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.25F));
@@ -1915,17 +1913,16 @@
             this.pictureBox128.TabStop = false;
             this.pictureBox128.Tag = "Image32";
             // 
-            // lblScore
+            // lblScore1
             // 
-            this.lblScore.AutoSize = true;
-            this.lblScore.BackColor = System.Drawing.Color.Transparent;
-            this.lblScore.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.lblScore.FontWeight = MetroFramework.MetroLabelWeight.Bold;
-            this.lblScore.Location = new System.Drawing.Point(72, 895);
-            this.lblScore.Name = "lblScore";
-            this.lblScore.Size = new System.Drawing.Size(22, 25);
-            this.lblScore.TabIndex = 6;
-            this.lblScore.Text = "0";
+            this.lblScore1.AutoSize = true;
+            this.lblScore1.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.lblScore1.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.lblScore1.Location = new System.Drawing.Point(72, 906);
+            this.lblScore1.Name = "lblScore1";
+            this.lblScore1.Size = new System.Drawing.Size(22, 25);
+            this.lblScore1.TabIndex = 9;
+            this.lblScore1.Text = "0";
             // 
             // remaininglbl
             // 
@@ -1933,45 +1930,28 @@
             this.remaininglbl.BackColor = System.Drawing.Color.Transparent;
             this.remaininglbl.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.remaininglbl.FontWeight = MetroFramework.MetroLabelWeight.Bold;
-            this.remaininglbl.Location = new System.Drawing.Point(218, 895);
+            this.remaininglbl.Location = new System.Drawing.Point(234, 906);
             this.remaininglbl.Name = "remaininglbl";
             this.remaininglbl.Size = new System.Drawing.Size(71, 25);
             this.remaininglbl.TabIndex = 7;
             this.remaininglbl.Text = "남은 패";
             // 
-            // panel1
-            // 
-            this.panel1.BackgroundImage = global::shishen_sho.Properties.Resources.back;
-            this.panel1.Controls.Add(this.enemyRemain);
-            this.panel1.Controls.Add(this.enemyScore);
-            this.panel1.Controls.Add(this.metroLabel1);
-            this.panel1.Controls.Add(this.lblScore);
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1614, 1006);
-            this.panel1.TabIndex = 8;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
-            // 
             // metroLabel1
             // 
-            this.metroLabel1.AutoSize = true;
-            this.metroLabel1.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.metroLabel1.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel1.Location = new System.Drawing.Point(945, 895);
+            this.metroLabel1.Location = new System.Drawing.Point(0, 0);
             this.metroLabel1.Name = "metroLabel1";
-            this.metroLabel1.Size = new System.Drawing.Size(80, 25);
-            this.metroLabel1.TabIndex = 7;
-            this.metroLabel1.Text = "상대방 : ";
+            this.metroLabel1.Size = new System.Drawing.Size(100, 23);
+            this.metroLabel1.TabIndex = 0;
             // 
             // enemyScore
             // 
             this.enemyScore.AutoSize = true;
             this.enemyScore.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.enemyScore.FontWeight = MetroFramework.MetroLabelWeight.Bold;
-            this.enemyScore.Location = new System.Drawing.Point(1016, 895);
+            this.enemyScore.Location = new System.Drawing.Point(1064, 906);
             this.enemyScore.Name = "enemyScore";
             this.enemyScore.Size = new System.Drawing.Size(22, 25);
-            this.enemyScore.TabIndex = 8;
+            this.enemyScore.TabIndex = 11;
             this.enemyScore.Text = "0";
             // 
             // enemyRemain
@@ -1979,33 +1959,45 @@
             this.enemyRemain.AutoSize = true;
             this.enemyRemain.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.enemyRemain.FontWeight = MetroFramework.MetroLabelWeight.Bold;
-            this.enemyRemain.Location = new System.Drawing.Point(1186, 895);
+            this.enemyRemain.Location = new System.Drawing.Point(1193, 906);
             this.enemyRemain.Name = "enemyRemain";
-            this.enemyRemain.Size = new System.Drawing.Size(71, 25);
-            this.enemyRemain.TabIndex = 9;
-            this.enemyRemain.Text = "남은 패";
+            this.enemyRemain.Size = new System.Drawing.Size(76, 25);
+            this.enemyRemain.TabIndex = 12;
+            this.enemyRemain.Text = "남은 패 ";
+            // 
+            // metroLabel5
+            // 
+            this.metroLabel5.AutoSize = true;
+            this.metroLabel5.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel5.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.metroLabel5.Location = new System.Drawing.Point(915, 906);
+            this.metroLabel5.Name = "metroLabel5";
+            this.metroLabel5.Size = new System.Drawing.Size(71, 25);
+            this.metroLabel5.TabIndex = 13;
+            this.metroLabel5.Text = "상대방 ";
             // 
             // MultiPlay_InGame
             // 
             this.ApplyImageInvert = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::shishen_sho.Properties.Resources.back;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.BackImage = global::shishen_sho.Properties.Resources.back;
             this.ClientSize = new System.Drawing.Size(1612, 1000);
+            this.Controls.Add(this.metroLabel5);
+            this.Controls.Add(this.enemyRemain);
+            this.Controls.Add(this.enemyScore);
+            this.Controls.Add(this.lblScore1);
             this.Controls.Add(this.timeLabel);
             this.Controls.Add(this.remaininglbl);
             this.Controls.Add(this.btnPause);
             this.Controls.Add(this.ShuffleButton);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.progressBar);
-            this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("돋움", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MultiPlay_InGame";
             this.Tag = "Image24";
-            this.Text = "싱글 플레이";
+            this.Text = "멀티 플레이";
             this.TransparencyKey = System.Drawing.Color.Empty;
             this.Load += new System.EventHandler(this.InGame_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -2137,8 +2129,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox126)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox127)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox128)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2280,11 +2270,11 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private MetroFramework.Controls.MetroLabel lblScore;
+        private MetroFramework.Controls.MetroLabel lblScore1;
         private MetroFramework.Controls.MetroLabel remaininglbl;
-        private System.Windows.Forms.Panel panel1;
-        private MetroFramework.Controls.MetroLabel enemyScore;
         private MetroFramework.Controls.MetroLabel metroLabel1;
+        private MetroFramework.Controls.MetroLabel enemyScore;
         private MetroFramework.Controls.MetroLabel enemyRemain;
+        private MetroFramework.Controls.MetroLabel metroLabel5;
     }
 }
