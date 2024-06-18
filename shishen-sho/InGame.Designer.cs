@@ -1940,7 +1940,7 @@
             this.panel1.BackgroundImage = global::shishen_sho.Properties.Resources.back;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1664, 1006);
+            this.panel1.Size = new System.Drawing.Size(1612, 1006);
             this.panel1.TabIndex = 8;
             // 
             // InGame
@@ -1951,7 +1951,7 @@
             this.BackgroundImage = global::shishen_sho.Properties.Resources.back;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.BackImage = global::shishen_sho.Properties.Resources.back;
-            this.ClientSize = new System.Drawing.Size(1664, 1000);
+            this.ClientSize = new System.Drawing.Size(1612, 1000);
             this.Controls.Add(this.timeLabel);
             this.Controls.Add(this.remaininglbl);
             this.Controls.Add(this.lblScore);
