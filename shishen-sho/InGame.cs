@@ -343,6 +343,21 @@ namespace shishen_sho
 
 
 
+            // 유효한 인덱스인지 확인 (-1, -1이 아닌 경우)
+            if (firstIndex.Item1 != -1 && firstIndex.Item2 != -1 &&
+                secondIndex.Item1 != -1 && secondIndex.Item2 != -1)
+            {
+                return FindPathWithMaxTwoBends(firstIndex, secondIndex);
+            }
+            else
+            {
+                // 잘못된 클릭 처리 (예: 메시지 박스 표시)
+                MessageBox.Show("Invalid tile selection.");
+                return false;
+            }
+        }
+
+        // 2차원 배열에서 PictureBox 찾기
         private Tuple<int, int> FindIndex(PictureBox pictureBox)
         {
             for (int col = 0; col < graph.GetLength(0); col++)
@@ -365,28 +380,37 @@ namespace shishen_sho
 
             int[][] directions = new int[][]
             {
-        new int[] { -1, 0 },
-        new int[] { 1, 0 },
-        new int[] { 0, -1 },
-        new int[] { 0, 1 }
-            };
-
-            Queue<Tuple<int, int, int, int, List<Tuple<int, int>>>> queue = new Queue<Tuple<int, int, int, int, List<Tuple<int, int>>>>();
-            bool[,] visited = new bool[ROWS, COLS];
-
-            queue.Enqueue(Tuple.Create(startX, startY, -1, 0, new List<Tuple<int, int>> { Tuple.Create(startX, startY) }));
-            visited[startX, startY] = true;
-
-            while (queue.Count > 0)
+                MessageBox.Show("find: " + graph[x, y - 1].Tag + " " + graph[x, y].Tag);
+                if (graph[x, y - 1].Tag == null || graph[x, y - 1].Tag.Equals(graph[x, y].Tag))
+                {
+                    nextPoints.Add(Tuple.Create(x, y - 1));
+                }
+            }
+            
+            if (y < 14)
             {
-                var node = queue.Dequeue();
-                int x = node.Item1;
-                int y = node.Item2;
-                int prevDir = node.Item3;
-                int bends = node.Item4;
-                var path = node.Item5;
+                MessageBox.Show("find: " + graph[x, y + 1].Tag + " " + graph[x, y].Tag);
 
-                if (x == endX && y == endY)
+                if (graph[x, y + 1].Tag == null || graph[x, y + 1].Tag.Equals(graph[x, y].Tag))
+                {
+                    nextPoints.Add(Tuple.Create(x, y + 1));
+                }
+            }   
+            if (x > 0)
+            {
+                MessageBox.Show("find: " + graph[x - 1, y].Tag + " " + graph[x, y].Tag);
+
+                if (graph[x - 1, y].Tag == null || graph[x - 1, y].Tag.Equals(graph[x, y].Tag))
+                {
+                    nextPoints.Add(Tuple.Create(x - 1, y));
+                }
+            }
+                
+            if (x < 6)
+            {
+                MessageBox.Show("find: " + graph[x + 1, y].Tag + " " + graph[x, y].Tag);
+
+                if (graph[x + 1, y].Tag == null || graph[x + 1, y].Tag.Equals(graph[x, y].Tag))
                 {
                     return path;
                 }
@@ -410,7 +434,15 @@ namespace shishen_sho
                 }
             }
 
-            return null;
+        /*private bool IsObstacle(Tuple<int, int> point)
+        {
+            int x = point.Item1;
+            int y = point.Item2;
+
+            if (x < 0 || x >= COLS || y < 0 || y >= ROWS)
+                return false; // 범위를 벗어나는 경우는 장애물이 아님
+
+            return graph[x, y] != null && graph[x, y].Visible;
         }
 
     }

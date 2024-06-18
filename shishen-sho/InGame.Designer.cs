@@ -314,6 +314,7 @@
             this.progressBar.Size = new System.Drawing.Size(1308, 19);
             this.progressBar.Style = MetroFramework.MetroColorStyle.Pink;
             this.progressBar.TabIndex = 1;
+            this.progressBar.Click += new System.EventHandler(this.progressBar_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -480,7 +481,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::shishen_sho.Properties.Resources._1;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(3, 3);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(75, 88);
@@ -491,7 +492,7 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = global::shishen_sho.Properties.Resources._1;
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
             this.pictureBox2.Location = new System.Drawing.Point(84, 3);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(75, 88);
@@ -502,7 +503,7 @@
             // 
             // pictureBox3
             // 
-            this.pictureBox3.Image = global::shishen_sho.Properties.Resources._1;
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
             this.pictureBox3.Location = new System.Drawing.Point(165, 3);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(75, 88);
@@ -513,7 +514,7 @@
             // 
             // pictureBox4
             // 
-            this.pictureBox4.Image = global::shishen_sho.Properties.Resources._1;
+            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
             this.pictureBox4.Location = new System.Drawing.Point(246, 3);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(75, 88);
@@ -524,7 +525,7 @@
             // 
             // pictureBox5
             // 
-            this.pictureBox5.Image = global::shishen_sho.Properties.Resources._2;
+            this.pictureBox5.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox5.Image")));
             this.pictureBox5.Location = new System.Drawing.Point(327, 3);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(75, 88);
@@ -535,7 +536,7 @@
             // 
             // pictureBox6
             // 
-            this.pictureBox6.Image = global::shishen_sho.Properties.Resources._2;
+            this.pictureBox6.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox6.Image")));
             this.pictureBox6.Location = new System.Drawing.Point(408, 3);
             this.pictureBox6.Name = "pictureBox6";
             this.pictureBox6.Size = new System.Drawing.Size(75, 88);
@@ -546,7 +547,7 @@
             // 
             // pictureBox7
             // 
-            this.pictureBox7.Image = global::shishen_sho.Properties.Resources._2;
+            this.pictureBox7.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox7.Image")));
             this.pictureBox7.Location = new System.Drawing.Point(489, 3);
             this.pictureBox7.Name = "pictureBox7";
             this.pictureBox7.Size = new System.Drawing.Size(75, 88);
@@ -558,7 +559,7 @@
             // pictureBox8
             // 
             this.pictureBox8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox8.Image = global::shishen_sho.Properties.Resources._2;
+            this.pictureBox8.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox8.Image")));
             this.pictureBox8.Location = new System.Drawing.Point(570, 3);
             this.pictureBox8.Name = "pictureBox8";
             this.pictureBox8.Size = new System.Drawing.Size(75, 88);
@@ -569,7 +570,7 @@
             // 
             // pictureBox9
             // 
-            this.pictureBox9.Image = global::shishen_sho.Properties.Resources._3;
+            this.pictureBox9.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox9.Image")));
             this.pictureBox9.Location = new System.Drawing.Point(3, 97);
             this.pictureBox9.Name = "pictureBox9";
             this.pictureBox9.Size = new System.Drawing.Size(75, 88);
@@ -580,7 +581,7 @@
             // 
             // pictureBox10
             // 
-            this.pictureBox10.Image = global::shishen_sho.Properties.Resources._3;
+            this.pictureBox10.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox10.Image")));
             this.pictureBox10.Location = new System.Drawing.Point(84, 97);
             this.pictureBox10.Name = "pictureBox10";
             this.pictureBox10.Size = new System.Drawing.Size(75, 88);
@@ -591,7 +592,7 @@
             // 
             // pictureBox11
             // 
-            this.pictureBox11.Image = global::shishen_sho.Properties.Resources._3;
+            this.pictureBox11.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox11.Image")));
             this.pictureBox11.Location = new System.Drawing.Point(165, 97);
             this.pictureBox11.Name = "pictureBox11";
             this.pictureBox11.Size = new System.Drawing.Size(75, 88);
@@ -602,7 +603,7 @@
             // 
             // pictureBox12
             // 
-            this.pictureBox12.Image = global::shishen_sho.Properties.Resources._3;
+            this.pictureBox12.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox12.Image")));
             this.pictureBox12.Location = new System.Drawing.Point(246, 97);
             this.pictureBox12.Name = "pictureBox12";
             this.pictureBox12.Size = new System.Drawing.Size(75, 88);
@@ -613,7 +614,7 @@
             // 
             // pictureBox13
             // 
-            this.pictureBox13.Image = global::shishen_sho.Properties.Resources._4;
+            this.pictureBox13.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox13.Image")));
             this.pictureBox13.Location = new System.Drawing.Point(327, 97);
             this.pictureBox13.Name = "pictureBox13";
             this.pictureBox13.Size = new System.Drawing.Size(75, 88);
@@ -625,7 +626,7 @@
             // pictureBox14
             // 
             this.pictureBox14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox14.Image = global::shishen_sho.Properties.Resources._4;
+            this.pictureBox14.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox14.Image")));
             this.pictureBox14.Location = new System.Drawing.Point(408, 97);
             this.pictureBox14.Name = "pictureBox14";
             this.pictureBox14.Size = new System.Drawing.Size(75, 88);
@@ -636,7 +637,7 @@
             // 
             // pictureBox15
             // 
-            this.pictureBox15.Image = global::shishen_sho.Properties.Resources._4;
+            this.pictureBox15.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox15.Image")));
             this.pictureBox15.Location = new System.Drawing.Point(489, 97);
             this.pictureBox15.Name = "pictureBox15";
             this.pictureBox15.Size = new System.Drawing.Size(75, 88);
@@ -647,7 +648,7 @@
             // 
             // pictureBox16
             // 
-            this.pictureBox16.Image = global::shishen_sho.Properties.Resources._4;
+            this.pictureBox16.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox16.Image")));
             this.pictureBox16.Location = new System.Drawing.Point(570, 97);
             this.pictureBox16.Name = "pictureBox16";
             this.pictureBox16.Size = new System.Drawing.Size(75, 88);
@@ -658,7 +659,7 @@
             // 
             // pictureBox17
             // 
-            this.pictureBox17.Image = global::shishen_sho.Properties.Resources._5;
+            this.pictureBox17.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox17.Image")));
             this.pictureBox17.Location = new System.Drawing.Point(3, 191);
             this.pictureBox17.Name = "pictureBox17";
             this.pictureBox17.Size = new System.Drawing.Size(75, 88);
@@ -669,7 +670,7 @@
             // 
             // pictureBox18
             // 
-            this.pictureBox18.Image = global::shishen_sho.Properties.Resources._5;
+            this.pictureBox18.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox18.Image")));
             this.pictureBox18.Location = new System.Drawing.Point(84, 191);
             this.pictureBox18.Name = "pictureBox18";
             this.pictureBox18.Size = new System.Drawing.Size(75, 88);
@@ -680,7 +681,7 @@
             // 
             // pictureBox19
             // 
-            this.pictureBox19.Image = global::shishen_sho.Properties.Resources._5;
+            this.pictureBox19.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox19.Image")));
             this.pictureBox19.Location = new System.Drawing.Point(165, 191);
             this.pictureBox19.Name = "pictureBox19";
             this.pictureBox19.Size = new System.Drawing.Size(75, 88);
@@ -691,7 +692,7 @@
             // 
             // pictureBox20
             // 
-            this.pictureBox20.Image = global::shishen_sho.Properties.Resources._5;
+            this.pictureBox20.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox20.Image")));
             this.pictureBox20.Location = new System.Drawing.Point(246, 191);
             this.pictureBox20.Name = "pictureBox20";
             this.pictureBox20.Size = new System.Drawing.Size(75, 88);
@@ -702,7 +703,7 @@
             // 
             // pictureBox21
             // 
-            this.pictureBox21.Image = global::shishen_sho.Properties.Resources._6;
+            this.pictureBox21.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox21.Image")));
             this.pictureBox21.Location = new System.Drawing.Point(327, 191);
             this.pictureBox21.Name = "pictureBox21";
             this.pictureBox21.Size = new System.Drawing.Size(75, 88);
@@ -713,7 +714,7 @@
             // 
             // pictureBox22
             // 
-            this.pictureBox22.Image = global::shishen_sho.Properties.Resources._6;
+            this.pictureBox22.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox22.Image")));
             this.pictureBox22.Location = new System.Drawing.Point(408, 191);
             this.pictureBox22.Name = "pictureBox22";
             this.pictureBox22.Size = new System.Drawing.Size(75, 88);
@@ -724,7 +725,7 @@
             // 
             // pictureBox23
             // 
-            this.pictureBox23.Image = global::shishen_sho.Properties.Resources._6;
+            this.pictureBox23.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox23.Image")));
             this.pictureBox23.Location = new System.Drawing.Point(489, 191);
             this.pictureBox23.Name = "pictureBox23";
             this.pictureBox23.Size = new System.Drawing.Size(75, 88);
@@ -735,7 +736,7 @@
             // 
             // pictureBox24
             // 
-            this.pictureBox24.Image = global::shishen_sho.Properties.Resources._6;
+            this.pictureBox24.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox24.Image")));
             this.pictureBox24.Location = new System.Drawing.Point(570, 191);
             this.pictureBox24.Name = "pictureBox24";
             this.pictureBox24.Size = new System.Drawing.Size(75, 88);
@@ -746,7 +747,7 @@
             // 
             // pictureBox25
             // 
-            this.pictureBox25.Image = global::shishen_sho.Properties.Resources._7;
+            this.pictureBox25.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox25.Image")));
             this.pictureBox25.Location = new System.Drawing.Point(3, 285);
             this.pictureBox25.Name = "pictureBox25";
             this.pictureBox25.Size = new System.Drawing.Size(75, 88);
@@ -757,7 +758,7 @@
             // 
             // pictureBox26
             // 
-            this.pictureBox26.Image = global::shishen_sho.Properties.Resources._7;
+            this.pictureBox26.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox26.Image")));
             this.pictureBox26.Location = new System.Drawing.Point(84, 285);
             this.pictureBox26.Name = "pictureBox26";
             this.pictureBox26.Size = new System.Drawing.Size(75, 88);
@@ -768,7 +769,7 @@
             // 
             // pictureBox27
             // 
-            this.pictureBox27.Image = global::shishen_sho.Properties.Resources._7;
+            this.pictureBox27.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox27.Image")));
             this.pictureBox27.Location = new System.Drawing.Point(165, 285);
             this.pictureBox27.Name = "pictureBox27";
             this.pictureBox27.Size = new System.Drawing.Size(75, 88);
@@ -779,7 +780,7 @@
             // 
             // pictureBox28
             // 
-            this.pictureBox28.Image = global::shishen_sho.Properties.Resources._7;
+            this.pictureBox28.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox28.Image")));
             this.pictureBox28.Location = new System.Drawing.Point(246, 285);
             this.pictureBox28.Name = "pictureBox28";
             this.pictureBox28.Size = new System.Drawing.Size(75, 88);
@@ -790,7 +791,7 @@
             // 
             // pictureBox29
             // 
-            this.pictureBox29.Image = global::shishen_sho.Properties.Resources._8;
+            this.pictureBox29.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox29.Image")));
             this.pictureBox29.Location = new System.Drawing.Point(327, 285);
             this.pictureBox29.Name = "pictureBox29";
             this.pictureBox29.Size = new System.Drawing.Size(75, 88);
@@ -801,7 +802,7 @@
             // 
             // pictureBox30
             // 
-            this.pictureBox30.Image = global::shishen_sho.Properties.Resources._8;
+            this.pictureBox30.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox30.Image")));
             this.pictureBox30.Location = new System.Drawing.Point(408, 285);
             this.pictureBox30.Name = "pictureBox30";
             this.pictureBox30.Size = new System.Drawing.Size(75, 88);
@@ -812,7 +813,7 @@
             // 
             // pictureBox31
             // 
-            this.pictureBox31.Image = global::shishen_sho.Properties.Resources._8;
+            this.pictureBox31.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox31.Image")));
             this.pictureBox31.Location = new System.Drawing.Point(489, 285);
             this.pictureBox31.Name = "pictureBox31";
             this.pictureBox31.Size = new System.Drawing.Size(75, 88);
@@ -823,7 +824,7 @@
             // 
             // pictureBox32
             // 
-            this.pictureBox32.Image = global::shishen_sho.Properties.Resources._8;
+            this.pictureBox32.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox32.Image")));
             this.pictureBox32.Location = new System.Drawing.Point(570, 285);
             this.pictureBox32.Name = "pictureBox32";
             this.pictureBox32.Size = new System.Drawing.Size(75, 88);
@@ -1204,9 +1205,7 @@
             this.pictureBox66.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox66.TabIndex = 65;
             this.pictureBox66.TabStop = false;
-            this.pictureBox66.Tag = "Image17";
-            this.pictureBox66.Click += new System.EventHandler(this.pictureBox66_Click);
-            // 
+            this.pictureBox66.Tag = "Image17";            // 
             // pictureBox67
             // 
             this.pictureBox67.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox67.Image")));
@@ -1911,7 +1910,7 @@
             // 
             // btnPause
             // 
-            this.btnPause.Image = global::shishen_sho.Properties.Resources.pause;
+            this.btnPause.Image = ((System.Drawing.Image)(resources.GetObject("btnPause.Image")));
             this.btnPause.Location = new System.Drawing.Point(1400, 174);
             this.btnPause.Name = "btnPause";
             this.btnPause.Size = new System.Drawing.Size(91, 49);
@@ -1942,7 +1941,7 @@
             // 
             // InGame
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1664, 1006);
             this.Controls.Add(this.remaininglbl);
