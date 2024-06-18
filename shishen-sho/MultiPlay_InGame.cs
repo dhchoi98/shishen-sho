@@ -507,7 +507,7 @@ namespace shishen_sho
         private void ShuffleButton_Click(object sender, EventArgs e)
         {
             ShufflePictureBoxes();
-            score -= 3000;
+            score -= 1000;
             if (score < 0) score = 0;
             lblScore1.Text = "Score: " + score;
         }

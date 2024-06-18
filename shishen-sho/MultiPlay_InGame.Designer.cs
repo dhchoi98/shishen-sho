@@ -324,7 +324,7 @@
             this.ShuffleButton.Name = "ShuffleButton";
             this.ShuffleButton.Size = new System.Drawing.Size(129, 53);
             this.ShuffleButton.TabIndex = 3;
-            this.ShuffleButton.Text = "패 섞기 (-2000)";
+            this.ShuffleButton.Text = "패 섞기 (-1000)";
             this.ShuffleButton.UseVisualStyleBackColor = true;
             this.ShuffleButton.Click += new System.EventHandler(this.ShuffleButton_Click);
             // 
