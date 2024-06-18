@@ -7,17 +7,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace shishen_sho
 {
     public partial class Score : MetroFramework.Forms.MetroForm
     {
         public int listViewWidth; 
+        public static List<ScoreData> scoreList = new List<ScoreData> ();
+        private const string scoreFilePath = "scores.txt";
+
         public Score()
         {
             InitializeComponent();
             listViewWidth = ListViewScore.Width;
             InitializeListView();
+            LoadScores();
         }
         private void InitializeListView()
         {
@@ -65,13 +70,34 @@ namespace shishen_sho
                 modeText = "Hard";
             }
 
+            scoreList.Add(new ScoreData(modeText, score));
+            SaveScores();
+
             ListViewItem scoreItem = new ListViewItem(modeText); // Score 값을 첫 번째 열에 추가
 
             scoreItem.SubItems.Add(score.ToString()); // Mode 값을 두 번째 열에 추가
 
             ListViewScore.Items.Add(scoreItem); 
         }
-
+        private void LoadScores()
+        {
+            ListViewScore.Items.Clear();
+            foreach (var scoreData in scoreList)
+            {
+                ListViewItem scoreItem = new ListViewItem(scoreData.Mode);
+                scoreItem.SubItems.Add(scoreData.Score.ToString());
+                ListViewScore.Items.Add(scoreItem);
+            }
+        }
+        private void SaveScores()
+        {
+            List<string> lines = new List<string>();
+            foreach (var scoreData in scoreList)
+            {
+                lines.Add($"{scoreData.Mode},{scoreData.Score}");
+            }
+            File.WriteAllLines(scoreFilePath, lines);
+        }
         private void btnBack_Click(object sender, EventArgs e)
         {
             Main main = new Main();

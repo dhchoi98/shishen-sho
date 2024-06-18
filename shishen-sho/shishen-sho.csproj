@@ -129,6 +129,7 @@
     <Compile Include="Score.Designer.cs">
       <DependentUpon>Score.cs</DependentUpon>
     </Compile>
+    <Compile Include="ScoreData.cs" />
     <EmbeddedResource Include="MultiPlay_InGame.resx">
       <DependentUpon>MultiPlay_InGame.cs</DependentUpon>
       <SubType>Designer</SubType>
