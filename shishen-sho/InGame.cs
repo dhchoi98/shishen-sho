@@ -24,6 +24,7 @@ namespace shishen_sho
         private const int COLS = 18;
         private PictureBox[,] graph = new PictureBox[ROWS, COLS];
         private List<Tuple<int, int>> currentPath = null; // 경로를 저장할 변수
+        private int difficulty;
         public InGame(int minutes)
         {
             InitializeComponent();
@@ -45,6 +46,8 @@ namespace shishen_sho
 
             score = 0;
             lblScore.Text = "Score: 0";
+
+            difficulty = minutes;
         }
 
         private void InitializeGraph()
@@ -334,6 +337,8 @@ namespace shishen_sho
                     {
                         gameTimer.Stop();
                         AddTimeBonus(); // 남은 시간 점수 추가
+                        Score scoreBoard = new Score();
+                        scoreBoard.AddScore(score, difficulty);
                         Result scoreForm = new Result(score);
                         scoreForm.ShowDialog();
                         this.Close();

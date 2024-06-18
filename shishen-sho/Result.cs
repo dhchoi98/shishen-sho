@@ -17,5 +17,11 @@ namespace shishen_sho
             InitializeComponent();
             lblFinalScore.Text = "최종 점수: " + finalScore;
         }
+
+        private void Result_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Main main = new Main();
+            main.Show();
+        }
     }
 }
