@@ -64,5 +64,10 @@ namespace shishen_sho
             this.Hide();
             score.Show();
         }
+
+        private void metroButton1_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

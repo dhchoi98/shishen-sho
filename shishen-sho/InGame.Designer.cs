@@ -296,6 +296,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox126)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox127)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox128)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // timeLabel
@@ -1917,7 +1918,7 @@
             this.lblScore.BackColor = System.Drawing.Color.Transparent;
             this.lblScore.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.lblScore.FontWeight = MetroFramework.MetroLabelWeight.Bold;
-            this.lblScore.Location = new System.Drawing.Point(69, 895);
+            this.lblScore.Location = new System.Drawing.Point(72, 895);
             this.lblScore.Name = "lblScore";
             this.lblScore.Size = new System.Drawing.Size(22, 25);
             this.lblScore.TabIndex = 6;
@@ -1938,9 +1939,10 @@
             // panel1
             // 
             this.panel1.BackgroundImage = global::shishen_sho.Properties.Resources.back;
+            this.panel1.Controls.Add(this.lblScore);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1612, 1006);
+            this.panel1.Size = new System.Drawing.Size(1614, 1006);
             this.panel1.TabIndex = 8;
             // 
             // InGame
@@ -1954,7 +1956,6 @@
             this.ClientSize = new System.Drawing.Size(1612, 1000);
             this.Controls.Add(this.timeLabel);
             this.Controls.Add(this.remaininglbl);
-            this.Controls.Add(this.lblScore);
             this.Controls.Add(this.btnPause);
             this.Controls.Add(this.ShuffleButton);
             this.Controls.Add(this.tableLayoutPanel1);
@@ -2096,6 +2097,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox126)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox127)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox128)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
