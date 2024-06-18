@@ -64,11 +64,10 @@
             this.ClientSize = new System.Drawing.Size(560, 300);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.ListViewScore);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Score";
-            this.Padding = new System.Windows.Forms.Padding(14, 40, 14, 13);
+            this.Padding = new System.Windows.Forms.Padding(14, 60, 14, 13);
             this.Text = "Score";
-            this.Load += new System.EventHandler(this.Score_Load);
             this.ResumeLayout(false);
 
         }

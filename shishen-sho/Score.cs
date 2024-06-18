@@ -12,22 +12,39 @@ namespace shishen_sho
 {
     public partial class Score : MetroFramework.Forms.MetroForm
     {
+        public int listViewWidth; 
         public Score()
         {
             InitializeComponent();
+            listViewWidth = ListViewScore.Width;
             InitializeListView();
         }
         private void InitializeListView()
         {
+            // 글씨 크기 조정 (15포인트)
+            ListViewScore.Font = new Font(ListViewScore.Font.FontFamily, 15);
+
             // 열 추가 및 너비 설정
-            ListViewScore.Columns.Add("Mode", 100, HorizontalAlignment.Left);
-            ListViewScore.Columns.Add("Score", 100, HorizontalAlignment.Left);
+            ListViewScore.Columns.Add("Mode", listViewWidth / 2, HorizontalAlignment.Left);
+            ListViewScore.Columns.Add("Score", listViewWidth / 2, HorizontalAlignment.Left);
             ListViewScore.GridLines = true; // 그리드 라인 활성화
             ListViewScore.View = View.Details; // 상세 보기 모드
-        }
-        private void Score_Load(object sender, EventArgs e)
-        {
             
+            ListViewScore.OwnerDraw = true;
+
+            // DrawColumnHeader 이벤트 핸들러 추가
+            ListViewScore.DrawColumnHeader += new DrawListViewColumnHeaderEventHandler(ListViewScore_DrawColumnHeader);
+        }
+        
+        private void ListViewScore_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
+        {
+            // 원하는 글씨 크기 및 스타일로 열 제목을 그리기
+            using (Font headerFont = new Font("Arial", 15, FontStyle.Regular))
+            {
+                e.Graphics.FillRectangle(Brushes.DeepSkyBlue, e.Bounds);
+                e.Graphics.DrawRectangle(Pens.White, e.Bounds);
+                e.Graphics.DrawString(e.Header.Text, headerFont, Brushes.White, e.Bounds);
+            }
         }
 
         public void AddScore(int score, int mode)
