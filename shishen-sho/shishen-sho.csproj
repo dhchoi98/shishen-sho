@@ -202,6 +202,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MetroFramework.txt" />
+    <None Include="Resources\ea5691cd45c77297e4b8230827adf04f.jpg" />
+    <None Include="Resources\back.jpg" />
     <None Include="Resources\gameTitle.png" />
     <None Include="Resources\pause.png" />
     <None Include="Resources\32.png" />
