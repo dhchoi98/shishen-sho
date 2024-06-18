@@ -15,8 +15,8 @@ namespace shishen_sho
         public Main()
         {
             InitializeComponent();
-            lblTitle.Parent = pictureBox1;
-            lblTitle.BackColor = Color.Transparent;
+            gameTitle.Parent = pictureBox1;
+            gameTitle.BackColor = Color.Transparent;
 
 
             //부모가 pictureBox1로 지정되면서 로케이션을 새로 지정
@@ -63,6 +63,11 @@ namespace shishen_sho
             Score score = new Score();
             this.Hide();
             score.Show();
+        }
+
+        private void metroButton1_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

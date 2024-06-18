@@ -91,6 +91,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::shishen_sho.Properties.Resources.ea5691cd45c77297e4b8230827adf04f;
+            this.BackImage = global::shishen_sho.Properties.Resources.ea5691cd45c77297e4b8230827adf04f;
             this.ClientSize = new System.Drawing.Size(551, 295);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.metroButton3);
@@ -101,6 +103,7 @@
             this.Resizable = false;
             this.Style = MetroFramework.MetroColorStyle.Green;
             this.Text = "멀티플레이";
+            this.TransparencyKey = System.Drawing.Color.CornflowerBlue;
             this.Load += new System.EventHandler(this.MultiPlay_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

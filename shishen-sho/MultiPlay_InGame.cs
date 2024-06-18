@@ -6,9 +6,10 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Text;
+using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Sockets;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,98 +20,359 @@ namespace shishen_sho
 {
     public partial class MultiPlay_InGame : MetroFramework.Forms.MetroForm
     {
-        // 클릭한 PictureBox를 저장해주는 변수 2개
         private PictureBox firstClicked = null;
         private PictureBox secondClicked = null;
         private int totalTime;
         private int score;
+        private int enemyScoreValue;
+        private const int ROWS = 8;
+        private const int COLS = 16;
+        private PictureBox[,] graph = new PictureBox[ROWS, COLS];
+        private List<Tuple<int, int>> currentPath = null; // 경로를 저장할 변수
+        private int difficulty;
+        int remainingCount = 0;
 
+        private TcpListener server = null;
+        private TcpClient guest = null;
+        private TcpClient hClient = null;
         private string hostIpAddress = null;
+        private IPAddress localAddr = IPAddress.Parse("127.0.0.1");
+        private IPAddress hostAddr;
+        private int port = 8886;
+        public bool m_bConnect = false;
+        public bool m_bStop = false;
+
+        private Task serverTask;
+        private Task sendTask;
+        private Task readerTask;
+
+        private NetworkStream m_Stream;
+        private StreamReader m_Read;
+        private StreamWriter m_Write;
 
         // 방장
         public MultiPlay_InGame(int minutes)
         {
             InitializeComponent();
-            InitializePictureBoxEvents();
-            // 타이머 1초마다 초기화
+            InitializeGraph();
             gameTimer.Interval = 1000;
             gameTimer.Tick += GameTimer_Tick;
-            // gameTimer.Start();
-
-            // 시간을 표시할 라벨 초기화
-            this.Controls.Add(timeLabel);
-            // 게임 시작 시간 설정
             TimeLeft = TimeSpan.FromMinutes(minutes);
 
             progressBar.Style = MetroColorStyle.Silver;
             totalTime = minutes * 60;
             progressBar.Minimum = 0;
             progressBar.Maximum = totalTime;
-            progressBar.Value = progressBar.Maximum;  // 시작 값은 0에서 시작
-            
+            progressBar.Value = progressBar.Maximum;
+
             score = 0;
-            lblScore.Text = "Score: 0";
-            this.Controls.Add(lblScore);
-
-             
-
+            lblScore1.Text = "Score: 0";
         }
 
         // 게스트
         public MultiPlay_InGame(int minutes, string hostIpAddress)
         {
             InitializeComponent();
-            InitializePictureBoxEvents();
-            // 타이머 1초마다 초기화
+            InitializeGraph();
             gameTimer.Interval = 1000;
             gameTimer.Tick += GameTimer_Tick;
-            // gameTimer.Start();
-
-
-            // 시간을 표시할 라벨 초기화
-            this.Controls.Add(timeLabel);
-            // 게임 시작 시간 설정
             TimeLeft = TimeSpan.FromMinutes(minutes);
 
             progressBar.Style = MetroColorStyle.Silver;
             totalTime = minutes * 60;
             progressBar.Minimum = 0;
             progressBar.Maximum = totalTime;
-            progressBar.Value = progressBar.Maximum;  // 시작 값은 0에서 시작
+            progressBar.Value = progressBar.Maximum;
 
             score = 0;
-            lblScore.Text = "Score: 0";
-            this.Controls.Add(lblScore);
+            lblScore1.Text = "Score: 0";
 
             this.hostIpAddress = hostIpAddress;
-
-
-
+            hostAddr = IPAddress.Parse(hostIpAddress);
         }
-        private void InitializePictureBoxEvents()
+
+        private async void InGame_Load(object sender, EventArgs e)
         {
-            // 폼에 있는 128개의 PictureBox를 반복하여 이벤트 핸들러를 등록
-            for (int i = 1; i <= 128; i++)
+            ShufflePictureBoxes();
+
+            if (hostIpAddress == null)
             {
-                // 이름을 통해 PictureBox를 찾음
-                PictureBox pictureBox = this.Controls.Find("pictureBox" + i, true).FirstOrDefault() as PictureBox;
-                if (pictureBox != null)
+                BroadcastStartMessage();
+            }
+
+            await PerformSocketConnectionAsync();
+
+            if (m_bConnect)
+            {
+                m_bStop = true;
+                if (hostIpAddress == null)
                 {
-                    // PictureBox에 클릭 이벤트 핸들러 추가
-                    pictureBox.Click += new EventHandler(PictureBox_Click);
+                    serverTask = Task.Run(() => ServerStart());
+                }
+                sendTask = Task.Run(() => Send());
+            }
+            gameTimer.Start();
+        }
+
+        private void BroadcastStartMessage()
+        {
+            UdpClient udpClient = new UdpClient();
+            IPEndPoint endPoint = new IPEndPoint(IPAddress.Broadcast, 8889);
+            byte[] message = Encoding.ASCII.GetBytes("start");
+
+            for (int i = 0; i < 5; i++)
+            {
+                Console.WriteLine("게임시작 메세지 전송");
+                udpClient.Send(message, message.Length, endPoint);
+                Thread.Sleep(1000);
+            }
+        }
+
+        private async Task PerformSocketConnectionAsync()
+        {
+            MultiPlay_MessageBox messageBox = new MultiPlay_MessageBox();
+            this.Enabled = false;
+
+            var task = Task.Run(() =>
+            {
+                if (hostIpAddress == null)
+                {
+                    try
+                    {
+                        server = new TcpListener(port);
+                        server.Start();
+
+                        m_bStop = true;
+                        Console.WriteLine("클라이언트 접속 대기중");
+
+                        while (!m_bConnect)
+                        {
+                            hClient = server.AcceptTcpClient();
+
+                            if (hClient.Connected)
+                            {
+                                m_bConnect = true;
+                                Console.WriteLine("클라이언트 접속");
+                            }
+                        }
+                    }
+                    catch
+                    {
+                        Console.WriteLine("시작 도중에 오류 발생");
+                        return;
+                    }
+                }
+                else
+                {
+                    Thread.Sleep(2000);
+                    Connect();
+                }
+            });
+
+            messageBox.Shown += async (s, e) =>
+            {
+                Console.WriteLine("소켓 연결 시작");
+
+                await task;
+
+                Console.WriteLine("소켓 연결 완료");
+
+                messageBox.Invoke(new Action(() => messageBox.Close()));
+            };
+
+            messageBox.ShowDialog();
+            this.Enabled = true;
+            Console.WriteLine("메시지 박스가 닫혔습니다. 추가 작업을 수행합니다.");
+        }
+
+        public void ServerStart()
+        {
+            while (m_bStop)
+            {
+                if (hClient.Connected)
+                {
+                    m_Stream = hClient.GetStream();
+                    m_Read = new StreamReader(m_Stream, Encoding.UTF8, true, 4096);
+                    m_Write = new StreamWriter(m_Stream, Encoding.UTF8, 4096) { AutoFlush = true };
+
+                    readerTask = Task.Run(() => Receive());
                 }
             }
         }
 
+        public void ServerStop()
+        {
+            if (!m_bStop)
+                return;
+
+            server.Stop();
+            CloseStreams();
+            Console.WriteLine("서비스 종료");
+        }
+
+        public void Disconnect()
+        {
+            if (!m_bConnect)
+                return;
+
+            m_bConnect = false;
+            CloseStreams();
+            Console.WriteLine("상대방과 연결 중단");
+        }
+
+        private void CloseStreams()
+        {
+            m_Read?.Close();
+            m_Write?.Close();
+            m_Stream?.Close();
+        }
+
+        public void Connect()
+        {
+            guest = new TcpClient();
+
+            try
+            {
+                guest.Connect("127.0.0.1", port);
+            }
+            catch
+            {
+                Console.WriteLine("게스트 : 로컬 IP 연결 실패, hostAddr로 재시도");
+                try
+                {
+                    guest.Connect(hostAddr, port);
+                }
+                catch
+                {
+                    m_bConnect = false;
+                    Console.WriteLine("게스트 : hostAddr로 연결 실패");
+                    return;
+                }
+            }
+
+            m_bConnect = true;
+            Console.WriteLine("게스트 : 서버에 연결");
+
+            m_Stream = guest.GetStream();
+            m_Read = new StreamReader(m_Stream, Encoding.UTF8, true, 4096);
+            m_Write = new StreamWriter(m_Stream, Encoding.UTF8, 4096) { AutoFlush = true };
+
+            readerTask = Task.Run(() => Receive());
+        }
+
+        public void Receive()
+        {
+            try
+            {
+                while (m_bConnect)
+                {
+                    string szMessage = m_Read.ReadLine();
+
+                    if (szMessage != null)
+                        ProcessReceivedMessage(szMessage);
+                }
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine("데이터를 읽는 과정에서 오류가 발생: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("알 수 없는 오류가 발생: " + ex.Message);
+            }
+        }
+
+        private void ProcessReceivedMessage(string message)
+        {
+            if (message.StartsWith("remain"))
+            {
+                string[] parts = message.Split(':');
+                if (parts.Length == 2 && int.TryParse(parts[1].Trim(), out int remaining))
+                {
+                    UpdateUI(() => enemyRemain.Text = "남은 패: " + remaining + "개");
+                }
+            }
+            else if (message.StartsWith("score"))
+            {
+                string[] parts = message.Split(':');
+                if (parts.Length == 2 && int.TryParse(parts[1].Trim(), out int scoreValue))
+                {
+                    enemyScoreValue = scoreValue;
+                    UpdateUI(() => enemyScore.Text = "Score: " + scoreValue);
+                }
+            }
+            else
+            {
+                Console.WriteLine("알 수 없는 메시지: " + message);
+            }
+        }
+
+        private void UpdateUI(Action updateAction)
+        {
+            if (enemyRemain.InvokeRequired)
+            {
+                enemyRemain.Invoke(updateAction);
+            }
+            else
+            {
+                updateAction();
+            }
+        }
+
+        void Send()
+        {
+            while (m_bConnect)
+            {
+                Thread.Sleep(500);
+                try
+                {
+                    m_Write.WriteLine("remain : " + remainingCount);
+                    m_Write.WriteLine("score : " + score);
+                }
+                catch
+                {
+                    Console.WriteLine("데이터 전송 실패");
+                }
+            }
+        }
+    
+
+
+
+        private void InitializeGraph()
+        {
+            for (int i = 1; i <= 128; i++)
+            {
+                PictureBox pictureBox = this.Controls.Find("pictureBox" + i, true).FirstOrDefault() as PictureBox;
+
+                if (pictureBox != null)
+                {
+                    if (i <= 64)
+                    {
+                        int row = ((i - 1) / 8) + 1; // 행 계산
+                        int col = ((i - 1) % 8) + 1; // 열 계산
+                        graph[row - 1, col - 1] = pictureBox;
+                        pictureBox.Click += new EventHandler(PictureBox_Click);
+                    }
+                    else
+                    {
+                        int row = ((i - 65) / 8) + 1;
+                        int col = 9 + (i - 65) % 8;
+                        graph[row - 1, col - 1] = pictureBox;
+                        pictureBox.Click += new EventHandler(PictureBox_Click);
+                    }
+                }
+            }
+
+        }
+
         private void PictureBox_Click(object sender, EventArgs e)
         {
-            // 두 개의 PictureBox가 이미 선택된 경우 더 이상 처리하지 않음
             if (firstClicked != null && secondClicked != null)
                 return;
 
-            // 클릭된 PictureBox를 가져옴
             PictureBox clickedPictureBox = sender as PictureBox;
-            // 이미 선택된 PictureBox를 다시 클릭하면 선택 취소
+
             if (firstClicked == clickedPictureBox)
             {
                 firstClicked.Padding = new Padding(0);
@@ -126,11 +388,10 @@ namespace shishen_sho
                 secondClicked = null;
                 return;
             }
-            // 클릭된 PictureBox가 null이거나 이미지가 없는 경우 처리하지 않음
+
             if (clickedPictureBox == null || clickedPictureBox.Image == null)
                 return;
 
-            // 첫 번째 클릭
             if (firstClicked == null)
             {
                 firstClicked = clickedPictureBox;
@@ -139,7 +400,6 @@ namespace shishen_sho
                 return;
             }
 
-            // 두 번째 클릭
             if (firstClicked != null && firstClicked != clickedPictureBox)
             {
                 secondClicked = clickedPictureBox;
@@ -149,43 +409,7 @@ namespace shishen_sho
             }
         }
 
-        // 두 개의 클릭된 PictureBox를 비교하는 메소드
-        private async void CheckForMatch()
-        {
-            // 이미지의 Tag를 비교하여 동일한 경우 두 PictureBox를 숨김
-            if (firstClicked.Tag != null && secondClicked.Tag != null &&
-                firstClicked.Tag.ToString() == secondClicked.Tag.ToString())
-            {
-                await Task.Delay(300); // 딜레이//
-                firstClicked.Hide();
-                secondClicked.Hide();
-
-                score += 500; // 패 매칭 성공 시 점수 500점 추가
-                lblScore.Text = "Score: " + score;
-
-                // 모든 PictureBox를 없앴는지 확인
-                if (AllPicturesCleared())
-                {
-                    gameTimer.Stop();
-                    AddTimeBonus(); // 남은 시간 점수 추가
-                    Result scoreForm = new Result(score);
-                    scoreForm.ShowDialog();
-                    this.Close();
-                }
-            }
-            else
-            {
-                // 매칭되지 않으면 테두리 초기화
-                firstClicked.Padding = new Padding(0);
-                firstClicked.BackColor = Color.Transparent;
-                secondClicked.Padding = new Padding(0);
-                secondClicked.BackColor = Color.Transparent;
-            }
-
-            firstClicked = null;
-            secondClicked = null;
-        }
-        private bool AllPicturesCleared() // 모든 타일을 없애면 CLEAR
+        private bool AllPicturesCleared()
         {
             for (int i = 1; i <= 128; i++)
             {
@@ -197,106 +421,64 @@ namespace shishen_sho
             }
             return true;
         }
-        private void AddTimeBonus() // 시간 남으면 보너스점수로 전환(초당 100점)
+
+        private void RemainingLabel()
+        {
+            remainingCount = 0;
+            for (int i = 1; i <= 128; i++)
+            {
+                PictureBox pictureBox = this.Controls.Find("pictureBox" + i, true).FirstOrDefault() as PictureBox;
+                if (pictureBox != null && pictureBox.Visible)
+                {
+                    remainingCount++;
+                }
+            }
+            remaininglbl.Text = "남은 패: " + remainingCount + "개";
+        }
+
+        private void AddTimeBonus()
         {
             int timeBonus = (int)TimeLeft.TotalSeconds * 100;
             score += timeBonus;
-            lblScore.Text = "Score: " + score;
+            lblScore1.Text = "Score: " + score;
         }
-        private TimeSpan TimeLeft;
 
+        private TimeSpan TimeLeft;
 
         private void GameTimer_Tick(object sender, EventArgs e)
         {
-            // 시간 감소
             TimeLeft -= TimeSpan.FromSeconds(1);
             progressBar.Value -= 1;
-            if (progressBar.Value < progressBar.Maximum / 2) // 제한시간 반 남으면 분홍색
+            if (progressBar.Value < progressBar.Maximum / 2)
                 progressBar.Style = MetroColorStyle.Pink;
-            if (progressBar.Value < 60)  // 제한시간 1분 남으면 빨간색
+            if (progressBar.Value < 60)
                 progressBar.Style = MetroColorStyle.Red;
-            // 시간 표시 업데이트
             timeLabel.Text = TimeLeft.ToString("mm':'ss");
-            // 시간이 0이 되면 타이머 중지
             if (TimeLeft <= TimeSpan.Zero)
             {
-            
                 gameTimer.Stop();
-                MessageBox.Show("실패하였습니다");
+                if (score > enemyScoreValue)
+                {
+                    MessageBox.Show("승리하였습니다");
+                }
+                else if (score < enemyScoreValue)
+                {
+                    MessageBox.Show("패배하였습니다");
+                }
+                else
+                {
+                    MessageBox.Show("무승부입니다");
+                }
+
                 this.Close();
             }
         }
 
-
-        private async void InGame_Load(object sender, EventArgs e)
-        {
-            ShufflePictureBoxes();
-
-            // 소켓 연결
-
-            if (hostIpAddress == null) // 방장이면
-            {
-                UdpClient udpClient = new UdpClient();
-                IPEndPoint endPoint = new IPEndPoint(IPAddress.Broadcast, 8889);
-                byte[] message = Encoding.ASCII.GetBytes("start");
-
-                for (int i = 0; i < 5; i++)
-                {
-                    // 메시지 전송
-                    Console.WriteLine("게임시작 메세지 전송");
-                    udpClient.Send(message, message.Length, endPoint);
-                    Thread.Sleep(1000);
-                }
-            }
-
-
-            // 비동기 소켓 연결 작업 시작
-            await PerformSocketConnectionAsync();
-
-        }
-
-
-        private async Task PerformSocketConnectionAsync()
-        {
-            MultiPlay_MessageBox messageBox = new MultiPlay_MessageBox();
-            this.Enabled = false;
-
-            // 비동기 작업을 통해 소켓 연결을 수행하고, 메시지 박스를 닫습니다.
-            var task = Task.Run(() =>
-            {
-                // 소켓 연결 로직 (예제 대기 시간)
-                Thread.Sleep(3000); // 실제 연결 로직으로 대체
-            });
-
-            messageBox.Shown += async (s, e) =>
-            {
-                Console.WriteLine("소켓 연결 시작");
-
-                // 소켓 연결 작업을 비동기적으로 수행
-                await task;
-
-                Console.WriteLine("소켓 연결 완료");
-
-                // 메시지 박스를 닫기
-                messageBox.Invoke(new Action(() => messageBox.Close()));
-            };
-
-            messageBox.ShowDialog();
-
-            // 메시지 박스가 닫힌 후 InGame 폼의 컨트롤을 활성화
-            this.Enabled = true;
-
-            // 추가 작업
-            Console.WriteLine("메시지 박스가 닫혔습니다. 추가 작업을 수행합니다.");
-        }
-
-
+ 
         private void ShufflePictureBoxes()
         {
-            // 모든 PictureBox를 리스트에 저장
             List<PictureBox> pictureBoxes = new List<PictureBox>();
 
-            // 128개의 PictureBox 중에서 숨겨지지 않은 PictureBox만 리스트에 추가
             for (int i = 1; i <= 128; i++)
             {
                 PictureBox pictureBox = this.Controls.Find("pictureBox" + i, true).FirstOrDefault() as PictureBox;
@@ -306,38 +488,34 @@ namespace shishen_sho
                 }
             }
 
-            // 랜덤하게 섞기 위해 Random 객체 생성
             Random random = new Random();
 
-            // Fisher-Yates shuffle 알고리즘을 사용하여 리스트를 섞음
             for (int i = pictureBoxes.Count - 1; i > 0; i--)
             {
                 int j = random.Next(i + 1);
-                // 두 PictureBox의 이미지를 교환
                 Image tempImage = pictureBoxes[i].Image;
                 pictureBoxes[i].Image = pictureBoxes[j].Image;
                 pictureBoxes[j].Image = tempImage;
 
-                // 두 PictureBox의 태그를 교환
                 object tempTag = pictureBoxes[i].Tag;
                 pictureBoxes[i].Tag = pictureBoxes[j].Tag;
                 pictureBoxes[j].Tag = tempTag;
             }
+            RemainingLabel();
         }
+
         private void ShuffleButton_Click(object sender, EventArgs e)
         {
             ShufflePictureBoxes();
-            score -= 3000; // 셔플 버튼 클릭 시 점수 3000점 감소
-            if (score < 0) score = 0; // 점수가 음수인 경우는 제외했음
-            lblScore.Text = "Score: " + score;
+            score -= 1000;
+            if (score < 0) score = 0;
+            lblScore1.Text = "Score: " + score;
         }
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
-            // 모든 PictureBox를 리스트에 저장
             List<PictureBox> pictureBoxes = new List<PictureBox>();
 
-            // 128개의 PictureBox 중에서 숨겨지지 않은 PictureBox만 리스트에 추가
             for (int i = 1; i <= 128; i++)
             {
                 PictureBox pictureBox = this.Controls.Find("pictureBox" + i, true).FirstOrDefault() as PictureBox;
@@ -350,29 +528,173 @@ namespace shishen_sho
 
         private void btnPause_Click(object sender, EventArgs e)
         {
-            //타이머 일시정지
-            gameTimer.Stop();
-            //modal 대화상자로 정지하는 동안 상호작용할 수 없게 만듦.
             Pause pause = new Pause();
             DialogResult dialog = pause.ShowDialog();
 
-            //continue 버튼을 누른 경우. 타이머 이어서 시작.
-            if(dialog == DialogResult.OK)
-            {                
+            if (dialog == DialogResult.OK)
+            {
                 gameTimer.Start();
-            }//restart 버튼을 누른 경우.
-            else if(dialog == DialogResult.Cancel)
+            }
+            else if (dialog == DialogResult.Cancel)
             {
                 this.Close();
             }
         }
 
-        private void Quit_Click(object sender, EventArgs e)
+        private void pictureBox66_Click(object sender, EventArgs e)
         {
-            Application.Exit();
         }
 
-        private void progressBar_Click(object sender, EventArgs e)
+        private List<Tuple<int, int>> CheckPathAndHide()
+        {
+            Tuple<int, int> firstIndex = FindIndex(firstClicked);
+            Tuple<int, int> secondIndex = FindIndex(secondClicked);
+
+            if (firstIndex.Item1 != -1 && firstIndex.Item2 != -1 &&
+                secondIndex.Item1 != -1 && secondIndex.Item2 != -1)
+            {
+                return FindPathWithMaxThreeBends(firstIndex, secondIndex);
+            }
+            else
+            {
+                return null;
+            }
+        }
+        private void InGame_Paint(object sender, PaintEventArgs e)
+        {
+            if (currentPath != null && currentPath.Count > 1)
+            {
+                using (Pen pen = new Pen(Color.Red, 2))
+                {
+                    for (int i = 0; i < currentPath.Count - 1; i++)
+                    {
+                        var start = currentPath[i];
+                        var end = currentPath[i + 1];
+                        var startPoint = new Point(graph[start.Item1, start.Item2].Left + graph[start.Item1, start.Item2].Width / 2,
+                                                   graph[start.Item1, start.Item2].Top + graph[start.Item1, start.Item2].Height / 2);
+                        var endPoint = new Point(graph[end.Item1, end.Item2].Left + graph[end.Item1, end.Item2].Width / 2,
+                                                 graph[end.Item1, end.Item2].Top + graph[end.Item1, end.Item2].Height / 2);
+
+                        e.Graphics.DrawLine(pen, startPoint, endPoint);
+                    }
+                }
+            }
+        }
+        private async void CheckForMatch()
+        {
+            if (firstClicked.Tag != null && secondClicked.Tag != null &&
+                firstClicked.Tag.ToString() == secondClicked.Tag.ToString())
+            {
+              
+                var path = CheckPathAndHide();
+                if (path != null)
+                {
+                    currentPath = path;
+                    this.Invalidate(); // 경로를 다시 그리기 위해 Invalidate 호출
+                    await Task.Delay(300); // 딜레이
+                    firstClicked.Tag = null;
+                    secondClicked.Tag = null;
+                    firstClicked.Hide();
+                    secondClicked.Hide();
+
+                    score += 500; // 패 매칭 성공 시 점수 500점 추가
+                    lblScore1.Text = "Score: " + score;
+
+                    RemainingLabel();
+
+                    if (AllPicturesCleared())
+                    {
+                        gameTimer.Stop();
+                        AddTimeBonus(); // 남은 시간 점수 추가
+                        Result scoreForm = new Result(score);
+                        scoreForm.ShowDialog();
+                        this.Close();
+                    }
+                }
+
+            }
+            firstClicked.Padding = new Padding(0);
+            firstClicked.BackColor = Color.Transparent;
+            secondClicked.Padding = new Padding(0);
+            secondClicked.BackColor = Color.Transparent;
+
+            firstClicked = null;
+            secondClicked = null;
+        }
+
+
+
+        private Tuple<int, int> FindIndex(PictureBox pictureBox)
+        {
+            for (int col = 0; col < graph.GetLength(0); col++)
+            {
+                for (int row = 0; row < graph.GetLength(1); row++)
+                {
+                    if (graph[col, row] == pictureBox)
+                    {
+                        return Tuple.Create(col, row);
+                    }
+                }
+            }
+            return Tuple.Create(-1, -1);
+        }
+
+        private List<Tuple<int, int>> FindPathWithMaxThreeBends(Tuple<int, int> start, Tuple<int, int> end)
+        {
+            int startX = start.Item1, startY = start.Item2;
+            int endX = end.Item1, endY = end.Item2;
+
+            int[][] directions = new int[][]
+            {
+        new int[] { -1, 0 },
+        new int[] { 1, 0 },
+        new int[] { 0, -1 },
+        new int[] { 0, 1 }
+            };
+
+            Queue<Tuple<int, int, int, int, List<Tuple<int, int>>>> queue = new Queue<Tuple<int, int, int, int, List<Tuple<int, int>>>>();
+            bool[,] visited = new bool[ROWS, COLS];
+
+            queue.Enqueue(Tuple.Create(startX, startY, -1, 0, new List<Tuple<int, int>> { Tuple.Create(startX, startY) }));
+            visited[startX, startY] = true;
+
+            while (queue.Count > 0)
+            {
+                var node = queue.Dequeue();
+                int x = node.Item1;
+                int y = node.Item2;
+                int prevDir = node.Item3;
+                int bends = node.Item4;
+                var path = node.Item5;
+
+                if (x == endX && y == endY)
+                {
+                    return path;
+                }
+
+                for (int dir = 0; dir < 4; dir++)
+                {
+                    int nx = x + directions[dir][0];
+                    int ny = y + directions[dir][1];
+
+                    if (nx >= 0 && nx < ROWS && ny >= 0 && ny < COLS && !visited[nx, ny] && (graph[nx, ny].Tag == null || (nx == endX && ny == endY)))
+                    {
+                        int newBends = bends + (dir != prevDir ? 1 : 0);
+
+                        if (newBends <= 3)
+                        {
+                            var newPath = new List<Tuple<int, int>>(path) { Tuple.Create(nx, ny) };
+                            queue.Enqueue(Tuple.Create(nx, ny, dir, newBends, newPath));
+                            visited[nx, ny] = true;
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }
