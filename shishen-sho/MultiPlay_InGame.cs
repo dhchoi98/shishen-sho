@@ -591,15 +591,13 @@ namespace shishen_sho
         }
         private async void CheckForMatch()
         {
-            Console.WriteLine("check for match : start");
             if (firstClicked.Tag != null && secondClicked.Tag != null &&
                 firstClicked.Tag.ToString() == secondClicked.Tag.ToString())
             {
-                Console.WriteLine("check for match : if");
+              
                 var path = CheckPathAndHide();
                 if (path != null)
                 {
-                    Console.WriteLine("check for match : if1");
                     currentPath = path;
                     this.Invalidate(); // 경로를 다시 그리기 위해 Invalidate 호출
                     await Task.Delay(300); // 딜레이
@@ -631,7 +629,6 @@ namespace shishen_sho
 
             firstClicked = null;
             secondClicked = null;
-            Console.WriteLine("check for match : return");
         }
 
 
