@@ -45,7 +45,6 @@ namespace shishen_sho
         private void btnQuit_Click(object sender, EventArgs e)
         {
             //종료.
-            Main main = new Main();
             Application.Exit();
         }
     }
